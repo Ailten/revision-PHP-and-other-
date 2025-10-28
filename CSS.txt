@@ -1,0 +1,146 @@
+
+// --- CSS ---
+
+/* commenters. */
+
+// 4 way to set CSS : in a file .css, in a balise html, in a balise style, set in balise html by a script JS.
+<link rel="stylesheet" href="style.css">
+<style></style>
+style=""
+
+// structure default site.
+head
+body
+  header
+  nav-menu
+  main
+    content (left)
+    main-content (center)
+    content (right)
+  footer
+
+body {}  // selector by element name.
+body h1 {}  // select h1 into a body.
+body > h1 {}  // select h1 direct child of a body.
+div + h1 {}  // select h1 next to a div (direct after).
+div ~ h1 {}  // select h1 next to a div (all h1 who is next to).
+h1, h2 {}  // select two element distinctly.
+.my-class {}  // select by class attribute.
+#my-id {}  // select by id attribute.
+div.my-class {}  // select div who has my class.
+* {}  // select all.
+div[my-attribute] {}  // select by has attribute.
+div[my-attribute="toto"] {}  // select by if has attribute set as the value "toto".
+div[my-attribute~="toto"] {}  // select by if has attribute set as AT LEAST the value "toto" (can have other words).
+div[my-attribute^="toto"] {}  // select by if has attribute set OR START BY the value "toto" (can have other folowing character, like "tototo").
+div[my-attribute|="toto"] {}  // select by if has attribute set OR START BY the value "toto" (can have other folowing word split by "-", like "toto-to").
+div[my-attribute$="ta"] {}  // select by if has attribute set OR END BY the value "ta" (can have other folowing character befor).
+div[my-attribute*="ta"] {}  // select by if contain the value "ta" into the value (can detext value like : "capotable").
+input[type="button"] {}  // select inputs who's type "text".
+a:hover {}  // select when has mouse over element.
+a:active {}  // select when has mouse selected the elemnt (click or stay click).
+a:visited {}  // select when link has already clicked in past.
+a:link {}  // select a lin not visited (?).
+div:first-child {}  // select if div is the first child of a parent.
+div:last-child {}  // select if div is the last child of a parent.
+div:first-of-type {}  // select if div is the first child of his type.
+div:blank {}  // select div who has nothing into (not usefull).
+div:empty {}  // select element who has no child (not usefull).
+div:has(h1) {}  // select element div who has a h1 into.
+div:lang(fr-FR) {}  // select element who is set in a defined lang.
+div::after {}  // get element in area after element div (can be use to add img with "content: url".
+div::before {}  // get element area before elemnt div.
+p::first-line {}  // select first line text on a p.
+p::first-letter {}  // select first letter text on a p.
+
+input:checked {}  // select input who is mark checked by user.
+input:default {}  // select input who is the default choise in a list of input (like radio type).
+input:disabled {}  // select input who is disabled (attribute disabled).
+input:enabled {}  // select element who can be clicked or put text on it.
+
+
+background-color: red;  // set color of background.
+background-image: url("a.png");  // set an image has background.
+background-size: 20px 10px;  // set size of backgrond image.
+background-repeat: no-repeat;  // make repeate the mackground image on axes.
+background-position: right top;  // set position of image background.
+background-attachment: fixed;  // set if the image background should be scrollable or fixed.
+content: url(a.png);  // add an image with css (un-commun) use with after/before selector.
+
+color: red;  // set color of text.
+red, #ff0000, #f00, rgb(255, 0, 0), hsl(100%, 0, 0)  // diferent type of value color format.
+font-family: verdana;  // set font.
+font-size: 20px;  // set size text.
+font-weight: bold;  // set font as bold (can take a value int).
+text-align: left;  // set aligned text.
+text-transform: uppercase;  // set the text as full uppercase.
+text-shadow  // set a shadow under the text (value is size X, size Y, spreading, color).
+text-decoration, text-spacing  // un-commun modificator for text (not-usefull).
+
+border-style: solid;  // set border type.
+border-top-style: dotted;  // style border can be set by eatch side.
+border-with: 2px;  // set size of border.
+border-color: red;  // set color of border.
+border-radius: 5px;  // rounded corner of border. 
+outline-style: solid;  // set an outline type (second border, use as a marker visual).
+outline-color, outline-width, outline-offset  // other parameter for outline (offset is for a spacing between the element and the outline).
+
+list-style-type: circle;  // set type of a list "ul" or "ol".
+list-style-image  // set an image as marker of list.
+list-style-position  // set position of marker list.
+border-callapse: collapse;  // set a "table" as eatch border cel is merge.
+overflow-x: auto;  // to set responsive spacing axe X on a table.
+
+margin: 5px;  // set margin (extern).
+padding: 5px;  // set padding (inner).
+margin-left: 5px;  // set margin by eatch side.
+
+height: 20px;  // set size Y of element.
+width: 100%;  // set size X of element.
+max-width: 600px;  // set a max size can be scaled.
+
+20px, 100%, 0  // value type commun.
+cm, mm, in, pt, pc  // value type un-commun (not usefull).
+em  // value type relative to font size element.
+ex  // value type relative to height size element.
+ch  // value type relative to the width of char "0".
+rem  // relative to the font size element parent.
+vw  // relative to 1% width window viewport.
+vh  // relative to 1% height window viewport.
+vmin  // relative to 1% window viewport smaller (width/height).
+vmax  // relative to 1% window viewport larger (width/height).
+
+
+display: none;  // mark the element to no rendered at all.
+visibility: hidden;  // make element masked (still take the place).
+opacity: 0;  // set opacity of element.
+
+position: static;  // set type of position element.
+top, left, right, bottom  // for set position of element static, based from border window.
+z-index: -1;  // set an order to render (the lower value, the farest is from the camera).
+overflow: hidden;  // set how to manage the "over" contend (when a contend element is to big for the size of the element.
+flaot: right;  // to place an element (and make other élément adapt based on it).
+clear  // make another element out from the float one (?).
+
+!important  // to make a line prioritary (use carfully).
+
+calc(100% - 100px)  // allow to make calcul in a value.
+max(50%, 200px)  // return the max value (min exist to).
+clamp(2rem, 2.5vw, 3.5rem)  // clamp the value (min, value, max).
+
+@media (prefers-reduced-motion: reduce) {}  // edit based on condition media (when window is reduced).
+@media screen and (max-width: 600px) {} // set css selector when condition media (when width size is under 600px).
+<link rel="stylesheet" media="screen and (min-width: 900px)" href="widescreen.css">  // set a css file when condition media.
+
+counter-reset: section;  // use to reset counter. (can use subsection for another counter into).
+counter-increment: section;  // use to increment eatch element.
+counter-increment: section 2;  // increment by a sending value.
+counter-increment: section -1;  // decrement.
+counter: "Section " counter(section) ": ";  // use to render counter.
+
+
+// --- (advenced) ---
+
+
+
+
