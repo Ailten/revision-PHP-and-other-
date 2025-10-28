@@ -1,0 +1,162 @@
+
+// --- PHP ---
+
+<?php
+?>
+<?php declare(strict_types=1);  // force to use type.
+
+echo "...";
+echo("...");
+print "...";
+print("...");
+
+// comment.
+# comment.
+/* comments. */
+
+$myVar = "...";
+
+"concat : $myVar"
+"concat : " . $myVar
+
+var_dump($myVar)  // return type and contend.
+gettype($myVar)  // return type.
+
+global $myVar;  // axes to variable global. (not usefull)
+$GLOBALS["myVar"]  // axes to variable global. (not usefull)
+
+static $myVar;  // make a variable instanciate once only (and not free by end scop).
+const MY_CONST = 5;  // make a const.
+define("MY_CONST", 5)  // make a const. (this one can be use inside a function).
+MY_CONST  // call a const (without $).
+
+strlen("...")  // length.
+str_word_count("... ..")  // length word (split by space).
+strpos("...", ".")  // get index of a string into the first one.
+
+strtoupper("aaa")  // upper case.
+strtolower("AAA")  // lower case.
+
+str_replace("A", ".", "A..");  // replace first word by second, in the third.
+
+strrev("CBA")  // invert all character order.
+
+trim("  ...")  // delete space at start and end of string.
+
+explode(" ", "... ..")  // cast string into array.
+
+substr("...", 1, 2)  // slice the string, start at index 1 and take 2 characters.
+substr("...", 1)  // start index 1 and take all rest.
+substr("...", -1)  // start from the last character.
+substr("...", 1, -2)  // take the center of string, cut the 1 first character and the 2 last.
+
+"\"\$\r\n"  // write a special char on a string.
+
+is_int($myInt)  // is an int. (= 5)
+is_float($myFloat)  // is a float. (= 5.0)
+is_infinite($myVar)  // is infinity. (PHP_INT_MAX)
+is_nan($myVar)  // is not a number. (NaN)
+is_numeric($myVar)  // is a number type.
+
+(int)"5"  // cast as int.  (0 if error)
+(bool)"5"  // cast as bool. (not usefull)
+(array)"5"  // cast as array.
+(unset)"5"  // cast as null. (not usefull) NULL
+
+pi()  // get pi value.
+min(0, 1)  // get min value.
+max(0, 1)  // get max value.
+abs(-1)  // get absolute.
+sqrt(25)  // get square root.
+round(5.5)  // round.
+rand(1, 100)  // get a rng. (both include)
+
+__CLASS__  // return the class name where is called.
+__DIR__  // return the directory of the file.
+__FILE__  // return the file name (include path).
+__FUNCTION__  // return the function name where si called.
+__LINE__  // return the current line number (like for debuging).
+__METHOD__  // return the class and function name (call into it).
+__NAMESPACE__  // return the namesapce (if into one).
+__TRAIT__  // return the name trait (if into one).
+
+**  // operator exponentiel.
+
+==  // equality (value).
+===  // equality (value and type).
+!==  // return true if dif value OR dif type.
+<=>  // return an integer (-1, 0 or 1).
+and, or, xor // comparaison by word allow.
+.  // concat.
+<>  // inequality array to array (?)
+??  // coales.
+? :  // ternaire (like in JS).
+
+if (...) {}  // if.
+elseif (...) {}  // else if.
+else {}  // else.
+switch (...) { case ...: break; default: }  //switch.
+
+while(...) {}  // while.
+do {} while(...);  // do while.
+for(...; ...; ...) {}  // for.
+foreach($array as $cel) {}  // foreach.
+foreach($dico as $key => $value) {}  // foreach with dictionary.
+break;  // cut out the loop.
+continue;  // cut the iteration and go to the next.
+
+function myFunc() {}  // function.
+function myFunc($a = 5) {}  // function (set parameter default).
+function myFunc(&$a) {}  // function (set parameter by ref).
+function myFunc(...$a) {}  // function (set various amount of parameter).
+function myFunc(int $a) {}  // function (set parameter with a type).
+function myFunc() : int {}  // function (with type return).
+return "...";  // return.
+
+$myArray = array(5, 2);  // set an array.
+print_r($myArray)  // print an array.
+count($myArray)  // return length.
+array_push($myArray, 10);  // add.
+$myArray = array("a" => 5, "b" => 2);  // set a dictionary (array with key, value) call associative arrays.
+$myArray["newKey"] = 6;  // push to associative arrays.
+array_merge($a, $b)  // merge two array and return a merged one.
+array_splice($myArray, 1, 1)  // remove a range cellule of array, starting from index 1 and taking 1 éléments.
+array_slice($myArray, 2)  // return a new array, starting at index 2 and taking the whole rest.
+array_diff($myArray, [5, 2]);  // return a new array, like the first send, but without value send in second parameters.
+array_pop($myArray);  // remove the last element of array (methode, make no return).
+array_shift($myArray);  // remove the first element.
+sort($myArray);  // ordered the array croissant (methode).
+rsort($myArray);  // ordered the array de-croissant.
+asort($myArray);  // order croissant for associative arrays value.
+ksort($myArray);  // order croissant for associative arrays key.
+arsort, krsort  // order de-croissant for value and for key.
+array_key_exists("Volvo",$a)  // return true if the key is set into the array.
+array_keys($a)  // return an array of all keys.
+array_filter($a1,"test_odd")  // filter by sending name of a function taking one parameter cel.
+array_map("myfunction",$a)  // return an array remap after passing by a function send by name.
+array_reduce($a,"myfunction")  // return a single value, before looping on eatch element by passing two value at a function (first is cumul (start empty, second is current cel).
+array_search("red",$a)  // search a value into an array, and return his key.
+array_unique($a)  // return a new array without any doublon.
+shuffle($my_array)  // shuffle an array.
+
+$GLOBALS  // list of global variable taking var usefull.
+$_SERVER
+$_REQUEST
+$_POST
+$_GET
+$_FILES
+$_ENV
+$_COOKIE
+$_SESSION
+
+$exp = ".../i"  // regex (i for case not sensitive).
+preg_match($exp, $str);  // return 1 (or true) if matching the regex.
+preg_match_all($exp, $str)  // return amount of match.
+preg_replace($exp, "replaced", $str)  // replace a filter by a word.
+
+class MyClass {}  // make a class.
+$C = new MyClass();  // instantiate a class.
+public function __construct($a, $b) {}  // constructor.
+$this->a = $a;  // set a parameter.
+
+
