@@ -1,0 +1,121 @@
+
+// --- SQL ---
+
+-- comment.
+/* comment many lines */
+
+SELECT * FROM `user`;  // select.
+SELECT u.name AS name FROM `user` u;  // get only specific column and remap as name.
+SELECT DISTINCT * FROM `user`;  // get without doublon.
+SELECT COUNT(DISTINCT *) FROM `user`;  // get the amount of row.
+SELECT * FROM (SELETC * FROM `user`);  // sub query.
+SELECT * FROM `user` u WHERE (u.id = 5);  // make a filter.
+=, >, <, >=, <=, <> (!=), BETWEEN, LIKE, IN, NOT, AND, OR  // type of comparator can be use.
+SELECT * FROM `user` u ORDER BY u.id;  // make in a order.
+SELECT * FROM `user` u ORDER BY u.id DESC;  // make in reverce order (ASK or DESC).
+WHERE u.name IS NULL; IS NOT NULL;  // filter about null value.
+COALESCE(u.name, "Anone");  // coalesce. (see also IFNULL() and ISNULL()).
+CAST(u.age AS int)  // cast type.
+CONVERT(int, u.age);  // same.
+SELECT TOP 100 * FROM `user`;  // take only the 100 first elements return by the query.
+SELECT TOP 50 PERCENT * FROM `user`;  // take only the 50% first of elements return by the query.
+SELECT * FROM `user` OFFSET 10 ROWS FETCH NEXT 10 ROWS ONLY;  // skip the 10 first rows and take the 10 next only. (usefull for pagination)
+LIKE 'Th___as'  // '_' can replace one character (patern with like).
+LIKE '%as'  // '%' can replace zero or many character.
+IN ('Thomas', 'Bob')  // set a list of value and compare if value is on it.
+BETWEEN 5 AND 12  // set a range of value and compare if value is between (also can use NOT BETWEEN, or use to DATE).
+HAVING COUNT(*) > 10;  // add filter (in a groube by query), heer take only group when it contain more thant 10 rows merged.
+EXISTS  // if next value is nothing or null, return false.
+ANY (sub query)  // return true if match any of the rows sub query.
+ALL (sub query)  // return true if match all of the rows sub query.
+
+
+SELECT * FROM `user` u GROUP BY u.age;  // select user grouped by age (can be use with COUNT or other function making many row as a single one).
+COUNT, MAX, MIN, SUM, AVG  // function commun making singe row based on a group of row (AVG make a moyenne).
+
+
+INSERT INTO `user` (id, name) VALUES (1, "Thomas");  // insert a new row.
+INSERT INTO `user` (name) VALUES ("Thomas"),("Benoi"),("Bob");  // insert many row with a single line execution.
+SELECT * INTO `user2` [IN `DataBase2`] FROM `user`;  // copy rows from a table into another table (can set another database destination).
+INSERT INTO `user2` SELECT * FROM `user`;  // same.
+
+UPDATE `user` u SET name = "Thomas" WHERE u.id = 5;  // edit a tow.
+
+DELETE FROM `user` u WHETE u.id = 5;  // delete a row.
+DROP TABLE `user`;  // delete a table.
+DROP TABLE IF EXISTS `user`;  // same but only if exist.
+
+
+CREATE TABLE IF NOT EXISTS `user`  // same as create a table, but only if not exist.
+CREATE TABLE `user` (  // create a new table.
+    `id` int(11) NOT NULL AUTO_INCREMENT,  // auto increment.
+    `idCity` int(11) NOT NULL,
+    `name` varchar(255) DEFAULT "Thomas",  // default value.
+    PRIMARY KEY (`id`),  // primary key.
+    FOREIGN KEY (idCity) REFERENCES City(id),  // forein key.
+
+    KEY `fk_idCity` (`idUser`),  // (?).
+    CONSTRAINT `fk_idCity` PRIMARY KEY (id)  // add constreint on table (?).
+    REFERENCES Persons(PersonID)  / (?).
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;  //type of engine and other parameter for table.
+
+CREATE DATABASE  // (?)
+ALTER DATABASE
+CREATE TABLE
+ALTER TABLE
+
+CREATE INDEX // (?)
+DROP INDEX
+
+
+SELECT * FROM `user` u JOIN `city` c ON u.idCity = c.id  // join (inner join).
+SELECT * FROM `user` u LEFT JOIN `city` c ON u.idCity = c.id  // left join (take all row from table select, can return some null values).
+SELECT * FROM `user` u RIGHT JOIN `city` c ON u.idCity = c.id  // right join (take all row from table join, can return some null values) (rarely used).
+SELECT * FROM `user` u FULL JOIN `city` c ON u.idCity = c.id  // full join (take all row from both table, can return some null values) (rarely used).
+
+SELECT * FROM `user` u1, `user` u2;  // self join (use to compare to same table).
+
+(SELECT 'Thomas') UNION (SELECT 'Bob')  // merge two query result.
+(SELECT 'Thomas') UNION ALL (SELECT 'Bob')  // same but allow doublon.
+
+
+CREATE PROCEDURE `myProcedure`  // create a stored procedure.
+AS  // can add a block begin/end.
+SELECT * FROM `user`
+GO;
+
+EXEC `myProcedure`;  // call a stored procedure.
+
+CREATE PROCEDURE `myProcedure` @myParam varchar(255)  // add a parameter.
+EXEC `myProcedure` @myParam = 'Thomas';  // call a stored procedure with parameter.
+
+DECLARE @myVar varchar(255) = 'Thomas'; // make a variable.
+
+CREATE TRIGGER `myTrigger`  // create trigger on a table.
+{BEFORE | AFTER}  // set if is execute before or after the main call.
+{INSERT | UPDATE| DELETE }  // set on what type of call is called (can set many with OR between eatch).
+ON `user` FOR EACH ROW
+WHEN (new.no_line > 0)  // optional, can add a condition to call the trigger (?).
+BEGIN
+    PRINT 'hello';
+END;
+
+
+IF (...)  // if.
+BEGIN  // start a new block (for query embed or if).
+    PRINT 'hello'  // print something on console.
+END  // end a block.
+ELSE  // else.
+
+CASE  // block switch case (can be use into a where or a select).
+    WHEN u.name = 'Thomas' THEN 'hello Thomas'  // case.
+    ELSE 'hello'  // default.
+END
+
+
+
+// --- SQL Database (from w3c) ---
+
+
+
+
