@@ -1,0 +1,59 @@
+
+// --- Laravel (framework PHP) ---
+
+
+// Laravel is a framework, model-vue-controller (use to map DB object on PHP).
+// doc : https://laravel.com/docs/11.x
+
+
+// loop in front.
+<div>
+    <?php foreach ($users as $user): ?>
+        Hello, <?php echo $user->name; ?> <br />
+    <?php endforeach; ?>
+</div>
+
+
+// example of controller class.
+class UserController
+{
+    public function index()
+    {
+        $users = User::active()
+            ->orderByName()
+            ->get(['id', 'name', 'email']);
+
+        return Inertia::render('Users', [
+            'users' => $users,
+        ]);
+    }
+}
+
+// example to render an entity in html.
+export default ({ users }) => {
+    return (
+        <div>
+            <h1>Users</h1>
+            <ul>
+                {users.map((user) => (
+                    <li key={user.id}>{user.name}</li>
+                ))}
+            </ul>
+        </div>
+    );
+};
+
+
+// example.
+namespace App\Http\Controllers;
+use Inertia\Response;
+class UserController extends Controller
+{
+    public function show(string $id): Response
+    {
+        return Inertia::render('Users/Profile', [
+            'user' => User::findOrFail($id)
+        ]);
+    }
+}
+
