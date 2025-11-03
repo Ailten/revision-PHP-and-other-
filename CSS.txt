@@ -37,6 +37,7 @@ div[my-attribute|="toto"] {}  // select by if has attribute set OR START BY the 
 div[my-attribute$="ta"] {}  // select by if has attribute set OR END BY the value "ta" (can have other folowing character befor).
 div[my-attribute*="ta"] {}  // select by if contain the value "ta" into the value (can detext value like : "capotable").
 input[type="button"] {}  // select inputs who's type "text".
+input:not([type]) {}  // select input without attribute "type".
 a:hover {}  // select when has mouse over element.
 a:active {}  // select when has mouse selected the elemnt (click or stay click).
 a:visited {}  // select when link has already clicked in past.
@@ -124,7 +125,7 @@ clear  // make another element out from the float one (?).
 
 !important  // to make a line prioritary (use carfully).
 
-calc(100% - 100px)  // allow to make calcul in a value.
+calc(100% - 100px)  // allow to make calcul in a value (not maintained vania).
 max(50%, 200px)  // return the max value (min exist to).
 clamp(2rem, 2.5vw, 3.5rem)  // clamp the value (min, value, max).
 
