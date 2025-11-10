@@ -1,0 +1,54 @@
+    
+    https://learngitbranching.js.org/?locale=fr_FR
+
+
+    help -> Affiches les pages de tutoriel de l'application
+    help levels -> Affiche les consignes du niveau actuel
+    levels -> Affiche la liste des niveaux
+    reset -> Réinitialise le niveau actuel
+    show commands -> Affiche toutes les commandes disponibles
+    show goal -> Affiche l'objectif du niveau actuel
+    show solution -> Affiche la solution du niveau actuel
+
+
+    branch
+    checkout (deprecated, utilisez switch)
+    cherry-pick
+    commit
+    merge
+    rebase
+    reset
+    revert
+    switch
+
+------------
+
+git commit   // send an edition of current branch.
+
+     v main*.
+A -> B       // make B.
+
+
+git checkout [nameBranchDestination]  // move to another branch.
+git checkout -b [nameBranchDestination]  // -b for create a new one.
+
+     v main local.
+A -> B
+     ^ second branch local*.
+
+
+git merge [brancheWithEdition]  // make a new node with the current checkout (and merge the one send).
+
+          v main*.      
+A -> B -> C -> E  // merge from main using D as parameter. 
+      \       /
+       -> D ->
+          ^ second branch local.
+
+
+
+
+
+
+
+
