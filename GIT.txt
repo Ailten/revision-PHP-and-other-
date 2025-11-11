@@ -21,6 +21,10 @@
     revert
     switch
 
+
+    HEAD = name of branch currently checkout.
+    hash = node of all commit in branchs project.
+
 ------------
 
 git commit   // send an edition of current branch.
@@ -45,9 +49,41 @@ A -> B -> C -> E  // merge from main using D as parameter.
        -> D ->
           ^ second branch local.
 
+git rebase [brancheDest]  // add modification of current checkout into destination.
 
+               v main (dest rebase).
+A -> B -> C -> E
+      \       
+       -> D
+          ^ branch edited*.
 
+------------
 
+git log  // print ID of hashNode.
+
+git checkout HEAD^  // comme back one node upper HEAD (in hashNode).
+git checkout HEAD~2  // comme back 2 nodes upper HEAD (in hashNode).
+
+git branch -f main HEAD~3  // force to replace current checkout has 3 node upper HEAD.
+
+git reset HEAD~1  // cancel the commit, and go back to node parent.
+
+     v go back.
+A -> B -> C
+
+git revert HEAD  // make a commit with the modification of cancel last commit.
+
+              v go next (roll back).
+A -> B -> C > C'
+
+git cherry-pick [commit1] [commit2] [...]  // move all commit send under the current checkout.
+
+          v main*.   v branchs moved.
+A -> B -> C -> D' -> E'
+      \       
+       -> D -> E
+
+git rebase -i  // rebase interactif (open a vim menu to edit the order of rebase, and other option).
 
 
 
