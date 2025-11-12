@@ -24,10 +24,12 @@
 
     HEAD = name of branch currently checkout.
     hash = node of all commit in branchs project.
+    tags = park a node git as Constante (can't be changed) and mark a clef-point in dev processuce.
 
 ------------
 
 git commit   // send an edition of current branch.
+git commit -a -m  // select all modif (-a) and add a comment (-m).
 
      v main*.
 A -> B       // make B.
@@ -66,6 +68,11 @@ git checkout HEAD~2  // comme back 2 nodes upper HEAD (in hashNode).
 
 git branch -f main HEAD~3  // force to replace current checkout has 3 node upper HEAD.
 
+          v (move branch [firstParam] into [secondParam].
+A -> B -> C
+      \       
+       -> D
+
 git reset HEAD~1  // cancel the commit, and go back to node parent.
 
      v go back.
@@ -83,7 +90,29 @@ A -> B -> C -> D' -> E'
       \       
        -> D -> E
 
-git rebase -i  // rebase interactif (open a vim menu to edit the order of rebase, and other option).
+git rebase -i [branch]  // rebase interactif (open a vim menu to edit the order of rebase, and other option).
+
+A -> B -> C
+      \       
+       -> C'
+          ^ branch param re-create (by passing param B).
+
+git commit --amend  // edit the last message commit.
+
+          v checkout*.
+A -> B -> C
+      \       
+       -> C'
+          ^ new commit recommented.
+
+git tag [tagName] [branch]  // mark a branch with a name tag (tag name can be use into other commend parameter).
+
+     v (myTagName)
+A -> B
+
+git describe [branch]  // print a string as the path of the node (nameTag, node name and hash code).
+
+
 
 
 
