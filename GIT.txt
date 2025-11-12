@@ -29,7 +29,7 @@
 ------------
 
 git commit   // send an edition of current branch.
-git commit -a -m  // select all modif (-a) and add a comment (-m).
+git commit -a -m [comment]  // select all modif (-a) and add a comment (-m).
 
      v main*.
 A -> B       // make B.
