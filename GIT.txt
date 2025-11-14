@@ -25,6 +25,7 @@
     HEAD = name of branch currently checkout.
     hash = node of all commit in branchs project.
     tags = park a node git as Constante (can't be changed) and mark a clef-point in dev processuce.
+    origin = base of arboressence of distante (depo dist).
 
 ------------
 
@@ -65,8 +66,12 @@ git log  // print ID of hashNode.
 
 git checkout HEAD^  // comme back one node upper HEAD (in hashNode).
 git checkout HEAD~2  // comme back 2 nodes upper HEAD (in hashNode).
+git checkout HEAD^2  // comme back 1 nodes upper HEAD but the second parent (first was the direct one).
+git checkout HEAD~2^2  // can be chaned (heer, go 2 node upper, and right after on the second parent).
 
 git branch -f main HEAD~3  // force to replace current checkout has 3 node upper HEAD.
+git branch -f [branchTarget] [branchDest]  // more readable.
+git branch [newBranchName] [branchDest]  // can be use to create a new branch at the destination ask.
 
           v (move branch [firstParam] into [secondParam].
 A -> B -> C
@@ -90,7 +95,8 @@ A -> B -> C -> D' -> E'
       \       
        -> D -> E
 
-git rebase -i [branch]  // rebase interactif (open a vim menu to edit the order of rebase, and other option).
+git rebase -i [branchToStart]  // rebase interactif (open a vim menu to edit the order of rebase, and other option).
+git rebase -i [branchToStart] [branchToMove]  // two parameter (more readable).
 
 A -> B -> C
       \       
@@ -111,6 +117,23 @@ git tag [tagName] [branch]  // mark a branch with a name tag (tag name can be us
 A -> B
 
 git describe [branch]  // print a string as the path of the node (nameTag, node name and hash code).
+
+
+------------
+
+
+git clone  // cmd for clone a depo distant into a local one.
+
+git add *  // add all files (except the one in .gitignore).
+git commit -a -m "..."  // commit the edit and make a comment.
+git push  // send the modification to the distance.
+
+git fetch  // get data from distance one (from distance to local) (of all branch) (BUT fetch don't change the local value of files).
+git merge [origin/branch]  // fusionner the branch ask (get value of branch ask and fusionne to the one checkout) heer the origin branch is merge to the local checkout.
+git pull  // make a fetch and a merge (get the dist branch to local, and fusionne values).
+
+
+
 
 
 
