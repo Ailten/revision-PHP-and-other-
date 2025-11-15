@@ -68,6 +68,7 @@ git checkout HEAD^  // comme back one node upper HEAD (in hashNode).
 git checkout HEAD~2  // comme back 2 nodes upper HEAD (in hashNode).
 git checkout HEAD^2  // comme back 1 nodes upper HEAD but the second parent (first was the direct one).
 git checkout HEAD~2^2  // can be chaned (heer, go 2 node upper, and right after on the second parent).
+git checkout -b [nameBranchToTake] [destinationBranchToGo]  // make a new branch at a specific position.
 
 git branch -f main HEAD~3  // force to replace current checkout has 3 node upper HEAD.
 git branch -f [branchTarget] [branchDest]  // more readable.
@@ -132,11 +133,18 @@ git fetch  // get data from distance one (from distance to local) (of all branch
 git merge [origin/branch]  // fusionner the branch ask (get value of branch ask and fusionne to the one checkout) heer the origin branch is merge to the local checkout.
 git pull  // make a fetch and a merge (get the dist branch to local, and fusionne values).
 
+git merge [branchBForFusion]  // fusionne the checkout with the parameter branch, in a new node (under the checkout).
 
 
+git fakeTeamwork [amountOfCommit]  // !! only for exercice (not a real command).
 
 
+git fetch; git rebase [o/main]; git push  // 3 action to get change from distance (without your local changes).
+git fetch; git merge [o/main]; git push  // 3 action to get change from distance (with your local changes).
+git pull --rebase; git push  // short cut for fetch and rebase (without your local changes).
+git pull --rebase; git push  // short cut for fetch and merge (with your local changes).
 
 
+git push [origin] [branchLocal]  // push to distance by sending param.
 
 
