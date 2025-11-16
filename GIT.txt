@@ -38,6 +38,7 @@ A -> B       // make B.
 
 git checkout [nameBranchDestination]  // move to another branch.
 git checkout -b [nameBranchDestination]  // -b for create a new one.
+git checkout -b [branchName] [o/main]  // make a new branch (set name) and tel her to follow origine (at distance).
 
      v main local.
 A -> B
@@ -68,11 +69,13 @@ git checkout HEAD^  // comme back one node upper HEAD (in hashNode).
 git checkout HEAD~2  // comme back 2 nodes upper HEAD (in hashNode).
 git checkout HEAD^2  // comme back 1 nodes upper HEAD but the second parent (first was the direct one).
 git checkout HEAD~2^2  // can be chaned (heer, go 2 node upper, and right after on the second parent).
-git checkout -b [nameBranchToTake] [destinationBranchToGo]  // make a new branch at a specific position.
+git checkout -b [nameBranchToMake] [destinationBranchToGo]  // make a new branch at a specific position.
+git checkout -b [nameBranchToMake]  // same, with the branch curretly checkout.
 
 git branch -f main HEAD~3  // force to replace current checkout has 3 node upper HEAD.
 git branch -f [branchTarget] [branchDest]  // more readable.
 git branch [newBranchName] [branchDest]  // can be use to create a new branch at the destination ask.
+git branch -u [o/main] [branchName]  // configure a branch and make it follow origin/main.
 
           v (move branch [firstParam] into [secondParam].
 A -> B -> C
@@ -142,9 +145,43 @@ git fakeTeamwork [amountOfCommit]  // !! only for exercice (not a real command).
 git fetch; git rebase [o/main]; git push  // 3 action to get change from distance (without your local changes).
 git fetch; git merge [o/main]; git push  // 3 action to get change from distance (with your local changes).
 git pull --rebase; git push  // short cut for fetch and rebase (without your local changes).
-git pull --rebase; git push  // short cut for fetch and merge (with your local changes).
+git pull; git push  // short cut for fetch and merge (with your local changes).
 
+               v pull --rebase (result).
+A -> B -> D -> E
+      \
+       -> C
+          ^ new commit local*.
+
+               v pull (result).
+A -> B -> D -> E
+      \       /
+       -> C -
+          ^ new commit local*.
 
 git push [origin] [branchLocal]  // push to distance by sending param.
+
+
+-- rebase -> garde l'arbre proche (ligne droite).
+-----------> MAIS, modifie l'historique des commits.
+
+-- merge -> make a all branch point to a "result".
+
+
+git checkout -b [nameBranchToMake] [destinationBranchToGo]  // make a new branch at a specific position.
+git checkout -b [nameBranchToMake]  // same, with the branch curretly checkout.
+git branch -u [o/main] [branchName]  // configure a branch and make it follow origin/main.
+
+
+git push [origin] [branchName]  // go to branchName, and push the contend to origin/main (distance).
+git push [origin] [branchName]:[branchDest]  // same but precise in what branch dest push it 
+                                             // (take branchName as what destination in local, and Dest as what branch in distance one (can be a new name).
+<source>:<destination>  //  block of two param, for specify source and destination.
+git fetch [origin] [branchName]  // get all changes from branchName (distance) and place it in branchName (local), like a pull specific.
+git fetch [origin] [branchName]:[branchDest]  // pull branchName (distance) in name branchDest (local).
+                                              // branchName is node distance, branchDest is what name move in local.
+git fetch  // without arguments, act like a full pull (of all branh).
+
+
 
 
