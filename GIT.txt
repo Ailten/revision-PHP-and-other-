@@ -183,5 +183,8 @@ git fetch [origin] [branchName]:[branchDest]  // pull branchName (distance) in n
 git fetch  // without arguments, act like a full pull (of all branh).
 
 
+git push [origin] :[branchDest]  // erase the branchDest (from local and origin).
+git fetch [origin] :[branchDest]  // create branchDest at node checkout (in local).
+git pull [origin] [branchName]:[branchDest]  // make a pull of branchName (in distance) into branchDest local (can be a new branch created).
 
 
