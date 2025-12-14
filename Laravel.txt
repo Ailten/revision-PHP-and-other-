@@ -5,6 +5,51 @@
 // Laravel is a framework, model-vue-controller (use to map DB object on PHP).
 // doc : https://laravel.com/docs/11.x
 
+// Laravel 10 need min PHP 8.1
+// ask vertion PHP. -> php --version
+// ask vertion Composer. -> composer --version
+
+
+sudo apt update  // udpate.
+curl -sS https://getcomposer.org/installer | php  // install Composer from url (and execute by php).
+sudo mv composer.phar /usr/local/bin/composer  // move the install Composer in usr folder.
+composer create-project laravel/laravel <mon-projet>  // create a new projet With composer.
+
+cd <mon-projet>
+sudo chown -R $USER:www-data storage bootstrap/cache  // set permission and who handle the folder.
+sudo chmod -R 775 storage bootstrap/cache
+
+php artisan serve --host=0.0.0.0 --port=8000  // launch the server (facultatif).
+
+
+// a Composer is a gestionair of dependancy for php (like a json file including all vertion and dépendency for a project).
+// (I use Composer 2.9.2 , PHP 8.3.6 ,
+
+// Laravel n'est pas installé globalement sur le systeme, c'est un ensemble de fichier php et dépendance.
+
+// -------->
+
+// composer.json  // is the file with dependency of the project.
+// bootstrap/app.php  // is the file who launch the application.
+// config/mail.php  // use to configure the mailing.
+// database/factories  // for connection to DB.
+// public  // is the racine path for the app (all heer is publicly accessible).
+// ressources  // for CSS, JS, views, etc.
+// routes  // the path of the app.
+// .env  // parameters of aplication.
+
+
+
+
+// TODO: continue tuto : https://www.youtube.com/watch?v=KoxeKRn2pCk&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=3
+// and create a new git repo, with ignoring file who need to (maybe all file racine, maybe only .env, ... ask).
+
+
+
+
+
+
+
 
 // loop in front.
 <div>

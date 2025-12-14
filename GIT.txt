@@ -27,6 +27,15 @@
     tags = park a node git as Constante (can't be changed) and mark a clef-point in dev processuce.
     origin = base of arboressence of distante (depo dist).
 
+------------ default cmd to setup on a new repository. (sugested by git)
+
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Ailten/AdventOfCode_2025.git
+git push -u origin main
+
 ------------
 
 git commit   // send an edition of current branch.
