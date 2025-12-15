@@ -197,3 +197,24 @@ git fetch [origin] :[branchDest]  // create branchDest at node checkout (in loca
 git pull [origin] [branchName]:[branchDest]  // make a pull of branchName (in distance) into branchDest local (can be a new branch created).
 
 
+----------->
+
+
+// Senssible case : how to rebase a branch/project fully diferent.
+git checkout [myNewBranch]  // (-b for create it).
+git merge [origin/main] --allow-unrelated-histories  // get the main branch from distance.
+git checkout [main]
+git merge [myNewBranch]  // merge main into newBranch. (warning, they have both files).
+
+
+// delete a branch.
+git branch -d [myBranch]
+git branch -D [myBranch]  // force to.
+git push origin --delete [myBranch]  // delete a branch distante (after a merge).
+
+
+
+
+
+
+

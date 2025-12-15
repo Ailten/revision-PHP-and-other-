@@ -38,6 +38,9 @@ php artisan serve --host=0.0.0.0 --port=8000  // launch the server (facultatif).
 // routes  // the path of the app.
 // .env  // parameters of aplication.
 
+// new projet composer include a gitignore but not init the git.
+// les fichier CSS et JS son injecté via Blade et Vite.
+
 
 
 
