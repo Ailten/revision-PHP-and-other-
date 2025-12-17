@@ -1,6 +1,8 @@
 
 // --- Laravel (framework PHP) ---
 
+// ref use as tutorial : https://www.youtube.com/watch?v=xSfZwqzs_OM&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=1
+
 
 // Laravel is a framework, model-vue-controller (use to map DB object on PHP).
 // doc : https://laravel.com/docs/11.x
@@ -41,14 +43,116 @@ php artisan serve --host=0.0.0.0 --port=8000  // launch the server (facultatif).
 // new projet composer include a gitignore but not init the git.
 // les fichier CSS et JS son injecté via Blade et Vite.
 
+// set up the DB pasword in .env :
+DB_DATABASE="my_db_name"
+DB_USERNAME="my_login_db"
+DB_PASSWORD="my_password_db"
+
+
+// --------> execute the web project :
+cp .env.example .env  // config env.
+composer install  // (facultatif, for generate vendor folder).
+--> (if fail) : composer diagnose  // to diagnose what probleme with composer.
+----> (if need clean, many try) : rm -rf vendor composer.lock
+---->                             composer clear-cache
+--> (can be usefull, laravel need at least all this) : sudo apt install php8.1-mbstring php8.1-xml php8.1-curl php8.1-zip php8.1-bcmath php8.1-mysql php8.1-intl
+// verify folder "vendor" is apear at racine.
+php artisan key:generate  // generate the private application key. (it be stor in .env as APP_KEY).
+php artisan serve  // start laravel server.
+// open a browser to http://127.0.0.1:8000/  (or the url seted in .env, verify port to).
+// --> execute the DB ? (todo).
+
+// --------> cut-down the web project :
+php artisan down --message="Le site est en maintenance temporaire"  // cut down the project (and put a message for users).
+php artisan queue:restart  // cut down the call to other services.
+mysqldump -u root -p <db_name> > backup.sql  // (optionel, backup DB).
+--> (clean) : php artisan cache:clear
+-->           php artisan config:clear
+-->           php artisan route:clear
+-->           php artisan view:clear
 
 
 
-// TODO: continue tuto : https://www.youtube.com/watch?v=KoxeKRn2pCk&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=3
+// ---------------> root :
+
+// in laravel, to define the root (path url of all web page of the project), use routes/web.php to define root.
+
+// example :
+Route::get('/', function () {
+    return view('welcome');
+});
+// this bloc say : when the url "/" (default page), return the view "welcome" (you can define a view as a web page).
+
+// views are define in ressources/views/***.php and it's basicly a php-html file.
+
+// you can return a string (for debuging) or an object (example for make end-point API).
+// tou can set a parametre \illuminate\Http\Request un the lambda function, to get info about the call (like in a POST/GET call).
+// --> for import Requet : use Illuminate\Http\Request;
+Route::get('/', function (Request $request) {
+// Request object contain other data about the call, like the path :
+echo($request->path());
+dump($request->path());  // heer, function to debug console.
+// other example.
+Route::get('/debug', function (Request $request) {
+    return [
+        'request_path' => $request->path(),  // word of url.
+        'request_path' => $request->url(),  // full url.
+        'request_path' => $request->all(),  // array of all parameter send (in post or get), example et in url as ".../debug?name=Toto&age=22".
+        'request_path' => $request->input('name', 'myPlaceholder'),  // get a specific parameter sended (if not found, return null).
+    ];
+});
+
+// you can define a route with parameter :
+Route::get('/debug/{table}-{id}', function (string $table, string $id, Request $request) {
+// and add contrainte on the parameter (at end of block Route::get :
+})->where([
+    'table' => '[a-zA-Z\-]+',
+    'id' => '[0-9]+',
+]);
+
+// you can add a name of the root (for bether mainteine of code) :
+})->name('debug');  // use a generic name of what it does.
+
+// you can generate a link.
+return [
+    'link' => \route('debug', ['table' => 'user', 'id' => 12]),  //'debug' is the name of route set by ->name().
+];
+
+// you can regroup many root by a prefix :
+Route::prefix('/homepage')->group(function() {  // all route declarated in this scrop function have /homepage behind their route.
+    Route::get('/debug', function() {  // example : /homepage/debug
+        return 'debug';
+    });
+});
+// and you can add a prefix name :
+
+// you can print all route in console server :
+php artisan route:list  // print in console all route generate.
+Route::prefix('/homepage')->name('homepage.')->group(function() {  // heer, all name route in the scope have homepage. in their name.
+
+
+
+
+
+
+// TODO: continue tuto : 
+// https://www.youtube.com/watch?v=AHBiKWKjPtA&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=4
 // and create a new git repo, with ignoring file who need to (maybe all file racine, maybe only .env, ... ask).
 
 
 
+
+
+
+// examples :
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<a href="{{ url('/home') }}"
+{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}
+@if (Route::has('login'))
+@endif
+@auth
+@endauth
+@else
 
 
 
