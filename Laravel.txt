@@ -1,7 +1,8 @@
 
-// --- Laravel (framework PHP) ---
+// --- (1 to 3, intro) Laravel (framework PHP) ---
 
 // ref use as tutorial : https://www.youtube.com/watch?v=xSfZwqzs_OM&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=1
+// doc : laravel.com/docs/10.x
 
 
 // Laravel is a framework, model-vue-controller (use to map DB object on PHP).
@@ -49,7 +50,7 @@ DB_USERNAME="my_login_db"
 DB_PASSWORD="my_password_db"
 
 
-// --------> execute the web project :
+// --------> execute the web project (preparatoir) :
 cp .env.example .env  // config env.
 composer install  // (facultatif, for generate vendor folder).
 --> (if fail) : composer diagnose  // to diagnose what probleme with composer.
@@ -58,9 +59,11 @@ composer install  // (facultatif, for generate vendor folder).
 --> (can be usefull, laravel need at least all this) : sudo apt install php8.1-mbstring php8.1-xml php8.1-curl php8.1-zip php8.1-bcmath php8.1-mysql php8.1-intl
 // verify folder "vendor" is apear at racine.
 php artisan key:generate  // generate the private application key. (it be stor in .env as APP_KEY).
+
+// ------> execute the web project (launch) :
 php artisan serve  // start laravel server.
+sudo service mysql start  // start MySQL. (or : sudo systemctl start mysql).
 // open a browser to http://127.0.0.1:8000/  (or the url seted in .env, verify port to).
-// --> execute the DB ? (todo).
 
 // --------> cut-down the web project :
 php artisan down --message="Le site est en maintenance temporaire"  // cut down the project (and put a message for users).
@@ -73,7 +76,7 @@ mysqldump -u root -p <db_name> > backup.sql  // (optionel, backup DB).
 
 
 
-// ---------------> root :
+// ---------------> (4) root :
 
 // in laravel, to define the root (path url of all web page of the project), use routes/web.php to define root.
 
@@ -82,6 +85,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 // this bloc say : when the url "/" (default page), return the view "welcome" (you can define a view as a web page).
+
+return to_route('nameRoute', ['id' => 5]);  // this re-direct to another route, with a param id in url.
 
 // views are define in ressources/views/***.php and it's basicly a php-html file.
 
@@ -92,6 +97,7 @@ Route::get('/', function (Request $request) {
 // Request object contain other data about the call, like the path :
 echo($request->path());
 dump($request->path());  // heer, function to debug console.
+dd($myVariable);  // die and debug : make processuce crash and print the variable send (type and contend).
 // other example.
 Route::get('/debug', function (Request $request) {
     return [
@@ -132,12 +138,209 @@ Route::prefix('/homepage')->name('homepage.')->group(function() {  // heer, all 
 
 
 
+// ---------------> (5) DB interaction : 
+
+// ORM = Object Relational Maping -> when a project remap all DB table in Obeject (class) to use easily when the code need to interact with DB.
+
+// config/database.php for details of what type of DB is suported (and how).
+// .env for the type of DB use, host IP, port, login, password etc.
+
+// (facultatif : for migration of a new DB)
+// you can use sqlit (in DB_CONNECTION), delete the other param relate to DB in the block.
+// in cmd call : php artisan make:migration [nameOfMigration_like_CreateProductsTable]  // it create a generation file of table in database/migrations/...php
+// like :
+return new class extends Migration  // class migration (like a block for the table sql).
+{
+    public function up(): void  // when up (start).
+    {
+        Schema::create('users', function (Blueprint $table) {  // create the table "users".
+            $table->id();   // set a param named "id".
+            $table->string('email')->unique();  // param name "email", type string, and unique contraint.
+            $table->longText('description');  // param for a long texte (not only one word).
+            $table->timestamp('email_verified_at')->nullable();  // param type timeStamp.
+            $table->rememberToken();  // use to stay connected.
+            $table->timestamps();  // add 2 time stamps, one who edit eatch time the object is update on DB, and one when it create in DB.
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // add a FK to user 
+            // need "constrained()", with param "user" (table target), without param it take the name befor "_id".
+            // "onDeletete('cascade')" say "delete this OBJ when the FK is deleted".
+        });
+    }
+    public function down(): void  // when down (shut-down).
+    {
+        Schema::dropIfExists('users');  // drop the talbe "users".
+    }
+}
+// in cmd call : php artisant migrate  // for execute and create the ORM of DB.
+// --> this cmd generate a file database/seeders/database.sql  // can be use to generate the DB.
+// --> this cmd can have "-m" at end for generate model at same time.
+
+// in cmd : php artisan make:model [nameOfTable(singulier)]  // create a model (in app/Models/...php) : class ORM of a table DB.
+// --> all ORM class can instaniate ("$user = new Users();"), affected ("$user->email = 'toto';"), and save in DB ("$user->save();").
+
+// you can get all line of a table like this :
+User::all();  // return an array of all user in DB.
+DB::table('users')  // same as "User::all()".
+User::all('id', 'email');  // return an array of object (only id and email) in DB (table user).
+User::find(1);  // return the user who has "1" as id. (can return null).
+User::findOrFail(1);  // same has find, but crash if not find a match (crash as error web page 404).
+User::paginate(10);  // get all row paginated (return an obj LengthAwarePaginator), the obj paginator contain, an array of data of page, current page, last page, url for previous and next page, ... etc.
+User::paginate(10, ['id', 'email']);  // define what parameters you whant from objects users.
+User::where('id', '>', 0)->first();  // get users where "id > 0" (like where sql), and take the first element of the array return.
+User::where('id', '>', 0)->get();  // same but take all elements.
+User::where('id', '>', 0)->limit(1)->get();  // use limit like sql.
+->orWhere(function(Builder $query){ ... })  // example of OR and sub query.
+->whereNot(function(Builder $query){ ... })  // example not (has orWhereNot to).
+->groupBy('email')  // group by.
+->joinSub(...)  // join.
+->union(...)  // union of two query.
+->orderByName()  // order by champ "name".
+// ---> see laravel.com/docs/10.x/queries  for more example.
+
+// ---> CRUD
+$user = User::find(1);  // get from DB.
+$user = new User();  // create a new user (not in DB, only in backend).
+$user->email = 'new@email.com';  // edit param of object (not in DB, only in backend).
+$user->email;  // get param of object.
+$user->save();  // insert or update (if it alread exist in DB).
+$user->delete();  // delete from DB.
+
+$user = User::create([  // way to create (in DB directly).
+   'email' => 'my@email.com' 
+]);
+// this aproche need to declarate in class ORM :
+protected $fillable = ['email'];  // with all parameter name to send.
+
+protected $quarded = ['id'];  // or this way, by sending all param to not send in array.
+
+$user = User::where('id', '=', 1)->update([  // update where (usefull for update many thing sincroniusly), work also with delete.
+    'email' => 'my@email.com'
+]);
+
+
+
+// ---------------> (6) Controller : 
+
+// class Controller is a class to organise code and logique (regroup methode with the same logic), Controller of data.
+// typicly, the Controller took data (raw), and transform it to make it exploitable to the View.
+// example manage get articles and pagination for route (the lambda of routing pages).
+
+php artisan make:controller [nameOfMyController_example_UserController]  // create a controller (default).
+// file is create in app/Http/Controller/...php
+
+// for use a methode in a controller :
+Route::get('/', [MyController::class, 'myMethodeInController'])  // call has an array of 2 elements, the class Controller, and a string of the methode to call.
+
+// you can also define a controller for a whole block :
+Route::prefix('/home')->name('home.')->controller(MyController:class)->group(function(){
+    Route::get('/', 'myMethodeInController')->name('index');
+});
+
+
+
+// ---------------> (7) View (with Blade) : 
+
+// a view is a template to print a page for users.
+// in ressources/views/[myFolder]/[myNameView].blade.php
+
+// you can use view as part of html code to import in another (like header, footer, menu, ...).
+@yield('contains')  // in the block B, to define the part to replace. (use encre named)
+@extends('myNameView')  // in the block A, to tel to get the block B.
+@section('contains')  // in A, to define the scope of yield in B. (use encre named)
+@endsection  // close the scope.
+@section('title', 'myTitle')  // you can also define a short text (and many section by page, with distinct encre).
+
+return view('myFolder.myNameView');  // in Controller (or route), define to load a view at a route.
+
+{{ "my data to print in page" }}  // you can print data string in html view (with this methode, is prevent to html injection.
+
+// other fonctionality, doc : laravel.com/docs/10.x/blade
+@foreach($users as $user)
+@endforeach
+@forelse(...)  // like a foreach, bt if the collection is notdefined or empty, execute the block @empty.
+@while(true)
+@if(true)
+@endif
+@else
+@auth
+@endauth
+@dump($user)  // debug at screen the contend of variable.
+@php
+@endphp
+@class(['myClass', 'myConditionClass' => true])  // set class (by an array of string) and can declare condition to set eatch class (like "if (...) class").
+@include('')  // include a template.
+
+
+// in a view, send a pagination obj alow to print the button next/previous page :
+{{ $posts->links() }}  // print an html block of button next page and previous page.
+// for editing way it print : app/Providers/AppServiceProvider.php
+public function boot(): void {
+    Paginator::useBootstrapFive();  // to use Boostrap style for pagination.
+}
+
+// make a link :
+<a href="{{ route('home.user.show', ['id' => $post->id]) }}" class="btn">myLink</a>
+
+request()  // get obj of request to load the view.
+request()->route()  // get the route use.
+request()->route()->getName()  // get name route (the name, not the url).
+
+// MVC -> Model (object mirroring of table DB), Controller (who get data and place in forme for the print in view), View (the print at screen for user).
+// Root to define wich url call what view.
+// Service for interact with DB. (~)
+
+
+
+// ---------------> (8) Validation (Validator) :
+
+// a Validator is a class to validate data (is it respect the regex, all champs constraint for DB... etc).
+// doc : laravel.com/docs/10.x/validation
+
+// make a Validator (Illuminate\Support\Facades).
+$validator = Validator::make([
+    'title' => ''  // user send a title empty, at creating the obj Model.
+], [
+    'title' => 'required|numeric',  // define parameter title as contraint "required" and "numeric".
+    'email' => ['required', 'min:8'],  // same, but can send as an array (mor pratic for many condition, or regex).
+    'name' => [Rule::unique('users')],  // same, but with object rule (instead of string), heer unique in table 'users'.
+    'abc' => ['regex:/^[a-z]+$/']  // regex example.
+]);
+// other restiction :
+min:8  // restrict length to 8 char min.
+
+$validator->fails()  // return if the validation test is fail (to cancel action).
+$validator->errors()  // return an object with all error find in validation (to print at user).
+$validator->validated()  // return all champs validated (to get what champs is already good), can throw an error (ValidationException).
+
+php artisan make:request [myRequestName]  // create a file request SQL in app/Http/Requests/...php
+// "autorize()"  is for say "is the user has autorisation to acces this request SQL".
+// "rules()"  return an array, for rules of validation (generate array for validator heer).
+// now, send the class Request in parameter of Controller / route (has extend of FormRequest), instead of $request.
+// with a class Request (who verify by rules), it take only champ matching (throw error if one fail a rule, and igniore those not declarated).
+// you can add prepareForValidation() methode :
+protected function prepareForValidation(){
+    $this->merge([
+        'newChamp' => 'new champ pushed before validation',
+        'abc' => $this->input('abc') ?: 'default value'  // take abc if aleady exist, coales, default value.
+    ]);
+}
+
+// helpers string (function natif to laravel, usefull), doc : laravel.com/docs/10.x/helpers#strings
+// example :
+Str::slug('abc d', '-');  // replace space by '-', for generate an url namespace part (~).
+Str::slug($this->input('name'));  // take the name champs and "sanitize" (for use has a slug).
+
+
+
+// ---------------> (9) Model binding :
+
+
+
+
 
 
 
 // TODO: continue tuto : 
-// https://www.youtube.com/watch?v=AHBiKWKjPtA&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=4
-// and create a new git repo, with ignoring file who need to (maybe all file racine, maybe only .env, ... ask).
+// https://www.youtube.com/watch?v=HB_A9qqEvQc&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=9
 
 
 
@@ -145,25 +348,11 @@ Route::prefix('/homepage')->name('homepage.')->group(function() {  // heer, all 
 
 
 // examples :
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<a href="{{ url('/home') }}"
-{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }}
-@if (Route::has('login'))
-@endif
-@auth
-@endauth
-@else
+str_replace('_', '-', app()->getLocale())
+url('/home')
+Route::has('login')
 
 
-
-
-
-// loop in front.
-<div>
-    <?php foreach ($users as $user): ?>
-        Hello, <?php echo $user->name; ?> <br />
-    <?php endforeach; ?>
-</div>
 
 
 // example of controller class.
@@ -175,7 +364,7 @@ class UserController
             ->orderByName()
             ->get(['id', 'name', 'email']);
 
-        return Inertia::render('Users', [
+        return Inertia::render('Users', [  // Inertia::render (??)
             'users' => $users,
         ]);
     }
@@ -194,18 +383,4 @@ export default ({ users }) => {
         </div>
     );
 };
-
-
-// example.
-namespace App\Http\Controllers;
-use Inertia\Response;
-class UserController extends Controller
-{
-    public function show(string $id): Response
-    {
-        return Inertia::render('Users/Profile', [
-            'user' => User::findOrFail($id)
-        ]);
-    }
-}
 

@@ -113,6 +113,10 @@ CASE  // block switch case (can be use into a where or a select).
 END
 
 
+use MyDataBase;  // select a data base.
+show tables;  // list all table of the data base.
+
+
 
 // --- SQL Database (from w3c) ---
 

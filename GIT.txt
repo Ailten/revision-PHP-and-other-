@@ -214,6 +214,18 @@ git push origin --delete [myBranch]  // delete a branch distante (after a merge)
 
 
 
+----------->
+
+
+
+// file [README.md] for make info about a git project (printable in repo github), Doc.
+// work like html (p, a, align="center", href="...", img src="...", width="20",
+
+## my test  // make title (bigger).
+- my point  // make a list dotted.
+[my link](http:...)  // make a link.
+** my bold **  // make test bold (bigger).
+```js my code ```  // a block of code (like in discord).
 
 
 
