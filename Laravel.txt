@@ -333,6 +333,35 @@ Str::slug($this->input('name'));  // take the name champs and "sanitize" (for us
 
 // ---------------> (9) Model binding :
 
+// make the Controller work (in rooting), more natively.
+// now send an obj Post at param url (it's reduce code for the "findOrFail()".
+
+public function myRoot(Post $post): View {
+    return view('myView', [ 'post' => $post ]);  // send the object post to the view.
+}
+
+Route::get('/myRoot/{post:myParameter}', 'myRoot')->name('myRoot');
+
+
+
+// ---------------> (10) Debuging :
+
+// Debugbar for Laravel, add a debug bar to the browser page executing your laravel project (indicate the state of page, view, ...etc).
+// Doc : github.com/barryvdh/laravel-debugbar
+// --> composer require barryvdh/laravel-debugbar --dev  // install.
+
+// Ide Helper for Laravel, help to bether auto completion.
+// Doc : github.com/barryvdh/laravel-ide-helper
+// --> composer require --dev barryvdh/laravel-ide-helper  // install (allow you to use other methode, like :).
+// ----> php artisan ide-helper:models  // generate doc based on the DB (it help to autocomplet what "post" it suposed to contains when it's not type).
+//                                      // re-execute this cmd when you edit the DB.
+
+// Laravel Idea, (?).
+
+
+
+// ---------------> (11) Formulaires :
+
 
 
 
@@ -340,7 +369,7 @@ Str::slug($this->input('name'));  // take the name champs and "sanitize" (for us
 
 
 // TODO: continue tuto : 
-// https://www.youtube.com/watch?v=HB_A9qqEvQc&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=9
+// https://www.youtube.com/watch?v=l_v0ywlcVWY&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=11
 
 
 
