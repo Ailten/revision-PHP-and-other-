@@ -136,6 +136,14 @@ Route::prefix('/homepage')->group(function() {  // all route declarated in this 
 php artisan route:list  // print in console all route generate.
 Route::prefix('/homepage')->name('homepage.')->group(function() {  // heer, all name route in the scope have homepage. in their name.
 
+// send something (like a message valdiation, to the page destination view).
+->with('success', "my succes message");  // take in cash for one redirection only.
+@session('success')  // in view to get the message send.
+
+// example of post send process.
+Route::get('/my/path/url', 'myFunctionControllerToCallForVerifyTheDataSend')->name('my.name.for.this.root);
+Route::post('/my/path/url' 'myFUnctionControllerToCallForConvertDataPostSend');
+
 
 
 // ---------------> (5) DB interaction : 
@@ -234,6 +242,10 @@ Route::get('/', [MyController::class, 'myMethodeInController'])  // call has an 
 Route::prefix('/home')->name('home.')->controller(MyController:class)->group(function(){
     Route::get('/', 'myMethodeInController')->name('index');
 });
+
+// example of unique except this one (for update).
+Rule::unique('talbeNames')->ignore($this->name)
+Rule::unique('talbeNames')->ignore($this->route()->parameter('name'))  // same (but more clean, if there no element).
 
 
 
@@ -360,16 +372,96 @@ Route::get('/myRoot/{post:myParameter}', 'myRoot')->name('myRoot');
 
 
 
-// ---------------> (11) Formulaires :
+// ---------------> (11) Formulaires (Create, Update) :
+
+// View.
+<form action="" methode="post">
+    @csrf  <!-- use to generate a token (in session user), for be sure the form came from our web app. -->
+    <input type="text" name="name">
+    <input type="submit" value="submit">
+    <button>submut</button>
+</form>
+
+// Roote.
+Route::get('/create', 'create')->name('create');
+Route::post('/create', 'store');  // store is a ref to a function in Controller.
+
+// Controller (v1).
+public function store(Request $request){
+    $post = Post::create([  // create an object Post based on the request send (form contend submited), for the page who get the file.
+        'name' => $request->input('name'),
+        ... // other parameters.
+    ]);
+    return redirect()->route('/home', [ 'name' => $post->name ])  // redirect to another page.
+    ->with('success', "my succes message");  // send a message (param key-value for the view).
+}
+
+// View redirected (after form).
+<div>
+    @if(session('success'))
+        <h1>{{ session('success') }}</h1>  <!-- print the message success send (key-value). -->
+    @endif
+</div>
+
+// MiddleWareGroup :
+// in app/Http/Requests/Kernel.php
+// list of process execute during a call roote (like when post to a page).
+// use for like encrypt cookies.
+
+// build a file for validation of data (send from a form).
+php artisan make:request [CreatePostRequest]  // create a file in app/Http/Requests/CreatePostRequest.php.
+authorize(): bool { return true; }  // autorized.
+public function rules(): array {
+    return [
+        'name' => 'required|min:3'
+    ];
+}
+protected function prepareForValidation(){
+    $this->merge([
+        'name' => $this->input('name') ?: "anon"
+    ]);
+}
+
+// Conroller (v2) : now took the object from controller.
+public function store(CreatePostRequest $request){
+    $post = Post::create($request->validated());  // now get the validated object data from Controller.
+    return redirect()->route('/home', [ 'name' => $post->name ])
+    ->with('success', "my succes message");
+}
+
+// View (v2) : now print when error find.
+@error("name")  <!-- show error (if there one), on what champ. -->
+    {{ $message }}
+@enderror
+<input type="text" value="{{ old('name', $post->name) }}">  <!-- took the old value champ (from last try submit). -->
+
+// regroup form create and update has the same form (for the obj maping).
+@if($post->id)
+    update title  <!-- in the same form, edit view title or submit, based on if the post has an id. -->
+@else
+    create title
+@endif
+
+// for create view (to merge with the update view), think about send the obejct create (in Controller create function), for prevent error $post is undefined).
+public function create(){
+    $post = new Post();  // create an empty post.
+    $post->name = "name test";  // (facultatif) you can set default seting, or test like this (to the create page).
+    return view('create', [
+        'post' => $post  // send to the view.
+    ]);
+}
+
+// (facultatif), you can tsheet on the methode used to send data : (use "PATCH" instead of "POST" for editing).
+@method("PATCH")  <!-- in view, it's add a champ for specify wath true type of methode to use. -->
 
 
 
-
+// ---------------> (12) ?? :
 
 
 
 // TODO: continue tuto : 
-// https://www.youtube.com/watch?v=l_v0ywlcVWY&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=11
+// https://www.youtube.com/watch?v=l_v0ywlcVWY&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=12
 
 
 
