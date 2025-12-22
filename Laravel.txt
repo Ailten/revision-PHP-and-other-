@@ -176,6 +176,9 @@ return new class extends Migration  // class migration (like a block for the tab
     public function down(): void  // when down (shut-down).
     {
         Schema::dropIfExists('users');  // drop the talbe "users".
+        Schema::table('orders', function(Blueprint $table){  // when delete an element of this class model : drop the foreign key on this table to.
+            $table->dropForeignIdFor(User::class)
+        });
     }
 }
 // in cmd call : php artisant migrate  // for execute and create the ORM of DB.
@@ -456,13 +459,61 @@ public function create(){
 
 
 
-// ---------------> (12) ?? :
+// ---------------> (12) Relation (entre les class model) :
+
+// Doc : laravel.com/docs/10.x/eloquent-relationships#main-content
+
+// in class ORM Role.
+// add FK in other ORM class.
+public function up(): void {
+    Schema::table('users', function(Blueprint $table){
+        $table->foreignIdFor(Role)->nullable()->constrained()->cascadeOnDelete()
+    });
+}
+
+// delete on cascade.
+public function down(): void {
+    Schema::dropIfExists('categories');
+    Schema::table('users', function(Blueprint $table){  // heer.
+        $table->dropForeignIdFor(Role::class)
+    });
+}
+
+// in model class user.
+public function role () {  // make a function in model user to return the object role.
+    return $this->belongsTo(Role::class);
+}
+
+// (oposite) in model class role.
+public function users() {
+    return $this->hasMany(User::class);
+}
+
+// for get objets (from DB) with object in FK :
+User::with('role')->get();
+
+// for get by relation, and make a filter on the relation :
+$role->users()->where('id', '>', 10)->get();
+
+// edit the role in an user object :
+$user->rule()->associate($rule);  // same as change the id fk champ (but by treating with object only).
+
+// example for jointure table :
+Schema::create('user_role', function(Blueprint $table){
+    $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+    $table->foreignIdFor(Role::class)->constrained()->cascadeOnDelete();
+    $table->primary(['user_id', 'role_id']);
+});
+
+// in user (to get all roles from class many to many) :
+public function roles() {
+    return $this->belongsToMany(roles::class);
+}
 
 
 
 // TODO: continue tuto : 
-// https://www.youtube.com/watch?v=l_v0ywlcVWY&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=12
-
+// https://www.youtube.com/watch?v=zy6ByXZ9DZ4&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=12    15:47
 
 
 
