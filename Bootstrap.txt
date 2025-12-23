@@ -1,0 +1,14 @@
+
+// ------> Bootstrap.
+
+// Doc : https://getbootstrap.com/docs/4.0/getting-started/introduction/
+
+.btn  // class to look like a button.
+.btn-primary  // primary = make it blue style.
+
+.badge  // little box to sho when it's a tag (like categories).
+
+
+
+
+// todo : flex, grid, with, height, select multiple, ...

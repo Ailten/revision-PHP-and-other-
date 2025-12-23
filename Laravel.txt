@@ -205,6 +205,7 @@ User::where('id', '>', 0)->limit(1)->get();  // use limit like sql.
 ->joinSub(...)  // join.
 ->union(...)  // union of two query.
 ->orderByName()  // order by champ "name".
+User::has('roles', '>', 1)->get();  // get user who has at least one role (in jointure many to many).
 // ---> see laravel.com/docs/10.x/queries  for more example.
 
 // ---> CRUD
@@ -227,6 +228,8 @@ $user = User::where('id', '=', 1)->update([  // update where (usefull for update
     'email' => 'my@email.com'
 ]);
 
+$user->role?->name  // "?" prevent to a parameter nullable (when print in a view : if null print nothing at all).
+$user->myCollection->isEmpty()  // verify if a collection is empty.
 
 
 // ---------------> (6) Controller : 
@@ -318,6 +321,7 @@ $validator = Validator::make([
     'email' => ['required', 'min:8'],  // same, but can send as an array (mor pratic for many condition, or regex).
     'name' => [Rule::unique('users')],  // same, but with object rule (instead of string), heer unique in table 'users'.
     'abc' => ['regex:/^[a-z]+$/']  // regex example.
+    'role_id' => ['exists:roles,id']  // need to exist in table roles (specify what table, and what champ in this table).
 ]);
 // other restiction :
 min:8  // restrict length to 8 char min.
@@ -509,6 +513,47 @@ Schema::create('user_role', function(Blueprint $table){
 public function roles() {
     return $this->belongsToMany(roles::class);
 }
+
+// you can use it to create roles : (this creat the relation many to many and create 2 role).
+$user->roles()->createMany([ "name"=>"my role 1" ], [ "name"=>"my role 2" ]);
+
+// delete a jointure :
+$user->roles()->detach(2);  // delete the relation many to many between this user and the role id "2".
+$user->roles()->attach(2);  // add a jointure between the user and role id 2.
+$user->roles()->sync([2, 3]);  // delete or add for match to the array role id set.
+
+User::has('roles', '>', 1)->get();  // get user who has at least one role (in jointure many to many).
+
+// get role to send for a form update (for make a foreach in a select), in one to many:
+return view('user.update', [
+    'post => $post,
+    'roles' => Role::select('id', 'name')->get()
+]);
+
+<select>
+    @foreach($roles as $role)
+        <option value="{{ $role->id }}" @selected(old('role_id', $user->role_id) == $role->id)>{{ $role->name }}</option>
+    @endforeach
+</select>
+
+<input type="checkbox" @checked(old('isVip', $user->isVip)) />  <!-- same for input checkbox -->
+
+// same for many to many :
+@php
+$rolesIdsInUser = $user->roles()->pluck('id');  // take only the id of jointure user-role (in a collection).
+@endphp
+<select multiple name="roles[]">  <!-- name as an array -->
+    @foreach($roles as $role)
+        <option value="{{ $role->id }}" @selected($rpmesIdsInUser->contains($role->id))>{{ $role->name }}</option>
+    @endforeach
+</select>
+
+
+
+// ---------------> (13) Authentification :
+
+
+
 
 
 
