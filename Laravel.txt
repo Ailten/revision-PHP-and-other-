@@ -558,7 +558,7 @@ $rolesIdsInUser = $user->roles()->pluck('id');  // take only the id of jointure 
 
 
 // TODO: continue tuto : 
-// https://www.youtube.com/watch?v=zy6ByXZ9DZ4&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=12    15:47
+// https://www.youtube.com/watch?v=xHrHjj8eFk0&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=13
 
 
 

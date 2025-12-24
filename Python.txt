@@ -1,0 +1,132 @@
+
+// ------> Python.
+
+// ---> base.
+print("test")  //print in console.
+myVar = input()  // stock something write in console into a variable.
+"my var: " + myVar  // concat.
+f"my var: {myVar}"  // concat.
+myStr = "{:2.f}".format(myVar)  // cast a float into a printable string with a specific decimal take.
+int(myVar)  // cast to int.
+myVar.isnumeric()  // return a boolean, is it numeric (for cast int or float).
+myNum + mySecondNum  // adition.
+myStr.upper()  // replace all min char in a string to upper case.
+myBool = myStr.startswith("test")  // return true if the string start with "test".
+
+// ---> logic.
+if(True):  // if.
+elif(True):  // else if.
+else:  // else.
+==, !=, and, or, not, <, <=, >, >=, ^  // list of operator logic for boolean.
+while(True):  // while.
+break    // cut the rest of this loop and exit the loop.
+continue  // cut the rest of this loop, and do the next one.
+for i in range(10):  // loop from 0 to 9.
+for i in range(0, 10, 1):  // loop from 0 to 9, by increasing by 1.
+for i in (0, 1, 2):  // loop on value 0, 1 and 2.
+for myCel in myArray:  // loop on all cellule of an array.
+for myChar in myStr:  // loop on all char of a string.
+for myKey in myDictionary:  // loop on keys of a dictionay.
+
+// ---> array.
+myArray = []  // create an array.
+myChar = myArray[0]  // get the first element of the array.
+myArray2 = myArray[1:]  // get all array except the first elemnt (start at index "1", and take all the rest).
+myArray2 = myArray[1:2]  //  return elements start at index "1" to the index "2" (not include), heer it take the elemnt 1 in an array.
+myArray2 = myArray[1:-1]  // return elements exept the first and the last.
+myInt = len(myArray)  // return the length of the array.
+myArray.append(5)  // push value 5 in array.
+sum(myArray)  // get sum of the array value.
+myBool = "a" in myArray  // return a bool if the element is in array.
+myDictionary = {}  // create dictionary.
+myDictionary[myKey] = myValue  // push (or edit) value at a key index in dictionary.
+myDictionary.keys()  // get an array of all keys of the dictionary.
+for myCel in myArray:  // loop on all cellule of an array.
+myArray = myStr.split("\\n")  // return an array of eatch line on a string (cut the string at eatch char return line).
+myIter = iter(myArray)  // make an obj who iter on eatch value of the array send.
+myValue = newt(myIter)  // get the current value of iter, and move the cursor to the next element (return an error "StopIteration" when finish).
+
+// ---> regex.
+import re  // import for use regex.
+myVarReplaced = re.sub("myRegex", "byWhatReplace", myStr)  // use regex to replace par of a tring.
+myBool = re.search("myRegex", myStr)  // return true if the string passe the regex.
+myArray = re.findall("myRegex", myStr)  // return all part match regex on the string.
+
+// ---> function.
+def myFunc(myList: List[int], myInt: int) -> str :  // create a function, with parameter (typed), and a type return.
+return "test"  // return a value out of the function.
+async def myFunc():  // async for asyncrone function.
+await myFunc();  // call an async function as syncrone one.
+
+// ---> try catch.
+try:  // try.
+except:  // catch.
+except ZeroDivisonError:  // catch specific error.
+except Exception as myError:  // catch an Exception (can be a type more precise) and capture it on a variable "myError".
+else:  // you can call an else after an except (executed when no error find).
+finally:  // execute (in every case), at end of try-except, use to close or flush stuf.
+raise Exception("my error")  // throw a new error.
+
+// ---> file.
+myFile = open("myPathFile", "x")  // create a file "x" (see also: "r" to read, "w" to write, "a" to append, write next to).
+myFile.write("test")  // write on the file.
+myStr = file.read()  // read file text.
+myStr = await fs.readFile("myPathFile", 'utf8');  // alternative more short (need "const fs = require('fs').promises;")
+myFile.close()  // close the file (in finally, add if to verify if myFile is None).
+myBool = myFile.closed  // return true if the file obj is closed.
+with open("myPath", "r") as myLine:  // loop on a file line by line (need to be verify).
+
+// ---> class.
+from myFolder.myClass import MyClass  // import a class from another file.
+class myClass():  // create a class.
+class myClass(myClassParent):  // create a class who has parent.
+def __init__(self):  // definit constructor (first argument is self instance).
+super().myFunc()  // call the function of the parent class. (like __init__, see heritage).
+myClass("myParameter")  // instanciate an object.
+self.myParam = myParam  // stock a value in the parameter of an instance.
+@staticmethod  // upper a def function, to make it static (call by the type class).
+myVar: str  // defin a static parameter on a class.
+myObj.__doc__  // get the text definition of a class (to set a doc text on a class, do """ at start and end into the class).
+myObj.__name__  // get the name of the class (literaly a string oh the className).
+myObj.__dict__  // get a dictionary of the instance ({'__init__': ...}).
+__main__  // get the name of the file currently (usefull to know if it's an import or the main execution).
+@dataclass  // upper the class declaration, to set the class has a bloc of param only (no function, and all param define is not static).
+{'myParam': myValue}  // define an object freelly.
+
+// ---> enum.
+from enum import Enum  // import for create enum.
+class myEnum(Enum):  // create an enum.
+MY_VALUE = 1  // declare value in enum.
+@classmethod  // upper a def function, to add a static function to an enum.
+
+// ---> date.
+import datetime  // import date.
+import locale  // import lib to cast the date on a specific language.
+myDate = datetime.datetime.now()  // take the date now.
+myStr = myDate.strftime("%d/%m/%Y - %H:%M")  // get a string with the date formated.
+myStr = myDate.strftime("%A - %B")  // get a string with the day in full letter, and the month in a full letter.
+loale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")  // set the date format of the execution (whole session) in Franch.
+
+// ---> request.
+import requests  // import lib to do request at an url.
+myResponce = requests.get("myUrl")  // launch a request to an url.
+myBool = myResponce.status_code == 200  // verify if the request responce is "200" (code for no error found).
+
+// ---> json.
+myObj = json.loads(myStr)  // read a string from a json.
+myStr = json.dumps(myObj.__dict__)  // cast an object to a string json (with __dict__).
+json.dump(myObj, myFile, indent=4)  // write on a file, an object cast in a json text (with indentation set to 4 space, for readability).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
