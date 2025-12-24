@@ -12,3 +12,5 @@
 
 
 // todo : flex, grid, with, height, select multiple, ...
+// d-flex justify-content-end  // for align elemnt of a div at right.
+// ms-auto  // to align one elemnt (todo: test).

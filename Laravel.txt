@@ -101,7 +101,7 @@ dd($myVariable);  // die and debug : make processuce crash and print the variabl
 // other example.
 Route::get('/debug', function (Request $request) {
     return [
-        'request_path' => $request->path(),  // word of url.
+        'request_path' => $request->path(),  // word of url (root).
         'request_path' => $request->url(),  // full url.
         'request_path' => $request->all(),  // array of all parameter send (in post or get), example et in url as ".../debug?name=Toto&age=22".
         'request_path' => $request->input('name', 'myPlaceholder'),  // get a specific parameter sended (if not found, return null).
@@ -266,15 +266,18 @@ Rule::unique('talbeNames')->ignore($this->route()->parameter('name'))  // same (
 @section('contains')  // in A, to define the scope of yield in B. (use encre named)
 @endsection  // close the scope.
 @section('title', 'myTitle')  // you can also define a short text (and many section by page, with distinct encre).
+// block A -> @extends, section, endsection  // call A, who take his data and gref into B.
+// block B -> @yield  // be called in cascade, and take the data from A.
 
 return view('myFolder.myNameView');  // in Controller (or route), define to load a view at a route.
 
 {{ "my data to print in page" }}  // you can print data string in html view (with this methode, is prevent to html injection.
+env('MY_KEY')  // get const env value.
 
 // other fonctionality, doc : laravel.com/docs/10.x/blade
 @foreach($users as $user)
 @endforeach
-@forelse(...)  // like a foreach, bt if the collection is notdefined or empty, execute the block @empty.
+@forelse  // like a foreach, bt if the collection is notdefined or empty, execute the block @empty.
 @while(true)
 @if(true)
 @endif

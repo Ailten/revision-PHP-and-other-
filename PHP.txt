@@ -17,6 +17,7 @@ print("...");
 $myVar = "...";
 
 "concat : $myVar"
+"concat : ${myVar}"
 "concat : " . $myVar
 
 var_dump($myVar)  // return type and contend.
@@ -159,5 +160,9 @@ class MyClass {}  // make a class.
 $C = new MyClass();  // instantiate a class.
 public function __construct($a, $b) {}  // constructor.
 $this->a = $a;  // set a parameter.
+const MY_CONST_STATIC = "a";  // make a const (static) in a class.
+slef::MY_CONSTS_STATIC  // get value of const (in a class).
+
+include_once 'pathFilePhpClass';  // load once time the class (to prevent many load, not sure), no need with laravel projects.
 
 

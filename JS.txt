@@ -165,6 +165,10 @@ getEventListeners(<DOMelement>)  // get list of event set to an element.
 getEventListeners(<DOMelement>).click[0].listener  // get function call when click on element (the first one).
 encodeURIComponent(<string>)  // cast special char for param url.
 
+Math.lerp = (a, b, i) => { return a*(1-i) + b*i; };
+Array.prototype.random = function() { return this[Math.floor(Math.random()*this.length)]; };
+
+
 
 
 
