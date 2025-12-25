@@ -168,7 +168,7 @@ encodeURIComponent(<string>)  // cast special char for param url.
 Math.lerp = (a, b, i) => { return a*(1-i) + b*i; };
 Array.prototype.random = function() { return this[Math.floor(Math.random()*this.length)]; };
 
-
+String.fromCharCode(64);  // return char '@', based on his ascii value.
 
 
 

@@ -1,2 +1,82 @@
 
 // ------> Regex (syntax).
+
+/myRegex/  // regex (match chain send).
+/myRegex/g // "g" can match many time in a string.
+/myRegex/i // "i" can take upper case and lowercase.
+/myRegex/m // "m" can match start and end for all line (^, $).
+/myRegex/x // "x" ignore wh... ??
+
+^  // start of string.
+$  // end of string.
+
+[a-z]  // match a char letter between "a" and "z" lower case.
+[A-Z]  // same in upper case.
+[0-9]  // mathc a char number.
+\d  // same
+[a-zA-Z0-9]  // match a char in range letter or number.
+\w  // same (take the char "_" to).
+[abc]  // match a char in all char send.
+[^0-9]  // match any char except numeric (^ mean not).
+[+]  // inside a block, special char mean only their true value.
+
+.  // match any single character (except retour line), use as a joker character on a regex.
+\0  // match char 08 016 010 (can't explain).
+\cC  // match a control+C sequence (can't explain), can replace "C" by any letter (upper or lower).
+\/  // match the char "/" (the "\" say explicitly to take the next char as is value, not interpret).
+
+{2}  // precise the left sequence is present 2 time.
+{2,5}  // same but 2 to 5 time.
+{2,}  // same but 2 to infinit time.
+*  // same but various time {0,}.
++  // same but 1 to infinit time {1,}.
+?  // same but 0 to 1 time {0,1}.
+*?  // make the selector "non-greedy" (take the less ocurence matching, not the maximum), work with other quantity selector.
+
+(abc)  // capture group.
+a(?=b)  // match "a" only if next to "b" ("b" is not captured).
+a(?!b)  // match "a" only if not next to "b".
+(?<=b)a  // match "a" only if before has "b" (cant include an "|" or).
+(?<!b)a  // match "a" only if before has not "b".
+(?<myGroupName>a)  // match "a" in a group named.
+\k<myGroupName>  // use the group capture named has reference on a regex (like for searching matching balise html <(?<balise>[a-z]*)>.*<\/\k<balise>> ).
+(?:a)  // match "a" but not claim the capture (the "a" can be capture in an other group regex.
+
+|  // or (match the left sequence or the right).
+
+\d  // match a char number [0-9].
+\n  // match a char retour line.
+\w  // match a char number, letter (upper-lower) and underscore [a-zA-Z0-9_].
+\b  // match the place at start (or end) of line, space, or underscore (match no char).
+\h  // match a char space (or other type of space) (horizontal space).
+\r  // match a char retour line (carriage).
+\s  // match a char like space, retour line, and other (\r\n\t\f\v) (horizontal and vertical space).
+\t  // match a char space tab.
+\v  // match a char return line (all type) (vertical space).
+\z  // match the place end of the string (match no char) ($/).
+\A  // match the place start of the string (match no char) (/^).
+\B  // oposite of \b, match the place where is not the start of a word (where is not adjacent to a start line, end line, or space).
+\C  // match a char (all type).
+\D  // match a char (all type except number).
+\G  // match the place of the start string and the start of previous match (for /g).
+\H  // match a char (all type except any horizontal space).
+\K  // reset the starting point of reported match, and any previous characters match are not taken (all set at left of the \K is not return).
+\N  // match a char who's not a retour line (oposite of \n).
+\Q  // match the place of an empty string (no idee what utility).
+\R  // match a char unicode newline sequence (can't explain the diference with an \v).
+\S  // match a char all type except space and retour line [^\r\n\t\f\v].
+\V  // match a char any type except vertical space (all exept any type of retour line).
+\W  // match a char any type except number, letter and underscore (oposite of \w).
+\Z  // match the place at end of string, or before the line terminator right at the end of the string (can't explain dif with \z).
+\Q[abc]\E  // match the text send between \Q and \E (prevent to interpret spécial char by the regex (alternative to set "\" at eatch special char).
+
+
+
+
+
+
+
+
+
+
+
