@@ -1,0 +1,75 @@
+
+// ------> HTML.
+
+// base.
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>MyWebPage</title>
+        <meta charset="utf-8">
+        <link href="css/main.css" rel="stylesheet">
+        <script src="js/main.js" type="text/javascript"></script>
+    </head>
+    <body>
+    </body>
+</html>
+
+<!DOCTYPE html>  // define the file is html.
+<html>  // englob the all html page.
+lang="en"  // language of the balise (en, fr, ...).
+<head>  // define link to other file (css, js) and other details (like mouse cursor, title page, encoring character type, tab icone ...).
+<title>  // define the title name of the web page (in the tab).
+<meta charset="utf-8">  // define the page is encoding on a specific type character (to understans special char, axent...).
+<link href="css/main.css rel="stylesheet">  // link a file css to the page (attribute rel is optional).
+<script src="js/main.js" type="text/javascript></script>  // link a file js to the page (attribute type is optional), stay empty or else make code js directly into balise.
+<body>  // the main balise, to define element print at screen.
+
+<!-- my comment -->  // write a comment on the web page (not print at screen, only for commenting, can read it on code html of browser).
+<noscript>myMessage</noscript>  // in body, balise for write an error message, if JS is disable on the browser user.
+<div></div>  // default block (take the full width by default).
+<span></span>  // default block text (for a specific word or text).
+<h1></h1>  // balise title (from h1 to h6, to importance, 1 is the most priority).
+<p></p>  // make a paragraph (block for text).
+<br>  // make a return line.
+<section></section>  // block for a major part of the web page.
+<article></article>  // block for a secondary part of the web page (an article).
+<menu></menu>  // block to define the navigation menu (of the web page).
+<a href="url"></a>  // define a text clickable (to redirect to another page).
+<ul></ul>  // block to define a list of elements (dot).
+<ol></ol>  // same but numeroted (number).
+<li></li>  // define a line on a list (<ul> or <ol>).
+<img src="url">  // balise image (alternative, you can set a backgroup image in CSS to every elements).
+<audio></audio>  // define a music lecture (can have attribute "controls" to let user edit the lectur).
+<source src="url" tyle="audio/mpeg">  // define a url music, into a <audio>.
+<b></b>  // bold text (you can use CSS), use it only to axe importante element, not to just make text bold.
+<base href="url" target="_blank">  // define a starting path to all link in the page (one by page, place it on head), ex: define domain name to all <a>.
+<blockquote cite="url"></blockquote>  // define a block who is a citation to another web page (not print, just for linkability and referencement).
+
+// -- attribute.
+id="myId"  // set an id to an element (use to get an element easily), value must be unique on the page (not two balise with same id value).
+class="class-One class-Two"  // set class to an element (use to get an element easily by JS or CSS), can send many class by element, and not unique.
+lang="en"  // define a language to the element.
+alt="definition"  // set a definition of an element (ex: description of an image).
+href="url"  // to define a link to anoter page, on <a> or <link>.
+src="url"  // to define a link to a file (to insert), on <script> or <img>.
+value="test"  // to set a value to an input balise (usage depent on the type input).
+
+// -- balise interaction.
+<button>test</button>  // make a button (depreciate, priorise input type button).
+<input type="button" value="test">  // button.
+<input>  // default input (for user type a word), type="text".
+
+// TODO: make all other input.
+
+// -- attribute interact.
+onclick="myFunc()"  // execute myFunc (function JS) when user click on element.
+
+// TODO: make all other attribute interact.
+
+
+
+// continue balise define : https://www.w3schools.com/tags/tag_button.asp
+
+
+
+
