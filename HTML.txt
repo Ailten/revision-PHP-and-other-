@@ -24,6 +24,9 @@ lang="en"  // language of the balise (en, fr, ...).
 <script src="js/main.js" type="text/javascript></script>  // link a file js to the page (attribute type is optional), stay empty or else make code js directly into balise.
 <body>  // the main balise, to define element print at screen.
 
+<script async src=""></script>  // make the loading asyncrone (can continue to load the rest of html page simultanement).
+<script defer src=""></script>  // make the loading reported to when the whol page is loaded (like a window.addEvent("load")).
+
 <!-- my comment -->  // write a comment on the web page (not print at screen, only for commenting, can read it on code html of browser).
 <noscript>myMessage</noscript>  // in body, balise for write an error message, if JS is disable on the browser user.
 <div></div>  // default block (take the full width by default).
@@ -31,19 +34,61 @@ lang="en"  // language of the balise (en, fr, ...).
 <h1></h1>  // balise title (from h1 to h6, to importance, 1 is the most priority).
 <p></p>  // make a paragraph (block for text).
 <br>  // make a return line.
+<br>  // make a horizontal line (to subdivise the current block).
 <section></section>  // block for a major part of the web page.
 <article></article>  // block for a secondary part of the web page (an article).
+<header></header>  // block for the header page (printed), contain the menu, logo, login button.
+<footer></footer>  // block for the footer page (contain the link, and credit).
+<meta name="keywords" content="a, b">  // define keyword for referencing the web page, (can be use as "description, author", viewport" to as name atribute).
+<style></style>  // define a block to write css.
 <menu></menu>  // block to define the navigation menu (of the web page).
+<nav></nav>  // define a block for many link <a>, like a menu (can't explain the diference).
 <a href="url"></a>  // define a text clickable (to redirect to another page).
 <ul></ul>  // block to define a list of elements (dot).
 <ol></ol>  // same but numeroted (number).
 <li></li>  // define a line on a list (<ul> or <ol>).
-<img src="url">  // balise image (alternative, you can set a backgroup image in CSS to every elements).
+<img src="url" width="" height="">  // balise image (alternative, you can set a backgroup image in CSS to every elements).
 <audio></audio>  // define a music lecture (can have attribute "controls" to let user edit the lectur).
 <source src="url" tyle="audio/mpeg">  // define a url music, into a <audio>.
-<b></b>  // bold text (you can use CSS), use it only to axe importante element, not to just make text bold.
+<b></b>  // bold text (you can use CSS), use it only to axe importante element, not to just make text bold (see also <em>, <i> for italic).
+<mark></mark>  // set a word as surligned with fluo (can do in css), depreciate.
 <base href="url" target="_blank">  // define a starting path to all link in the page (one by page, place it on head), ex: define domain name to all <a>.
 <blockquote cite="url"></blockquote>  // define a block who is a citation to another web page (not print, just for linkability and referencement).
+<canvas></canvas>  // block to draw (see all draw function on JS, set width and height in parameter html for resolution + css for render size).
+<code></code>  // to define a block who contain code (to write code line in a dev site).
+<datalist></datalist>  // to set a list of data (like a <select>) and can use it for an input (like a combo-box).
+<details></details>  // make a block foldable (set a <summary> into has title when folded).
+<dialog open></dialog>  // a pop up window, over the page (set attribute "open" or remove, to print or disable it), makable with css.
+<embed type="" src="url" width=""></embed>  // define a block to load an element (video, image, etc), see also <iframe>.
+<fieldset></fieldset>  // define a block (light border), can add a title on the border with <legend> (use like in a form).
+<form action="url" methode="post"></form>  // block to englob a formulair (many input), and define where it goes when it validate.
+<iframe src="url"></iframe>  // block to load another page in the page.
+<kdb></kdb>  // like <code> but for key board name (and use like a span, on a single word).
+<label></label>  // use to define the name/libele of an input (connected by name/for attribute).
+<main></main>  // define the main contend of the page (only one <main> by page).
+<map></map>  // use to define a zone clickable (precisely) in a <img> (use <area> into <map> to define all shap cliclable).
+<area>  // define area clickable on an <img> (defined on a <map>).
+<meter value="0.1">10%</meter>  // print a progression bare (to print statistic, like a range but not editable by user).
+<object data="url"></object>  // import image or web page (like <iframe> or <img>), comparable to <embed>.
+<param>  // use to define property of <object> (like "autoplay" on an audio file).
+<picture></picture>  // container for <img> to define editable src on media condition (condition on size media), can be manage in CSS or JS.
+<pre></pre>  // print contend exactly the same way it write one html (don't replace many space or return line).
+<progress value="10" max="100">10%</progress>  // same as <meter>, but print in inter, not float.
+<q></q>  // make word on quote (can add with JS injection char to).
+<ruby></ruby>  // use to define a mini-text upper the main text (for indicate the prononciation of the main text), use <rt> into.
+<rt></rt>  // use in ruby to define the mini-text, set the main in <ruby> and the mini-text in <ruby> and <rt>.
+<samp></samp>  // use to print result of a computer process (same as <code>).
+<search></search>  // use as container for a <form> destinate to make a search.
+<sub></sub>  // use to write subscript text (like in chimical formule like "H2O" with the "2" hald size font). 
+<sup></sup>  // same as <sub> but half up.
+<svg width="" height=""></svg>  // draw geometric form vectoriel (add balise into, like <circle> or other to draw).
+<table></table>  // use to print a table data (with <thead>, <tbody>, <tfoot>, <tr> for line, <th> for head cel, <td> for body cel...).
+<template></template>  // define a block html (not print) to get duplicate in JS (with element.content.cloneNode(true)).
+<time datetime="2025-01-01 21:00">21:00</time>  // use to print time (slightly more referent when date send match search, not a big deal).
+<video></video>  // same as <audio> but for video.
+<track></track>  // use to define file subtitle (.vtt) on diferent languages (src, kind, srclang, label).
+<var></var>  // use in a word to define it's a variable mathematic.
+<wbr>  // use has separator in a long string (without space) to allow the browser to do a return-line heer.
 
 // -- attribute.
 id="myId"  // set an id to an element (use to get an element easily), value must be unique on the page (not two balise with same id value).
@@ -53,13 +98,35 @@ alt="definition"  // set a definition of an element (ex: description of an image
 href="url"  // to define a link to anoter page, on <a> or <link>.
 src="url"  // to define a link to a file (to insert), on <script> or <img>.
 value="test"  // to set a value to an input balise (usage depent on the type input).
+style=""  // define css directly into the element (the more direct priority).
 
 // -- balise interaction.
 <button>test</button>  // make a button (depreciate, priorise input type button).
 <input type="button" value="test">  // button.
 <input>  // default input (for user type a word), type="text".
-
-// TODO: make all other input.
+<textarea></textarea>  // input text as a block (for long text).
+<select></select>  // for let user choose one choise in a range of value defined (in <option>), can add sub-group with <optgroup>.
+<input type="checkbox">  // a checkbox can be coched by user (true or false).
+<input type="radio">  // many checkbox, alow the user to check only one of theme.
+<input type="password">  // input text masked.
+<input type="submit">  // valide the form (send it).
+<input type="file">  // let user set a file (from his computer).
+<input type="hidden">  // an input to hidde value in a form to the user (use to send in the formulair, but not show of the user).
+<input type="email">  // input for write an email (include a default mail regex verify).
+<input type="tel">  // input for number telephone (include a default regex).
+<input type="url">  // input for url (include a default regex).
+<input type="color">  // input color (get a rgb color).
+<input type="number">  // input a number.
+<input type="range">  // like a number but on a slider.
+<input type="date">  // let user choose a date.
+<input type="datetime-local">  // same but date and time.
+<input type="month">  // only month (text regex).
+<input type="time">  // only time.
+<input type="week">  // only week (text regex)/
+<input type="image">  // input for an image (like a file, but more specify).
+<input type="reset">  // button to reset the whol formulaire champs.
+<input type="search">  // input text used to make a research.
+<output for="a b"></output>  // get many input number id, and set the sum of eatch (in real time), take number and range.
 
 // -- attribute interact.
 onclick="myFunc()"  // execute myFunc (function JS) when user click on element.

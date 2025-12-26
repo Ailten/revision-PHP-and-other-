@@ -125,6 +125,8 @@ flaot: right;  // to place an element (and make other élément adapt based on i
 clear  // make another element out from the float one (?).
 
 !important  // to make a line prioritary (use carfully).
+<span style="">  // second more prioriyé (define on the balise html).
+// least pririty depend on the precisition of the selector, ex: "*{}" is less precise than "body p#id{}".
 
 calc(100% - 100px)  // allow to make calcul in a value (not maintained vania).
 max(50%, 200px)  // return the max value (min exist to).

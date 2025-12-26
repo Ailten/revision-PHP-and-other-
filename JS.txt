@@ -28,12 +28,13 @@ let myVar = 5;  // set a variable (disapear in end of scop).
 var myVar = 5;  // set a variable.
 const myConst = 5;  // set a constance (can't be edited value).
 
-typeof(...)  // return the type of something.
+typeof myVar  // return the type of something.
 Null  // value when something is null.
 undefined  // value when something is not found properly.
 Infinity  // value to represent the infinity numeric.
 ==  // compare equality (value only).
 ===  // compare equality (value and type)
+!=, <, >, <=, >=, &&, ||, ??, 
 myVar instanceof Array  // check if is an array (check type alternative).
 
 document.getElementById('demo').innerHTML = "a";  // edit DOM text contend (by geting by id attribute, return one element or undefined).
@@ -43,6 +44,7 @@ document.getElementsByClassName('demo')  // get dom by class (return a array of 
 document.getElementsByTagName('demo')  // get dom by name balise html (return array).
 document.querySelector("p");  // get dom by a query (like css selector).
 window.addEventListener("load", (evnt) => {});  // set an event on window, trigger when it load end.
+// Jquery : you can import a jquery.min.js in your page, to user jquery syntax $(myQuertSelector).
 
 "...", '...', `...`  // way to set a string value.
 '..' + '.'  // concat.
@@ -147,6 +149,7 @@ for(let [key, value] of Object.entries(myObj)) {}  // loop on every attributes o
 JSON.stringify(myObj)  // cast object into json string.
 JSON.parse(myString)  // cast string json into object.
 myObj instanceof Obj  // check if is an instance of Obj (like typeof).
+tryFunc?.();  // execute a function only if it exist (if tryFunc exist but is not a function, it throw an error), need verification.
 
 new Date()  // make a date (as now).
 Date.now();  // same.
@@ -189,6 +192,7 @@ Array.prototype.random = function() { return this[Math.floor(Math.random()*this.
 
 String.fromCharCode(64);  // return char '@', based on his ascii value.
 
+document.body.appendChild(document.getElementById("myElem").content.cloneNode(true));  // take "myElem" in the page, get his inner contend, duplicate, and push.
 
 
 
