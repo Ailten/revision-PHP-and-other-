@@ -40,7 +40,7 @@ a(?!b)  // match "a" only if not next to "b".
 (?<!b)a  // match "a" only if before has not "b".
 (?<myGroupName>a)  // match "a" in a group named.
 \k<myGroupName>  // use the group capture named has reference on a regex (like for searching matching balise html <(?<balise>[a-z]*)>.*<\/\k<balise>> ).
-(?:a)  // match "a" but not claim the capture (the "a" can be capture in an other group regex.
+(?:a)  // match "a" but not claim the capture (the "a" can be capture in an other group regex).
 
 |  // or (match the left sequence or the right).
 
@@ -72,8 +72,11 @@ a(?!b)  // match "a" only if not next to "b".
 
 
 
+// ---> useful example :
 
-
+<(?<balise>[a-z]*)>(?!.*)<\/\k<balise>>  // matching balises html with generic name (open and close), with text between.
+<(?<balise>[a-z]*)>\K.*(?=<\/\k<balise>>)  // matching l'inside of a balise html.
+(?<=<(?<balise>[a-z]*)>).*(?=<\/\k<balise>>)  // return an array of [theIndise, theNameBalise].
 
 
 
