@@ -4,6 +4,25 @@
 // comment single line.
 /* comment many line. */
 "use strict"  // a string set all up of a JS script, to make it force use strict syntax.
+console.log("test");  // write in console.
+alert("test");  // pop a window with a text on it (and a button "ok" to exit).
+let input = prompt("question");  // pop a window with a champ to user enter text before validate.
+
+console.error("test");  // write in console (as an error, in red).
+console.warn("test");  // write in console (as a warning, in yellow).
+let isValidate = confirm("question");  // pop a window with choise "ok" or "cancel".
+console.clean();  // clean the console.
+document.write("test");  // write on the html contend (erase the all before page).
+console.assert(boolean, "message");  // print in console, if the boolean send is false.
+console.count("myTag");  // print in console "myTag : {num}", as num is the quantity "myTag" was call with this string.
+console.group("groupName");  // start a group console (make a group including all next console.log).
+console.groupEnd();  // end the scope group.
+console.groupCollapsed("groupName");  // same as group, but make it collapsed (not unfolded).
+console.info("test");  // same as log.
+console.table([]);  // print an array or a object in console.
+console.time();  // start a chronometre (fo eval performence).
+console.timeEnd();  // end the scope chronometre (and print it).
+console.trace();  // print in console the path of all function call to it (already print on error and log).
 
 let myVar = 5;  // set a variable (disapear in end of scop).
 var myVar = 5;  // set a variable.

@@ -68,7 +68,7 @@ a(?!b)  // match "a" only if not next to "b".
 \V  // match a char any type except vertical space (all exept any type of retour line).
 \W  // match a char any type except number, letter and underscore (oposite of \w).
 \Z  // match the place at end of string, or before the line terminator right at the end of the string (can't explain dif with \z).
-\Q[abc]\E  // match the text send between \Q and \E (prevent to interpret spécial char by the regex (alternative to set "\" at eatch special char).
+\Q[abc]\E  // match the text send between \Q and \E (prevent to interpret spécial char by the regex (alternative to set "\" at eatch special char)).
 
 
 
