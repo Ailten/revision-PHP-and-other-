@@ -136,6 +136,8 @@ clamp(2rem, 2.5vw, 3.5rem)  // clamp the value (min, value, max).
 @media screen and (max-width: 600px) {} // set css selector when condition media (when width size is under 600px).
 <link rel="stylesheet" media="screen and (min-width: 900px)" href="widescreen.css">  // set a css file when condition media.
 
+@media print {}  // make a block to edit css render when the user print the page (disable some elements).
+
 counter-reset: section;  // use to reset counter. (can use subsection for another counter into).
 counter-increment: section;  // use to increment eatch element.
 counter-increment: section 2;  // increment by a sending value.
@@ -143,7 +145,7 @@ counter-increment: section -1;  // decrement.
 counter: "Section " counter(section) ": ";  // use to render counter.
 
 
-// --- (advenced) ---
+
 
 
 

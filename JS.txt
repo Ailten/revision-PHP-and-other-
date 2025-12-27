@@ -34,8 +34,14 @@ undefined  // value when something is not found properly.
 Infinity  // value to represent the infinity numeric.
 ==  // compare equality (value only).
 ===  // compare equality (value and type)
-!=, <, >, <=, >=, &&, ||, ??, 
+!=, !, <, >, <=, >=, &&, ||, ??, 
 myVar instanceof Array  // check if is an array (check type alternative).
+parseInt("5")  // cast a string in a number (integer), or NaN.
+parseInt("FF", 16)  // cast string hexadecimal (base 16) in a number.
+parseFloat("5.2")  // cast string into number (float).
+Number("5")  // cast string into number.
+Infinity, -Infinity  // value theoricly infinit (as number).
+myNumber.toFixed(2)  // define the amount of decimal take to the number.
 
 document.getElementById('demo').innerHTML = "a";  // edit DOM text contend (by geting by id attribute, return one element or undefined).
 document.getElementById('demo').innerText = "a";  // same as innerHTML but text only (prevent injection).
@@ -61,10 +67,18 @@ window.addEventListener("load", (evnt) => {});  // set an event on window, trigg
 '...'.replace("A", "B")  // replace the first ocurence of A by B (can take a regex).
 '...'.replaceAll("A", "B")  // same as replace, but to all ocurence.
 '...'.indexOf("A")  // return the index of "A" in string.
+'...'.lastIndexOf("A")  // same as indexOf, but take the last.
 '...'.search("A")  // same as indexOf.
 '...'.includes("A")  // return true if string contain "A".
 '...'.startWith("A")  // return true if string start by "A".
+'...'.charAt("a")  // return the index wear was found the first char send (same as indexOf but for one char).
+'...'.charCodeAt(5)  // return the ascii number of the char at the index send.
+String.fromCharCode(64);  // return char '@', based on his ascii value.
+encodeURIComponent("myUrl")  // return a string (uri) by casting the special char for work on url).
+decodeURIComponent("muUrl")  // same but reverce.
 myVar.toString()  // cast into string.
+new Intl.NumberFormat();  // instancie an object to define the format of a number (spacing, virgule, € signe, decimal ...).
+new RegExp("myRegex", "g")  // make a regex (instanciate syntax, for start from a string).
 /^[a-z]$/  // set a regex (to one char betwin "a" and "z").
 /^[a-zA-Z]$/  // same include maj.
 /^[a-z]$/i  // same (i for take lower and upper case.
@@ -74,9 +88,11 @@ myVar.toString()  // cast into string.
 $  // mark as end string.
 (a|b)  // mark as "a" OR "b".
 /g  // g for find all ocurence.
-replace, match, search  // function string use regex.
-/a/.exec(myString)  // return the part string find by regex.
-/a/.text(myString)  // return true if the string pass succesfuly the regex.
+// see regex recap for more details on regex syntax.
+/a/.test("")  // return true if the string match the regex.
+"myStr".match(/a/)  // return an array of matching parameter, can return null if no match at all.
+"myStr".replace(/a/, "b")  // replace all ocure of regex match in the string, by "b" (you can add $1-$9) in the string "b" as placeholder for matching value.
+/a/.exec("myStr")  // return the part string find by regex.
 
 if(...) {}  // if.
 else if(...) {}  // else if.
@@ -86,6 +102,7 @@ switch(...) { case ...: break; default: }  // switch.
 while(...) {}  // while.
 do {} while(...) {}  // do while.
 for(let i=0; i<length; i++) {}  // for.
+for(let i in array) {}  // for (on an array), take the index not the value (on a dictionary, get the key).
 [...].forEach(e => {});  // foreach.
 break;  // break, exit loop.
 continue;  // continue, exit current iteration.
@@ -94,12 +111,13 @@ let myAr = [2, 5]  // set an array.
 myAr[0]  // get first element of array.
 myAr.length;  // get length of array.
 myAr.push(6)  // add a new element at end array.
+myAr.unShift(6)  // same but place at left of the array (can take various amount of parameters).
 myAr.pop()  // drop the last element.
 myAr.shift()  // drop the first element.
 myAr.every(() => true)  // loop on every element and return true if all return true.
 myAr.some(() => true)  // return true if at least one return true by lambda.
 myAr.fill(null, 1, 1)  // fill all element with "null", from index 1 to index 1 (not include).
-myAr.filer(() => true)  // filter the element who return false by the lambda.
+myAr.filter(() => true)  // filter the element who return false by the lambda.
 myAr.find(() => true)  // return the firt element who return true by lambda.
 myAr.findIndex(() => true)  // same but return the index (not the element).
 myAr.findLast(() => true)  // same but return the last (not the first).
@@ -108,32 +126,40 @@ myAr.includes('...')  // return true if contain the element send.
 myAr.join(",")  // concat element into one string.
 myAr.keys()  // return all keys of array in another array (usefull with dictionary).
 myAr.map(() => {})  // cast eatch element in a new array.
-myAr.reduce((cumul, e) => cumul+e, 0)  // loop on eatch element and cumul on a variable the result at eatch passage one by one.
+myAr.reduce((cumul, e, i) => cumul+e)  // loop on eatch element and cumul on a variable the result at eatch passage one by one.
 myAr.reduceRight()  // same but begin from the last one.
 myAr.reverse()  // return a new array backward.
 myAr.slice(2, 4)  // return a short peace of the array (start at index 2 end at index 4).
 myAr.splice(2, 4, null)  // replace a peace of array by the value send (null) (2 index start, 4 length element replace, null value inserted (only once)).
+myAr.indexOf("myValue")  // retourn the first ocurrence of this value on the array (return the index).
+myAr.lastIndexOf("myValue")  // same but return the last.
 myAr.sort()  // order the array element.
+myAr = myAr1.concat(myAr2)  // merge two array in one (return the new), can take more than one parameter array.
 Array.isArray(myAr)  // return true if is an array type.
 new Set()  // array who can only have be add element and not twice the same (not usefulle).
 new Map()  // array with key value pair (like dictionary).
 
 Math.round, .floor, .ceil, .trunc  // round number decimal.
 Math.sign  // return if the value send is under or uper zero (return -1, 0, 1).
-Math.PI  // pi.
+Math.PI  // pi (see also E, LOG2E, SQRT2... etc).
 Math.random  // return a number decimal between 0 and 1 (not include).
 Math.abs  // return the value absolute (positive) of a number.
 Math.pow  // do exposent.
 Math.sqrt  // do square root.
-Math.sin, .cos, .tan  // make sinus cosinus tangante.
+Math.sin, .cos, .tan  // make sinus cosinus tangante (see also asin, acos, atan).
 Math.min, .max  // return the min or max value from all value send in paramers.
-Math['myConst'] = 32  // set something in math object (use carfully).
+Math.sign(myNum)  // return -1, 0 or 1 depend on the nefatif, 0 or positif of number send.
+Math['myConst'] = 32  // set something in math object (use carfully to not make it trash).
 
 function myFunc() {}  // set a function.
 () => {}  // lambda (function short syntax).
 return;  // exit of a function scope (can return a value).
+function myFunc(a, ...b) {}  // heer, a function who take one parameter (a) and a various amount of other parameter (in array b), like Math.max.
+myFunc(5, ...myArray);  // you can send directly the array (instread of all value one by one) like this.
+myFunc.apply(null, [])  // call a function by sending parameter on an array (usefull to send a non-determined amount of parameters), you can replace null by the object owner of methode.
 (function myFunc() => {})();  // function auto call.
 // fermeture : act to make a function who return a function (and stock value on the function can be edited, like to make conter).
+eval("myCode")  // execute a string as JS code (depreciate, big risk of injection and bad security issue).
 
 let myObj = {}  // set an object.
 let myObj = {name: 'Thomas'}  // set object with parameters.
@@ -143,13 +169,23 @@ function Obj() { this.name = 'Thomas'; }  // make a function who return an objec
 let myObj = new Obj();  // instancie an object from a function.
 class Obj { constructor() { this.name = 'Thomas'; } }  // class (syntax alternative).
 class Obj extends ObjParent {}  // class eritage (set by a parent).
+ClassParent.call(this, param1, param2);  // call the parent constructor (in prototype way, in class, just use super(param1, param2)).
 static name = 'Thomas';  // attributes static (same value for all class).
-Object.values(Obj)  // return an array of properties object.
+delete myObj.myProperties  // delete the propertie of an instance (depreciate, can make spagety code with un-safe properties callable).
+Object.values(Obj)  // return an array of values object.
+Object.keys(myObj)  // return an array of key properties object.
+Object.getOwnPropertyNames(myObj)  // return an array of properties (like keys, but return "length" to if it's an array).
+Object.getPrototypeOf(MyClass)  // instancie an object by his type (usefull for instance generic.
+Objecy.create(Object.prototype, {})  // instancie an object (replace Object.prototype by a class, and {} by the set of all parameters), see more in details.
+Object.defineProperty(myObj, "myProperty", JsonDesc)  // add a property to an instance.
+Object.entries(myObj)  // return an array of array (all cel is an array of key-value).
 for(let [key, value] of Object.entries(myObj)) {}  // loop on every attributes of an object.
 JSON.stringify(myObj)  // cast object into json string.
 JSON.parse(myString)  // cast string json into object.
 myObj instanceof Obj  // check if is an instance of Obj (like typeof).
 tryFunc?.();  // execute a function only if it exist (if tryFunc exist but is not a function, it throw an error), need verification.
+localStorage.setItem("key", value)  // save a value on local storage (a hard-memory on browser).
+localStorage.getItem("key")  // get a value saved (can return null, or an error if execute without permission).
 
 new Date()  // make a date (as now).
 Date.now();  // same.
@@ -164,7 +200,10 @@ date.getDay()  // get index day of week.
 date.getDate()  // get index day of month.
 date.getMonth()  // get month.
 date.getFullYear()  // get year.
-date.setDate()  // edit a date obj to set the day of the month. (have all equivalence like get).
+date.getTime()  // get miliseconde from 1970 (date reference as 0 in IT).
+myDate.setDate()  // edit a date obj to set the day of the month. (have all equivalence like get).
+myDate.setTime()  // edit a date obj to set the time in milisec.
+myDate.setFullYear("2000")  // set year on a date object.
 
 try {}  // make a block to catch error.
 catch(err) {}  // make a block to handle error catched.
@@ -180,6 +219,34 @@ Promise  // object returned from an async call (to know when it finish and get v
 clearTimeout  // cancel an execution call by setTimeout.
 clearInterval  // same for interval.
 
+window.open("url", "name", "option")  // open a new window (see more in details what kind of option : width, left, scrollbars ...).
+myWindowPopUp.close()  // close a window opened.
+myWindowPopUp.focus() .blur()  // afiche in first plan (or hidde).
+document.getElementById("iframe").contentWindow  // get the window from a iframe (not verify).
+window.navigateur.userAgent  // return a string of the navigateur used.
+window.navigateur.onLine  // return true if the machine as access to internet.
+window.navigateur.cookieEnabled  // return true if the user as unable cookie on the browser.
+window.screen.width  // return the width of screen in pixel (not fiable in web, because window.innerWidth bether), work with height to.
+window.screen.availWidth  // same but width available on screen cont only.
+window.screen.orientation.angle  // return the angle of screen (?).
+window.location.href  // full url of the page (can be affected to change page, or get as a string).
+window.location.hostname .port .host  // return hostname (domain name), port, both.
+.pathname .protocol .search  // path folder, http/https, data send in url (usefull).
+.hash .origin  // char in url after "#", page who from the user to get in this page (usefull).
+window.location.reload()  // reload the page.
+window.location.replace("url")  // change the current page.
+window.history.back()  // back to last page consulted (usefull).
+window.history.forward()  // go to next page consulted (when user has make a back return).
+window.history.go(-1)  // move index in historic navigation.
+window.print()  // open the print view of the page.
+window.resizeTo(x, y)  // resize the window.
+window.resizeBy(x, y)  // resize the window (relative to the current size).
+window.moveTo(x, y)  // move the position of window at screen (only use on pop-up scam, or crapy game).
+window.moveBy(x, y)  // same but relative to current position.
+window.screenLeft screenX posX  // get position horizontal of screen.
+window.screenTop screenY posY  // get position vertical of screen.
+window.scrollTo(x, y)  // scroll at a fix position.
+window.scrollBy(x, y)  // scroll (base on current position scroll).
 
 // --- usefull stuff ---
 
@@ -189,8 +256,6 @@ encodeURIComponent(<string>)  // cast special char for param url.
 
 Math.lerp = (a, b, i) => { return a*(1-i) + b*i; };
 Array.prototype.random = function() { return this[Math.floor(Math.random()*this.length)]; };
-
-String.fromCharCode(64);  // return char '@', based on his ascii value.
 
 document.body.appendChild(document.getElementById("myElem").content.cloneNode(true));  // take "myElem" in the page, get his inner contend, duplicate, and push.
 
