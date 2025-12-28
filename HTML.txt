@@ -64,7 +64,7 @@ lang="en"  // language of the balise (en, fr, ...).
 <form action="url" methode="post"></form>  // block to englob a formulair (many input), and define where it goes when it validate.
 <iframe src="url"></iframe>  // block to load another page in the page.
 <kdb></kdb>  // like <code> but for key board name (and use like a span, on a single word).
-<label></label>  // use to define the name/libele of an input (connected by name/for attribute).
+<label></label>  // use to define the name/libele of an input (connected by for/id attribute).
 <main></main>  // define the main contend of the page (only one <main> by page).
 <map></map>  // use to define a zone clickable (precisely) in a <img> (use <area> into <map> to define all shap cliclable).
 <area>  // define area clickable on an <img> (defined on a <map>).
@@ -89,6 +89,7 @@ lang="en"  // language of the balise (en, fr, ...).
 <track></track>  // use to define file subtitle (.vtt) on diferent languages (src, kind, srclang, label).
 <var></var>  // use in a word to define it's a variable mathematic.
 <wbr>  // use has separator in a long string (without space) to allow the browser to do a return-line heer.
+<i class="fa fa-trophy"></i>  // balise icone, use to print little image vectoriel, predefined by class bootstrap.
 
 // -- attribute.
 id="myId"  // set an id to an element (use to get an element easily), value must be unique on the page (not two balise with same id value).
@@ -99,6 +100,23 @@ href="url"  // to define a link to anoter page, on <a> or <link>.
 src="url"  // to define a link to a file (to insert), on <script> or <img>.
 value="test"  // to set a value to an input balise (usage depent on the type input).
 style=""  // define css directly into the element (the more direct priority).
+disabled  // for make an input not editable by user.
+name=""  // to set a name on an input.
+type=""  // to define what type of input.
+autocomplete  // to define an input can be autocompleted (for reasearch input, i guess).
+width, height  // to define size (on img, canvas, etc).
+minlength, maxlength  // length text condition on input text.
+min, max  // value condition on input number.
+placeholder=""  // define a default value print has example when the input is empty.
+spellcheck  // define an input text as highlight orthograph mistake.
+pattern=""  // define a regex on an input text (usefull).
+required  // define an input is obligatoir on a form (can't be validate if not completed).
+checked  // checked by default a checkbox (or select option).
+for=""  // on a label, to link to an input (by attribute id on input).
+accept=""  // define the type of file alow (for an input file).
+multiple  // for input file, allow many file on the same input.
+size=""  // on select, can alow to chose more than one option (neet multiple to).
+download=""  // define a name of file, for use <a> as a button downloading a file from the url href.
 
 // -- balise interaction.
 <button>test</button>  // make a button (depreciate, priorise input type button).
@@ -130,13 +148,66 @@ style=""  // define css directly into the element (the more direct priority).
 
 // -- attribute interact.
 onclick="myFunc()"  // execute myFunc (function JS) when user click on element.
+onload="myFunc()"  // execute when the html element is load (in loading page).
+onchange=""  // when the value of an input is changed (on input text, when user lose focus and value is edited).
+oninput=""  // like change, but to eatch key pressed (bether).
+oninvalid=""  // call when an input is invalide (and try to submit the form).
+onkeypress=""  // when a key is pressed (and element is focus), down and up.
+onkeydown=""  // call when a key is pressed down (and element focus).
+onkeyup=""  // when a key is un-press (and element is focus).
+onfocus=""  // when the user focus the element (selectionne or click on it).
+onfocusin=""  // call when an element input is be focus start.
+onfocusout=""  // call when an element lose focus.
+onblur=""  // when an element is lose focus.
+ondrag=""  // call when an element is being dragged.
+ondragend=""  // call when finished dragging.
+ondragenter=""  // call when enter on a drop target.
+ondragleave=""  // call when a dragable selection is leaving the element.
+ondragover=""  // call when a draggable selection si dragged over a target.
+ondragstart=""  // call when an element is start draging.
+ondrop=""  // call when an element is drop on element (after being drag)
+mousedown, mouseenter, mouseleave, mousemove, mouseover, mouseout, mouseup, wheel  // events relate to movement mouse on an element html.
+onresize  // call when resize the page (set to the body or window).
+onselect=""  // call when user select a part of string on an input.
 
-// TODO: make all other attribute interact.
+onerror=""  // call when an img is error to load.
+animationstart  // when an animation css is start.
+animationend  // when an animation css is end.
+animationiteration  // when an animation css is repeated.
+animationName  // to get the anime on an element (not verify).
+elapsedTime  // to get the time played on an anime css (not verify).
+transitionend  // event for transition css.
+onbeforeunload=""  // call when a document is about to be unloaded.
+contextmenu  // call when user do a right click on the element (open the context menu).
+oncopy=""  // call when the user try to copy the element (base example on balise input).
+oncut=""  // call when user try a cut (same as copy, but with cut).
+onpaste=""  // call when user paste something on an input.
+ondblclick=""  // call when user to a double-click on element.
+onscroll=""  // call when user scroll on an element.
+onshow="" // call when an element is show.
 
-
-
-// continue balise define : https://www.w3schools.com/tags/tag_button.asp
-
-
+onplay, onpause, playing, onprogress, onratechange, waiting // event relative to media (video, music).
+onseeked, onseeking, onstalled, onsuspend, ontimeupldate, onvolumechange  // event relative to media (suite).
+oncanplay=""  // call when a media is ready to be play (like a video or audio, ready loading).
+onended=""  // call when a media is end played.
+oncanplaythrough=""  // same as oncanplay, but call when the entire media is ready to be read one shot without loading.
+ondurationchange=""  // call when a media is changing his duration.
+onabort=""  // call when an audio or video is cancel-loading (when the loading is error).
+onafterprint=""  // call when a page is start printing.
+onbeforeprint=""  // call before a page is start printing.
+fullscreenchange  // event call when the user set the page in full screen (with requestFullScreen).
+fullscreenerror  // event call when the set full screen in denide.
+loadeddata, loadedmetadata, loadstart,  // other event relative to loading.
+message  // use to object "EventSource('url')" (like to capture message get of an endpoint), need verification.
+ononline, onoffline  // call when connected or disconnected to internet.
+onopen  // call when an "EventSource('url')" is open.
+pagehide, pageshow  // event relative to show or hide a page (set to body).
+onreset=""  // call when a form is reseted (place on a form).
+onsubmit=""  // call when a form is submited.
+onsearch  // on input type search, call when user press enter (or the "x" button ?), not suported on some browser (can be implemented manualy in JS).
+ontoggle=""  // on balise details, call when fold or unfold a details block.
+ontouchcancel, ontouchend, ontouchmove, touchstart  // event when touch (durring doing other stuff ?), can't explain this one (maybe in touch screen).
+onunload=""  // call when a body is unload (exit or actualise page, can be not work depend on the browser/devise).
+readystatechange  // call when the state of document change (loading, interactive, complete).
 
 

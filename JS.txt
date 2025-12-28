@@ -44,13 +44,35 @@ Infinity, -Infinity  // value theoricly infinit (as number).
 myNumber.toFixed(2)  // define the amount of decimal take to the number.
 
 document.getElementById('demo').innerHTML = "a";  // edit DOM text contend (by geting by id attribute, return one element or undefined).
-document.getElementById('demo').innerText = "a";  // same as innerHTML but text only (prevent injection).
+document.getElementById('demo').innerText = "a";  // get the contend (without balises html).
+document.getElementById('demo').outerHTML;  // return the balise with balises html.
 document.getElementById('demo').style.backgroundColor = "red";  // set CSS by the DOM.
 document.getElementsByClassName('demo')  // get dom by class (return a array of element).
 document.getElementsByTagName('demo')  // get dom by name balise html (return array).
-document.querySelector("p");  // get dom by a query (like css selector).
-window.addEventListener("load", (evnt) => {});  // set an event on window, trigger when it load end.
+document.getElementsByName('demo')  // get dom by matching to attribute "name" value (return array).
+document.querySelectorAll("p")  // get dom by a query (like css selector), return a collection.
+document.querySelector("p");  // same as querySelectorAll but take the first element of the collection.
+window.addEventListener("load", (evnt) => {});  // set an event on window, trigger when it load end (see obj evnt in console for more details).
+window.onload = (evnt) => {};  // same (other syntax).
+window.removeEventListener("load", myFunc);  // remove the event of an element (need to pass the same function, so pass it named, not has lambda).
 // Jquery : you can import a jquery.min.js in your page, to user jquery syntax $(myQuertSelector).
+myDiv.offsetWidth;  // get width of element.
+myDiv.getBoundingClientRect().width;  // get an object with all details of posisition and size on the page.
+document.body  // return the balise body.
+document.forms  // return all balises form of the page (collection).
+document.scripts  // return all balises script of the page (collection).
+myDiv.childNodes  // return the childs of the element (collection).
+.firstChild .lastChild  // return the first or the last child of the element.
+.nextSibling .previousSibling  // return the next of the previous element.
+myDiv.parentElement  // return the element parent.
+myDiv.hasAttriubte("myAtr")  // return true if element has attribute.
+myDiv.getAttribute("myAtr")  // return the value of the attribute on the element.
+myDiv.setAttribute("myAtr", "value")  // set attribute on an element.
+// attribute custom should start by "data-" for nomenclature (optional).
+myDiv.classList  // axess to the list class element (to includes, add, remove).
+window.getComputedStyle(myElement)  // return the css of an element (not tested).
+myInput.value  // get value of an input.
+myCkeckbox.checked  // true if a checkbox is checked.
 
 "...", '...', `...`  // way to set a string value.
 '..' + '.'  // concat.
@@ -248,6 +270,63 @@ window.screenTop screenY posY  // get position vertical of screen.
 window.scrollTo(x, y)  // scroll at a fix position.
 window.scrollBy(x, y)  // scroll (base on current position scroll).
 
+let objImg = new Image();  // instancie an obj image.
+objImg.onload = () => {};  // event when it's load (verify documentation).
+objImg.onerror = () => {};  // event call when img is an error to load.
+objImg.src = "urlImg";  // set an url img (to start loading).
+objImg.width .height  // get size of image (after loaded).
+
+AJAX XMLHttpRequest fetch  // way to do call async (prefer use fetch).
+fetch("url", {option})  // call async by fetch.
+.then((result) => {})  // get result when it work succesfully (can have many then).
+.catch((err) => {})  // get error returned.
+let result = await fetch();  // call a fetch syncronously, and stock return.
+
+let ctx = myCanvas.getContext('2d');  // get an object context of a canvas dom html (to draw on it).
+ctx.beginPath();  // start a trace draw (start).
+ctx.closePath();  // end a trace draw (end), make a last line from current virtual pos and the virtual pos where it was durring the beginPath.
+ctx.stroke();  // apply the draw.
+ctx.moveTo(x, y)  // move cursor virtual.
+ctx.lineTo(x, y)  // make a line for current curssor virtual position, to next one send.
+ctx.lineWidth = 5  // set size of line (thicness).
+ctx.strokeStyle = "#0f0"  // set color of the line.
+ctx.fillStyle = "#f00"  // set color of the fill.
+ctx.setLineDash(pxFull, pxEmpty)  // define line style has dashed (optional, you can define the pixel repartition of full/empty).
+ctx.clearRect(x,y, x2, y2)  // erase a rectangle on the canvas.
+ctx.rect(x,y, x2,y2)  // draw a rectangle (work with fillRect to).
+ctx.arc(x,y, x2,y2, Math.PI*2, isOlogeeDirection)  // draw a circle (of an arc circle), [posCenter, posBorder, radius, isOrlogee].
+ctx.beginCurveTo(x2,y2, x3,y3, x4,y4)  // draw a bezier curve (need to try, not sur if it take the cursor virtual as first position or note).
+ctx.drawImage(myImgObj, x,y, sizeX,sizeY)  // draw an image.
+myGrad = ctx.createLinearGradient(x,y, x2,y2)  // create a gradient.
+myGrad.addColorStop(i, "#00f")  // define colors of gradient (one by one), the i is a number between 0 and 1 include.
+myGrad = ctx.createRadialGradient(x,y, r, x2,y2, r2)  // create a gradient radial (ciruclar).
+myPatern = ctx.createPattern(myImgObj, "repetitionMode")  // create a patern (for repeating on canvas), [repeat, repeat-x, repeat-y, no-repeat].
+ctx.fillStyle = myPatern  // define a patern to use as background for a fill geometry (fillRect).
+ctx.strokeText("myTxt", x,y)  // draw a text (work with fillText to).
+ctx.font = "20px arial"  // define the font size and the font of a text to draw.
+ctx.textBalise = ""  // define how text need to be draw comparate to the position [alphabetic, middle, top, hanging, bottom].
+ctx.mesureText("myTxt").width  // evaluate the size of the text before print, to ajust.
+ctx.rotate(myAngle)  // rotate the canvas, to draw with a rotation.
+ctx.setTransform(echelleX, inclineX, inclineY, echelleY, translateX, translateY)  // aply a transform to the canvas (never try).
+ctx.save()  // save a current vertion of the context.
+ctx.restore()  // rollback to the last vertion saved.
+myCanvas.toDataUrl("image/png");  // get a string data of the image canvas (example, set on a <a> to make it download, or write it on a png file).
+window.requestAnimationFrame(myFuncCallBack)  // function to animate a canvas eatch frame (you can use setInterval).
+window.cancelAnimationFrame(myAnimationId)  // cancel an animation frame.
+
+Chart.js  // lib to make graphics.
+tree.js  // lib to make 3D.
+Jquery  // to use $() syntax.
+Bootstrap  // lib for CSS.
+Angular  // framework JS (using TypeScript).
+React  // framework JS (with a virtual dom, for actualise only what change).
+VueJs  // framework JS.
+
+// web worker : a way to execute JS script in background (when it's eavy), without blocking the user.
+myWorker = new Worker("myFileJs.js")  // create a worker.
+myWorker.postMessage(JsonMessage)  // send a message (can use to send a data to the worker: declare a "function onmessage(evnt)" on the file worker).
+myWorker.terminate()  // destroy the worker.
+
 // --- usefull stuff ---
 
 getEventListeners(<DOMelement>)  // get list of event set to an element.
@@ -257,7 +336,25 @@ encodeURIComponent(<string>)  // cast special char for param url.
 Math.lerp = (a, b, i) => { return a*(1-i) + b*i; };
 Array.prototype.random = function() { return this[Math.floor(Math.random()*this.length)]; };
 
+document.bodu.appendChild(document.createElement("div"))  // create a div and push in the body.
+myDiv.insertBefore(document.createElement("div"))  // create a div and push before an element.
+myDiv.removeChild(myDiv.getElementById("id"))  // remove an element. 
 document.body.appendChild(document.getElementById("myElem").content.cloneNode(true));  // take "myElem" in the page, get his inner contend, duplicate, and push.
+
+document.body.requestFullScreen();  // open full screen mode (full-full).
+document.body.exitFullScreen();  // un-do the full screen mode.
+
+myForm.submit();  // submit a form (work with all event on an element, like click, or other).
+let evnt = new Event("mouseover");  // set an event to an objet to execute it with script (for event can be called directly).
+myDiv.dispatchEvent(evnt);
+
+window.getSelection().toString()  // get the selection text by user.
+window.getSelection().getRangeAt(n)  // get an object Range, to manipule the selection (over many balise), obj Range can also insert node or do other stuff.
+
+document.execCommand("copy")  // save in press papier the selection on the page.
+
+
+
 
 
 

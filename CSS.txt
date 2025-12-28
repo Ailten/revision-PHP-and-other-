@@ -44,6 +44,7 @@ a:visited {}  // select when link has already clicked in past.
 a:link {}  // select a lin not visited (?).
 div:first-child {}  // select if div is the first child of a parent.
 div:last-child {}  // select if div is the last child of a parent.
+div:nth-child(3) {}  // select the 3th child (can use with "n + 3" or "-n + 3", to select a range based on their index).
 div:first-of-type {}  // select if div is the first child of his type.
 div:blank {}  // select div who has nothing into (not usefull).
 div:empty {}  // select element who has no child (not usefull).
@@ -112,7 +113,6 @@ vh  // relative to 1% height window viewport.
 vmin  // relative to 1% window viewport smaller (width/height).
 vmax  // relative to 1% window viewport larger (width/height).
 
-
 display: none;  // mark the element to no rendered at all.
 visibility: hidden;  // make element masked (still take the place).
 opacity: 0;  // set opacity of element.
@@ -123,6 +123,7 @@ z-index: -1;  // set an order to render (the lower value, the farest is from the
 overflow: hidden;  // set how to manage the "over" contend (when a contend element is to big for the size of the element.
 flaot: right;  // to place an element (and make other élément adapt based on it).
 clear  // make another element out from the float one (?).
+resize: none;  // disable resizing (use on textarea).
 
 !important  // to make a line prioritary (use carfully).
 <span style="">  // second more prioriyé (define on the balise html).
@@ -144,6 +145,21 @@ counter-increment: section 2;  // increment by a sending value.
 counter-increment: section -1;  // decrement.
 counter: "Section " counter(section) ": ";  // use to render counter.
 
+animation-name  // name of anime (ref of a block anime in css).
+animation-duration  // duration of an anime.
+animation-iteration-count  // how many time it must be played.
+animation-delay  // time before execute anime.
+animation-direction  // direction of the anime.
+animation-timing-function  // (?).
+@keyframe myAnime { from {} to {}}  // declare an animation (can set many block from 0% to 100% also).
+
+transform: rotate(90deg);  // set rotation on an element.
+transform: translate(x, y);  // translation.
+transform: scale(2);  // scale.
+transform: rotate3d(x,y,z, angle);  // rotation 3D effect.
+transform: skew(30deg, 30deg);  // rotation 3D effect (not tested).
+transform: matrix(a,b,c,d, x,y)  // matrix (not tested).
+transform-origin: center;  // edit the origin on element [center, top left, Xpx Ypx].
 
 
 
