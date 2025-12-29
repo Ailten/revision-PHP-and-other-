@@ -2,10 +2,16 @@
 // ------> Regex (syntax).
 
 /myRegex/  // regex (match chain send).
-/myRegex/g // "g" can match many time in a string.
-/myRegex/i // "i" can take upper case and lowercase.
-/myRegex/m // "m" can match start and end for all line (^, $).
-/myRegex/x // "x" ignore wh... ??
+/myRegex/g  // "g" can match many time in a string.
+/myRegex/i  // "i" can take upper case and lowercase.
+/myRegex/m  // "m" can match start and end for all line (^, $).
+/x  // all char after "#" in the regex are ignored (not sur of the utility).
+/s  // single line (never try).
+/u  // match with full unicode (never try).
+/U  // un-greedy, make quantity selector un-greedy (can be usefull, but replace by "?" after quantity indicator).
+/A  // anchored, anchor to start of pattern, or at the end of the most recent match (never try).
+/J  // Jchanged, allow duplicate subpattern names (never try, but looks usefull).
+/D  // Dollar end only, the char "$" mean the end of the string, only (never try).
 
 ^  // start of string.
 $  // end of string.
