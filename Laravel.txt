@@ -61,7 +61,8 @@ composer install  // (facultatif, for generate vendor folder).
 php artisan key:generate  // generate the private application key. (it be stor in .env as APP_KEY).
 
 // ------> execute the web project (launch) :
-php artisan serve  // start laravel server.
+php artisan serve  // start Laravel server.
+npm run dev  // start Vite (for inject JS/CSS).
 sudo service mysql start  // start MySQL. (or : sudo systemctl start mysql).
 // open a browser to http://127.0.0.1:8000/  (or the url seted in .env, verify port to).
 
@@ -284,7 +285,7 @@ env('MY_KEY')  // get const env value.
 @else
 @auth
 @endauth
-@dump($user)  // debug at screen the contend of variable.
+@dump($user)  // debug at screen the contend of variable. (same as dd() but in view).
 @php
 @endphp
 @class(['myClass', 'myConditionClass' => true])  // set class (by an array of string) and can declare condition to set eatch class (like "if (...) class").
@@ -308,6 +309,8 @@ request()->route()->getName()  // get name route (the name, not the url).
 // MVC -> Model (object mirroring of table DB), Controller (who get data and place in forme for the print in view), View (the print at screen for user).
 // Root to define wich url call what view.
 // Service for interact with DB. (~)
+
+Route::getCurrentRoute()->getName()  // get the route name of current page (callable in view).
 
 
 
@@ -553,9 +556,37 @@ $rolesIdsInUser = $user->roles()->pluck('id');  // take only the id of jointure 
 
 
 
+// ---------------> (-) inject/import JS, CSS, avec Vite :
+
+// sudo apt install npm  // need npm, so download if not already on the machine.
+// --> npm install  // in folder project, to install dependances JS.
+// --> npm run dev  // launch Vite (on dev mode), it need NodeJS v 18 or +, it launch Vite.
+// ----> npm run build  // if in production use build instead of dev.
+
+// place file JS and CSS in ressources/[css|js]/ (instead of public/[css|js]/).
+// create a view layout.blade.php :
+// --> @vite(['resources/js/app.js', 'resources/css/app.css'])
+// inject from other view with :
+// --> @extends('myFolder.layout')
+
+// adding bootstrap :
+// --> npm install bootstrap  // in cmd folder project.
+// in js file :
+// import 'bootstrap';
+// in css file :
+// @import "bootstrap/dist/css/bootstrap.min.css";
+
+
+
 // ---------------> (13) Authentification :
 
 
+
+
+
+
+// esque je peu utiliser un certifica SSL si mon site n'a pas de nom de domaine ?
+// comment executer "artisant server" et "npm start dev" en une foi, en ayant le résultat temps réel des 2 dans la meme console ?
 
 
 

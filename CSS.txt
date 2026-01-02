@@ -97,6 +97,7 @@ overflow-x: auto;  // to set responsive spacing axe X on a table.
 margin: 5px;  // set margin (extern).
 padding: 5px;  // set padding (inner).
 margin-left: 5px;  // set margin by eatch side.
+margin: 5px 10px;  // set margin (as up-down, and left-right arguments).
 
 height: 20px;  // set size Y of element.
 width: 100%;  // set size X of element.

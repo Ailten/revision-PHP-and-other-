@@ -69,7 +69,7 @@ myDiv.hasAttriubte("myAtr")  // return true if element has attribute.
 myDiv.getAttribute("myAtr")  // return the value of the attribute on the element.
 myDiv.setAttribute("myAtr", "value")  // set attribute on an element.
 // attribute custom should start by "data-" for nomenclature (optional).
-myDiv.classList  // axess to the list class element (to includes, add, remove).
+myDiv.classList  // axess to the list class element (to contains, add, remove, switch, toggle).
 window.getComputedStyle(myElement)  // return the css of an element (not tested).
 myInput.value  // get value of an input.
 myCkeckbox.checked  // true if a checkbox is checked.
