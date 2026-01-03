@@ -69,6 +69,8 @@ background-position: right top;  // set position of image background.
 background-attachment: fixed;  // set if the image background should be scrollable or fixed.
 content: url(a.png);  // add an image with css (un-commun) use with after/before selector.
 backdrop-filter: blur(3px);  // make a div over an element and make blur the elements under.
+-webkit-backdrop-filter: blur(5px);  // same for other browser.
+brightness, contrast, drop-shadow, grayscale, hue-shadow, invert, sepia, saturate  // other value for backdrop-filter (or an url of an SVG filter).
 
 color: red;  // set color of text.
 red, #ff0000, #f00, rgb(255, 0, 0), hsl(100%, 0, 0)  // diferent type of value color format.

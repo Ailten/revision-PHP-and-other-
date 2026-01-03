@@ -578,6 +578,12 @@ $rolesIdsInUser = $user->roles()->pluck('id');  // take only the id of jointure 
 
 
 
+// ---------------> (-) OAuth login (twitch) :
+
+// doc : https://www.youtube.com/watch?v=n9oO5D-aHCY
+
+
+
 // ---------------> (13) Authentification :
 
 
@@ -585,8 +591,7 @@ $rolesIdsInUser = $user->roles()->pluck('id');  // take only the id of jointure 
 
 
 
-// esque je peu utiliser un certifica SSL si mon site n'a pas de nom de domaine ?
-// comment executer "artisant server" et "npm start dev" en une foi, en ayant le résultat temps réel des 2 dans la meme console ?
+// TODO : how execute artisan and Vide in a same commend (and not take many console busy).
 
 
 
