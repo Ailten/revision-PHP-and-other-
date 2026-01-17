@@ -50,7 +50,7 @@ div:blank {}  // select div who has nothing into (not usefull).
 div:empty {}  // select element who has no child (not usefull).
 div:has(h1) {}  // select element div who has a h1 into.
 div:lang(fr-FR) {}  // select element who is set in a defined lang.
-div::after {}  // get element in area after element div (can be use to add img with "content: url".
+div::after {}  // get element in area after element div (can be use to add img with "content: url").
 div::before {}  // get element area before elemnt div.
 p::first-line {}  // select first line text on a p.
 p::first-letter {}  // select first letter text on a p.
@@ -68,9 +68,18 @@ background-repeat: no-repeat;  // make repeate the mackground image on axes.
 background-position: right top;  // set position of image background.
 background-attachment: fixed;  // set if the image background should be scrollable or fixed.
 content: url(a.png);  // add an image with css (un-commun) use with after/before selector.
-backdrop-filter: blur(3px);  // make a div over an element and make blur the elements under.
+backdrop-filter: blur(3px);  // make a div over an element and make blur the elements under (you can add many value for backdrop-filter, spacing without virgul).
+backdrop-filter: brightness(50%);  // more grey (darker the color, desature).
+backdrop-filter: contrast(80%);  // more white.
+backdrop-filter: drop-shadow(4px 4px 10px blue);  // can't see diference.
+backdrop-filter: grayscale(100%);  // more grey.
+backdrop-filter: hue-rotate(120deg);  // traslate the palette color.
+backdrop-filter: invert(100%);  // invert color.
+backdrop-filter: opacity(20%);  // like opacity (i guess).
+backdrop-filter: sepia(100%);  // filtre yellow, like old picture.
+backdrop-filter: saturate(200%);  // more grey (lower the value).
+backdrop-filter: url(filters.svg#filter);  // set an url filter svg file.
 -webkit-backdrop-filter: blur(5px);  // same for other browser.
-brightness, contrast, drop-shadow, grayscale, hue-shadow, invert, sepia, saturate  // other value for backdrop-filter (or an url of an SVG filter).
 
 color: red;  // set color of text.
 red, #ff0000, #f00, rgb(255, 0, 0), hsl(100%, 0, 0)  // diferent type of value color format.
@@ -79,7 +88,7 @@ font-size: 20px;  // set size text.
 font-weight: bold;  // set font as bold (can take a value int).
 text-align: left;  // set aligned text.
 text-transform: uppercase;  // set the text as full uppercase.
-text-shadow  // set a shadow under the text (value is size X, size Y, spreading, color).
+text-shadow  // set a shadow under the text (value is size X, size Y, spreading, color), can have many value separete by virgule.
 text-decoration, text-spacing  // un-commun modificator for text (not-usefull).
 
 border-style: solid;  // set border type.
@@ -164,7 +173,11 @@ transform: skew(30deg, 30deg);  // rotation 3D effect (not tested).
 transform: matrix(a,b,c,d, x,y)  // matrix (not tested).
 transform-origin: center;  // edit the origin on element [center, top left, Xpx Ypx].
 
-
+@font-face {
+  font-family: myFont; /* set name */
+  src: url(sansation_light.woff); /* url of the font */
+}
+p { font-family: myFont; }
 
 
 

@@ -61,7 +61,7 @@ lang="en"  // language of the balise (en, fr, ...).
 <dialog open></dialog>  // a pop up window, over the page (set attribute "open" or remove, to print or disable it), makable with css.
 <embed type="" src="url" width=""></embed>  // define a block to load an element (video, image, etc), see also <iframe>.
 <fieldset></fieldset>  // define a block (light border), can add a title on the border with <legend> (use like in a form).
-<form action="url" methode="post"></form>  // block to englob a formulair (many input), and define where it goes when it validate.
+<form methode="POST" action="url"></form>  // block to englob a formulair (many input), and define where it goes when it validate.
 <iframe src="url"></iframe>  // block to load another page in the page.
 <kdb></kdb>  // like <code> but for key board name (and use like a span, on a single word).
 <label></label>  // use to define the name/libele of an input (connected by for/id attribute).

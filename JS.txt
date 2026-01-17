@@ -353,6 +353,10 @@ window.getSelection().getRangeAt(n)  // get an object Range, to manipule the sel
 
 document.execCommand("copy")  // save in press papier the selection on the page.
 
+Array.prototype.forEach.call(  // foreach on an query.
+        document.getElementsByClassName("myClass"),
+        myDom => {}
+);
 
 
 

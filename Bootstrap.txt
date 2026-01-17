@@ -8,9 +8,15 @@
 
 .badge  // little box to sho when it's a tag (like categories).
 
+.w-50  // set an element a width 50% (not use to reach 100% cumul).
+
+.d-flex justify-content-center  // a container who center elements.
+
+.mt-1  // margin top value 1 (relative to spacing).
 
 
 
 // todo : flex, grid, with, height, select multiple, ...
 // d-flex justify-content-end  // for align elemnt of a div at right.
 // ms-auto  // to align one elemnt (todo: test).
+// scroll infiny.

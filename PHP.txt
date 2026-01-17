@@ -134,7 +134,7 @@ ksort($myArray);  // order croissant for associative arrays key.
 arsort, krsort  // order de-croissant for value and for key.
 array_key_exists("Volvo",$a)  // return true if the key is set into the array.
 array_keys($a)  // return an array of all keys.
-array_filter($a1,"test_odd")  // filter by sending name of a function taking one parameter cel.
+array_filter($a, fn($v) => $v == 2 )  // filter by sending name of a function taking one parameter cel.
 array_map("myfunction",$a)  // return an array remap after passing by a function send by name.
 array_reduce($a,"myfunction")  // return a single value, before looping on eatch element by passing two value at a function (first is cumul (start empty, second is current cel).
 array_search("red",$a)  // search a value into an array, and return his key.

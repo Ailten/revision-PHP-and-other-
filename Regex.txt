@@ -22,6 +22,7 @@ $  // end of string.
 \d  // same
 [a-zA-Z0-9]  // match a char in range letter or number.
 \w  // same (take the char "_" to).
+[\w-]+  // work like [a-zA-Z0-9_-]{1,}.
 [abc]  // match a char in all char send.
 [^0-9]  // match any char except numeric (^ mean not).
 [+]  // inside a block, special char mean only their true value.

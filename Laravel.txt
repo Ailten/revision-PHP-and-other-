@@ -62,9 +62,14 @@ php artisan key:generate  // generate the private application key. (it be stor i
 
 // ------> execute the web project (launch) :
 php artisan serve  // start Laravel server.
-npm run dev  // start Vite (for inject JS/CSS).
+npm run dev  // start Vite (for inject JS/CSS), alow param "prod".
 sudo service mysql start  // start MySQL. (or : sudo systemctl start mysql).
 // open a browser to http://127.0.0.1:8000/  (or the url seted in .env, verify port to).
+
+// launch project, vertion merged :
+php artisan serve & npm run dev & wait  // but it not cut the process when cut down (verify with "ps u", "ps aux | grep artisan" et "ps aux | grep npm".
+// --> (force kill with) : pkill -f "php artisan serve"
+                           pkill -f "npm run dev"
 
 // --------> cut-down the web project :
 php artisan down --message="Le site est en maintenance temporaire"  // cut down the project (and put a message for users).
@@ -84,6 +89,13 @@ mysqldump -u root -p <db_name> > backup.sql  // (optionel, backup DB).
 // example :
 Route::get('/', function () {
     return view('welcome');
+    return redirect()->route('index)->with('key', 'value');  // redirect for generate an http call, with a parrameter.
+    return redirect()->back();  // back for return last page (i guess).
+    return redirect()->intended(route('index'));  // redirect to the default route ask, and if there are no one, tooke 'index'.
+    return to_route('index')->withErrors(['message' => 'abc']);  // send an array of errors.
+    ->onlyInput('email');  // take the same email (for not lose value from form invalid).
+
+    session()->flash('error', 'message');  // send a message (like with) but without the ligne route (usefull in middleware who return str).
 });
 // this bloc say : when the url "/" (default page), return the view "welcome" (you can define a view as a web page).
 
@@ -106,6 +118,7 @@ Route::get('/debug', function (Request $request) {
         'request_path' => $request->url(),  // full url.
         'request_path' => $request->all(),  // array of all parameter send (in post or get), example et in url as ".../debug?name=Toto&age=22".
         'request_path' => $request->input('name', 'myPlaceholder'),  // get a specific parameter sended (if not found, return null).
+                          $request->has('name')  // return if the request contain this parameter.
     ];
 });
 
@@ -116,6 +129,7 @@ Route::get('/debug/{table}-{id}', function (string $table, string $id, Request $
     'table' => '[a-zA-Z\-]+',
     'id' => '[0-9]+',
 ]);
+route('myRoute', ['id' => 1]);  // create the route (no placeholder in name).
 
 // you can add a name of the root (for bether mainteine of code) :
 })->name('debug');  // use a generic name of what it does.
@@ -156,7 +170,8 @@ Route::post('/my/path/url' 'myFUnctionControllerToCallForConvertDataPostSend');
 
 // (facultatif : for migration of a new DB)
 // you can use sqlit (in DB_CONNECTION), delete the other param relate to DB in the block.
-// in cmd call : php artisan make:migration [nameOfMigration_like_CreateProductsTable]  // it create a generation file of table in database/migrations/...php
+// in cmd call : 
+php artisan make:migration [nameOfMigration_like_CreateProductsTable]  // it create a generation file of table in database/migrations/...php.
 // like :
 return new class extends Migration  // class migration (like a block for the table sql).
 {
@@ -165,6 +180,11 @@ return new class extends Migration  // class migration (like a block for the tab
         Schema::create('users', function (Blueprint $table) {  // create the table "users".
             $table->id();   // set a param named "id".
             $table->string('email')->unique();  // param name "email", type string, and unique contraint.
+            $table->string('email', 64);  // set length char.
+            $table->integer('int')->unsigned();  // integer unsinged.
+            $table->float('float');  // float.
+            $table->tinyInteger('byte');  // from -128 to 127.
+            $table->bigInteger('long');  // long -9e18 to +9e18.
             $table->longText('description');  // param for a long texte (not only one word).
             $table->timestamp('email_verified_at')->nullable();  // param type timeStamp.
             $table->rememberToken();  // use to stay connected.
@@ -174,19 +194,21 @@ return new class extends Migration  // class migration (like a block for the tab
             // "onDeletete('cascade')" say "delete this OBJ when the FK is deleted".
         });
     }
-    public function down(): void  // when down (shut-down).
+    public function down(): void  // when down (rollback).
     {
         Schema::dropIfExists('users');  // drop the talbe "users".
-        Schema::table('orders', function(Blueprint $table){  // when delete an element of this class model : drop the foreign key on this table to.
-            $table->dropForeignIdFor(User::class)
+        Schema::table('orders', function(Blueprint $table){  // block to delete cascade FK constraint, write it on table who has the FK.
+            $table->dropForeignIdFor(User::class);  // class form model.
         });
     }
 }
-// in cmd call : php artisant migrate  // for execute and create the ORM of DB.
+// in cmd call : 
+php artisant migrate  // for execute and create the ORM of DB.
 // --> this cmd generate a file database/seeders/database.sql  // can be use to generate the DB.
 // --> this cmd can have "-m" at end for generate model at same time.
 
-// in cmd : php artisan make:model [nameOfTable(singulier)]  // create a model (in app/Models/...php) : class ORM of a table DB.
+// in cmd : 
+php artisan make:model [nameOfTable(singulier)]  // create a model (in app/Models/...php) : class ORM of a table DB.
 // --> all ORM class can instaniate ("$user = new Users();"), affected ("$user->email = 'toto';"), and save in DB ("$user->save();").
 
 // you can get all line of a table like this :
@@ -225,12 +247,19 @@ protected $fillable = ['email'];  // with all parameter name to send.
 
 protected $quarded = ['id'];  // or this way, by sending all param to not send in array.
 
+protected $hidden = ['password'];  // define parameters of model, who's not take when model is casting on array or json (security print).
+
+protected $casts = ['password' => 'hashed', 'verified_at' => 'datetime'];  // declare parameter who need to be casted.
+
 $user = User::where('id', '=', 1)->update([  // update where (usefull for update many thing sincroniusly), work also with delete.
     'email' => 'my@email.com'
 ]);
 
 $user->role?->name  // "?" prevent to a parameter nullable (when print in a view : if null print nothing at all).
 $user->myCollection->isEmpty()  // verify if a collection is empty.
+
+public $timestamps = false;  // in Model class (to disable time-create and time-update) when a table without any attirubte.
+
 
 
 // ---------------> (6) Controller : 
@@ -246,7 +275,7 @@ php artisan make:controller [nameOfMyController_example_UserController]  // crea
 Route::get('/', [MyController::class, 'myMethodeInController'])  // call has an array of 2 elements, the class Controller, and a string of the methode to call.
 
 // you can also define a controller for a whole block :
-Route::prefix('/home')->name('home.')->controller(MyController:class)->group(function(){
+Route::prefix('/home')->name('home.')->controller(MyController::class)->group(function(){
     Route::get('/', 'myMethodeInController')->name('index');
 });
 
@@ -283,8 +312,10 @@ env('MY_KEY')  // get const env value.
 @if(true)
 @endif
 @else
-@auth
+@auth  // like an @if(isset(Auth::user()))
 @endauth
+@guest  // like else Auth.
+@endguest
 @dump($user)  // debug at screen the contend of variable. (same as dd() but in view).
 @php
 @endphp
@@ -302,6 +333,9 @@ public function boot(): void {
 // make a link :
 <a href="{{ route('home.user.show', ['id' => $post->id]) }}" class="btn">myLink</a>
 
+{{ url('/index')  }}  // set an url (prefer use view() or route()).
+{{ url()->previous()  }}  // back to last url (in view).
+
 request()  // get obj of request to load the view.
 request()->route()  // get the route use.
 request()->route()->getName()  // get name route (the name, not the url).
@@ -311,6 +345,9 @@ request()->route()->getName()  // get name route (the name, not the url).
 // Service for interact with DB. (~)
 
 Route::getCurrentRoute()->getName()  // get the route name of current page (callable in view).
+
+// verify if a route named "login" exist.
+@if(Route::has('login'))
 
 
 
@@ -323,11 +360,19 @@ Route::getCurrentRoute()->getName()  // get the route name of current page (call
 $validator = Validator::make([
     'title' => ''  // user send a title empty, at creating the obj Model.
 ], [
-    'title' => 'required|numeric',  // define parameter title as contraint "required" and "numeric".
-    'email' => ['required', 'min:8'],  // same, but can send as an array (mor pratic for many condition, or regex).
-    'name' => [Rule::unique('users')],  // same, but with object rule (instead of string), heer unique in table 'users'.
+    'title' => 'required',  // define parameter title as contraint "required" (throw error if not sended).
+    'value' => 'numeric'  // numeric axept number (entier or decimal).
+    'value' => 'integer'  // axept only number entier.
+    'value' => 'string'  // refuse number, array or object.
+    'value' => 'integer|min:1',  // heer, define integer make the "min,max" define on the value, not on the length str.
+    'email' => ['required', 'min:8'],  // heer, min tel the champ need to be 8 char length min.
     'abc' => ['regex:/^[a-z]+$/']  // regex example.
     'role_id' => ['exists:roles,id']  // need to exist in table roles (specify what table, and what champ in this table).
+    'name' => ['unique:users,name']  // verify if the champ is not already on a DB champ unique (users is table verify, name is the champ verify).
+    'name' => [Rule::unique('users')],  // same, but with object rule (instead of string), heer unique in table 'users'.
+    'name' => [Rule::unique('users', 'email')->ignore($user->id)]  // case of update (to igniore them self).
+    'value' => 'not_in:0'  // make error if value is "0".
+    'value' => [function($attribute, $value, $fail) { if($value == 0) { $fail('msgError); } }]  // declare the function error custom.
 ]);
 // other restiction :
 min:8  // restrict length to 8 char min.
@@ -335,6 +380,18 @@ min:8  // restrict length to 8 char min.
 $validator->fails()  // return if the validation test is fail (to cancel action).
 $validator->errors()  // return an object with all error find in validation (to print at user).
 $validator->validated()  // return all champs validated (to get what champs is already good), can throw an error (ValidationException).
+
+$request->validate([champs => constraint],[champ => errorMsg]);  // cast request into a array of object validated (or throw error).
+
+$validator = Validator::make(
+    $request->only(['pseudo', 'password']),  // can take ->all(), but less clean (toke _token and methode).
+    [ 'pseudo' => 'required' ],
+    [  // block optional (for message error).
+        'pseudo' => 'errorMsg',
+        'name.regex' => 'error for regex',
+        'name.*' => 'all other errors',
+    ]
+);
 
 php artisan make:request [myRequestName]  // create a file request SQL in app/Http/Requests/...php
 // "autorize()"  is for say "is the user has autorisation to acces this request SQL".
@@ -556,7 +613,7 @@ $rolesIdsInUser = $user->roles()->pluck('id');  // take only the id of jointure 
 
 
 
-// ---------------> (-) inject/import JS, CSS, avec Vite :
+// ---------------> (-) inject/import JS, CSS, avec Vite (Watcher JS) :
 
 // sudo apt install npm  // need npm, so download if not already on the machine.
 // --> npm install  // in folder project, to install dependances JS.
@@ -581,62 +638,167 @@ $rolesIdsInUser = $user->roles()->pluck('id');  // take only the id of jointure 
 // ---------------> (-) OAuth login (twitch) :
 
 // doc : https://www.youtube.com/watch?v=n9oO5D-aHCY
+// see class TwitchAPI
 
 
 
 // ---------------> (13) Authentification :
 
+// by default, User model in laravel extend Authenticator (to help login).
+
+'password' => Hash::make('myPassword')  // hash a password (to save in DB).
+// class Hash from Illuminator.
+
+// route login, has to be named "auth.login", for convention.
+
+php artisan make:request [LoginRequest]  // make a request class (for return form forumaire).
+// include function authorize, for permission to use from User log.
+// include function rules, for data expected (champs, name, restrictions).
+
+Auth::attempt(['login' => 'abc', 'password' => '123']);  // log with array of data need to log.
+Auth::login(User::find(1));  // log with an obj User.
+Auth::loginUsingId(1);  // log with id.
+// class Auth from illuminator.
+// attempt log and return true if it log successfully.
+$request->session()->regenerate();  // regenerate session.
+// you can do session() directly but not recomended, use to acces a fake session object send by request (advenced).
+
+Auth::user()  // return object user log.
+Auth::check()  // return true if user is log.
+
+@auth  // like an @if(isset(Auth::user()))
+@endauth
+@guest  // like else Auth.
+@endguest
+
+Auth::logout();  // to log out session.
+// use a Route::delete instead of Route::get.
+
+// in Http/Kernel.php define $middlewareAliass to define permission to access route (like "auth" for block if user is not log).
+// or "guest" for user not log.
+Route::get()->name()->middleware('auth');
+// edit redirectTo in Authenticate.php (for default redirect route with "auth").
+// edit HOME in RouteServiceProvider.php (for default redirect route with "guest").
+
+auth()->user()->name  // in vue, get the name of user log.
+
+
+
+// ---------------> (-) call backend without reloading page :
+
+// route.
+Route::post('/myFunction', function() {
+    return response()->json(['ok' => true]);
+});
+
+// call view to backend (with js).
+<button click="
+    fetch('/myFunction', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'  // equivalent @csrf in form.
+        }
+    });
+">call myFunction</button>
+
+// stock token csrf user in page.
+<meta name="csrf-token" content="{{ csrf_token() }}">
+// in js, get token from html.
+const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+
+
+// ---------------> (-) session save (can be guest) :
+
+session()->put('secret_key', $secret);  // write on session.
+session()->save();  // force to save the session (but automaticaly save after an http call classic).
+$secret = session('secret_key');  // get from session.
+session()->forget('secret_key');  // erase a value.
+$isHas = session()->has('secret_key');  // check if session has a value.
+session()->flush();  // supr all session !
+$secret = session()->pull('secret_key');  // read and delete from session.
+session()->increment('key', 1);  // increase a value in session (if it's +1, second param is optional).
+
+// delay life time :
+// in config/session.php "lifetime".  // (120 = 120 minutes).
+
+
+
+// ---------------> (-) example for relation in model :
+
+// proper way to create A and B (by using function definition of relation in model).
+class B extends Model
+{
+    protected $fillable = ['name'];
+    public function as()      // --- define "model B can have many A" (A has B_id as FK), (call "as" for "A" many).
+    {
+        return $this->hasMany(A::class);
+        return $this->hasMany(A::class, 'b_id', 'id');  // redfine champs (fk and pk).
+    }
+}
+class A extends Model
+{
+    protected $fillable = ['name'];
+
+    public function b()       // --- define "model A have one B" (A has B_id as FK).
+    {
+        return $this->belongsTo(B::class);
+        return $this->belongsTo(B::class, 'b_id', 'id');  // redefine champs (fk and pk).
+    }
+}
+DB::transaction(function () {
+    $b = B::create([
+        'name' => 'Mon B'
+    ]);
+    $b->as()->create([    // --- use heer to create from B (create with $b as FK).
+        'name' => 'Mon A'
+    ]);
+});
+
+
+
+// ---------------> (-) - :
 
 
 
 
-
-// TODO : how execute artisan and Vide in a same commend (and not take many console busy).
 
 
 
 
 // TODO: continue tuto : 
-// https://www.youtube.com/watch?v=xHrHjj8eFk0&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=13
+// https://www.youtube.com/watch?v=yjCr52u9NEQ&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=14
 
 
 
 
 
-// examples :
-str_replace('_', '-', app()->getLocale())
-url('/home')
-Route::has('login')
 
 
 
 
-// example of controller class.
-class UserController
-{
-    public function index()
-    {
-        $users = User::active()
-            ->orderByName()
-            ->get(['id', 'name', 'email']);
 
-        return Inertia::render('Users', [  // Inertia::render (??)
-            'users' => $users,
-        ]);
-    }
-}
 
-// example to render an entity in html.
-export default ({ users }) => {
-    return (
-        <div>
-            <h1>Users</h1>
-            <ul>
-                {users.map((user) => (
-                    <li key={user.id}>{user.name}</li>
-                ))}
-            </ul>
-        </div>
-    );
-};
+
+
+// ---------------> (-) recap commande Artisan : 
+
+php artisan serve  // start the artisan server for laravel project work.
+npm run dev  // start npm (in dev mode, can alow "prod"), for injection CSS/JS.
+
+php artisan make:migration Create[MyTables]Table  // create a file migration (orm), migration is the class migration use to relation SQL.
+php artisan make:model [MyTable] [-m]  // generate the class (orm), model is the class PHP (add "-m" at the end cmd for generate migration to).
+
+php artisan migrate  // generate the SQL database.
+php artisan migrate:rollback  // cancel a migrate who had an error in middle.
+
+php artisan make:controller [UserController]  // create a controller.
+
+php artisan config:clear  // clear config and cach of artisan (when edit .env during execution).
+php artisan cache:clear
+
+php artisan make:request [Name_LoginRequest]  // to create a class Request, for formulaire return, include autorization function. (in Http/Requests/*.php).
+
+php artisan make:middleware [CheckSomething]  // create a middleware.
+
 
