@@ -14,6 +14,8 @@
 
 .mt-1  // margin top value 1 (relative to spacing).
 
+.d-flex  // container for align horizontaly elements.
+.flex-grow-1  // into a d-flex, for make the element tank all rest of width.
 
 
 // todo : flex, grid, with, height, select multiple, ...

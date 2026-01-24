@@ -313,6 +313,7 @@ ctx.restore()  // rollback to the last vertion saved.
 myCanvas.toDataUrl("image/png");  // get a string data of the image canvas (example, set on a <a> to make it download, or write it on a png file).
 window.requestAnimationFrame(myFuncCallBack)  // function to animate a canvas eatch frame (you can use setInterval).
 window.cancelAnimationFrame(myAnimationId)  // cancel an animation frame.
+void myDomElement.offsetWidth;  // force browser to recalcul the layout (use when anime css twice on the same anime name (normal, reverce)).
 
 Chart.js  // lib to make graphics.
 tree.js  // lib to make 3D.
@@ -357,6 +358,10 @@ Array.prototype.forEach.call(  // foreach on an query.
         document.getElementsByClassName("myClass"),
         myDom => {}
 );
+
+
+
+
 
 
 

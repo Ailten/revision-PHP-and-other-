@@ -83,6 +83,7 @@ lang="en"  // language of the balise (en, fr, ...).
 <sup></sup>  // same as <sub> but half up.
 <svg width="" height=""></svg>  // draw geometric form vectoriel (add balise into, like <circle> or other to draw).
 <table></table>  // use to print a table data (with <thead>, <tbody>, <tfoot>, <tr> for line, <th> for head cel, <td> for body cel...).
+// see all detail table on : https://developer.mozilla.org/fr/docs/Web/HTML/Reference/Elements/table
 <template></template>  // define a block html (not print) to get duplicate in JS (with element.content.cloneNode(true)).
 <time datetime="2025-01-01 21:00">21:00</time>  // use to print time (slightly more referent when date send match search, not a big deal).
 <video></video>  // same as <audio> but for video.

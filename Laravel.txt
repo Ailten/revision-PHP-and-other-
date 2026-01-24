@@ -219,17 +219,29 @@ User::find(1);  // return the user who has "1" as id. (can return null).
 User::findOrFail(1);  // same has find, but crash if not find a match (crash as error web page 404).
 User::paginate(10);  // get all row paginated (return an obj LengthAwarePaginator), the obj paginator contain, an array of data of page, current page, last page, url for previous and next page, ... etc.
 User::paginate(10, ['id', 'email']);  // define what parameters you whant from objects users.
+User::paginate(10, ['roles.id as role_id', 'users.id as user_id']);  // can take param from other table (need a join).
+User::paginate(10, [DB::raw('COUNT(roles.id) as roles')]);  // make a SQL count (need a join).
 User::where('id', '>', 0)->first();  // get users where "id > 0" (like where sql), and take the first element of the array return.
 User::where('id', '>', 0)->get();  // same but take all elements.
 User::where('id', '>', 0)->limit(1)->get();  // use limit like sql.
+->whereRaw('...');  // make a where sql in string (write pure SQL on it).
 ->orWhere(function(Builder $query){ ... })  // example of OR and sub query.
 ->whereNot(function(Builder $query){ ... })  // example not (has orWhereNot to).
 ->groupBy('email')  // group by.
-->joinSub(...)  // join.
+->join('roles', 'roles.id', '=', 'users.role_id')  // join.
+->leftJoin(...)  // left join, to replace right value by null (instead of full ignore).
+->joinSub(...)  // join sub.
 ->union(...)  // union of two query.
 ->orderByName()  // order by champ "name".
 User::has('roles', '>', 1)->get();  // get user who has at least one role (in jointure many to many).
 // ---> see laravel.com/docs/10.x/queries  for more example.
+User::with('roles')->find(1);  // get User with roles (from function eloquence).
+User::with(['roles', 'order'])->find(1);  // get User with roles and order (from function eloquence).
+User::with('roles.conditions')->find(1);  // get User with conditions (from function eloquence), $user->roles->conditions.
+User::with('roles' => function($query) {$query->where(...)->orderBy('champs', 'desc')})->find(1);  // condition on sub query.
+DB::raw('...');  // place a sql request (raw).
+->selectRaw('...');  // select row sql.
+->whereColumn('A.parent_id', 'parents.id');  // in a sub query, make a logic link between both (see "subquery corrélée").
 
 // ---> CRUD
 $user = User::find(1);  // get from DB.
@@ -259,6 +271,8 @@ $user->role?->name  // "?" prevent to a parameter nullable (when print in a view
 $user->myCollection->isEmpty()  // verify if a collection is empty.
 
 public $timestamps = false;  // in Model class (to disable time-create and time-update) when a table without any attirubte.
+
+{{ $paginator->links() }}  // make full html button about navigate on pagination.
 
 
 
@@ -307,7 +321,9 @@ env('MY_KEY')  // get const env value.
 // other fonctionality, doc : laravel.com/docs/10.x/blade
 @foreach($users as $user)
 @endforeach
-@forelse  // like a foreach, bt if the collection is notdefined or empty, execute the block @empty.
+@forelse($arr as $cel)  // like a foreach, but if the collection is notdefined or empty, execute the block @empty.
+@empty
+@endforelse
 @while(true)
 @if(true)
 @endif
@@ -321,6 +337,7 @@ env('MY_KEY')  // get const env value.
 @endphp
 @class(['myClass', 'myConditionClass' => true])  // set class (by an array of string) and can declare condition to set eatch class (like "if (...) class").
 @include('')  // include a template.
+@if (is_null($a))
 
 
 // in a view, send a pagination obj alow to print the button next/previous page :
@@ -358,7 +375,7 @@ Route::getCurrentRoute()->getName()  // get the route name of current page (call
 
 // make a Validator (Illuminate\Support\Facades).
 $validator = Validator::make([
-    'title' => ''  // user send a title empty, at creating the obj Model.
+    'title' => 'value'  // user send a title empty, at creating the obj Model.
 ], [
     'title' => 'required',  // define parameter title as contraint "required" (throw error if not sended).
     'value' => 'numeric'  // numeric axept number (entier or decimal).
@@ -724,7 +741,7 @@ session()->increment('key', 1);  // increase a value in session (if it's +1, sec
 
 
 
-// ---------------> (-) example for relation in model :
+// ---------------> (-) Eloquance, example for relation in model :
 
 // proper way to create A and B (by using function definition of relation in model).
 class B extends Model
@@ -739,11 +756,13 @@ class B extends Model
 class A extends Model
 {
     protected $fillable = ['name'];
-
     public function b()       // --- define "model A have one B" (A has B_id as FK).
     {
         return $this->belongsTo(B::class);
         return $this->belongsTo(B::class, 'b_id', 'id');  // redefine champs (fk and pk).
+    }
+    public function cs() {    // --- define "model A have many C, from join-table B" (A-B-C).
+        return $this->belongsToMany(C::class, 'bs');
     }
 }
 DB::transaction(function () {
@@ -755,11 +774,26 @@ DB::transaction(function () {
     ]);
 });
 
+// on a class model A, to define execution additional when interact with db (crud).
+protected static function booted()
+{
+    static::creating(function ($a) {
+        DB::transaction(function () use ($a) {
+            $b = B::create([]);
+            $a->b_id = $b->id;
+        });
+    });
+    static::deleting(function ($a) {
+        $a->b->delete();
+    });
+}
+public function characterSpecie() {  // for call $a->b.
+    return $this->belongsTo(B::class);
+}
+
 
 
 // ---------------> (-) - :
-
-
 
 
 
@@ -777,10 +811,6 @@ DB::transaction(function () {
 
 
 
-
-
-
-
 // ---------------> (-) recap commande Artisan : 
 
 php artisan serve  // start the artisan server for laravel project work.
@@ -788,11 +818,14 @@ npm run dev  // start npm (in dev mode, can alow "prod"), for injection CSS/JS.
 
 php artisan make:migration Create[MyTables]Table  // create a file migration (orm), migration is the class migration use to relation SQL.
 php artisan make:model [MyTable] [-m]  // generate the class (orm), model is the class PHP (add "-m" at the end cmd for generate migration to).
+php artisan make:seeder [MyTablesSeeder]  // make a class seeder (for insert into).
 
-php artisan migrate  // generate the SQL database.
+php artisan migrate [--seed]  // generate the SQL database ("--seed", for execute all class seeder insert into).
 php artisan migrate:rollback  // cancel a migrate who had an error in middle.
 
 php artisan make:controller [UserController]  // create a controller.
+
+php artisan db:seed --class=[MyTablesSeeder]  // execute one class seeder.
 
 php artisan config:clear  // clear config and cach of artisan (when edit .env during execution).
 php artisan cache:clear

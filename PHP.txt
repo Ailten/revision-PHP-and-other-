@@ -113,6 +113,7 @@ function myFunc(...$a) {}  // function (set various amount of parameter).
 function myFunc(int $a) {}  // function (set parameter with a type).
 function myFunc() : int {}  // function (with type return).
 function myFunc() : int | string {}  // function (with many type return possible).
+function () use ($param) {}  // send parameter by variable in scop.
 return "...";  // return.
 
 $myArray = array(5, 2);  // set an array.
@@ -140,6 +141,7 @@ array_reduce($a,"myfunction")  // return a single value, before looping on eatch
 array_search("red",$a)  // search a value into an array, and return his key.
 array_unique($a)  // return a new array without any doublon.
 shuffle($my_array)  // shuffle an array.
+implode(', ', $myArray);  // cast array to string (with separator).
 
 $GLOBALS  // list of global variable taking var usefull.
 $_SERVER

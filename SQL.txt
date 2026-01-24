@@ -122,4 +122,15 @@ show tables;  // list all table of the data base.
 
 
 
+// example sql advenced for select 4 element (always) by matching value (or null).
+SELECT v.valeur, i.*
+FROM (
+    SELECT 'a' AS valeur, 1 AS pos
+    UNION ALL SELECT 'b', 2
+    UNION ALL SELECT 'c', 3
+    UNION ALL SELECT 'd', 4
+) v
+LEFT JOIN items i ON i.code = v.valeur
+ORDER BY v.pos
+
 
