@@ -793,6 +793,15 @@ public function characterSpecie() {  // for call $a->b.
 
 
 
+// ---------------> (-) debuging, test unitaire, and create command artisan :
+
+// create a custom command artisan (in routes/console.php) :
+Artisan::command('myCommand', function() {  // call with "php artisan myCommand" in console.
+    // execution.
+});
+
+
+
 // ---------------> (-) - :
 
 
@@ -804,7 +813,7 @@ public function characterSpecie() {  // for call $a->b.
 // https://www.youtube.com/watch?v=yjCr52u9NEQ&list=PLjwdMgw5TTLXz1GRhKxSWYyDHwVW-gqrm&index=14
 
 
-
+// Tinker ?
 
 
 
@@ -818,13 +827,12 @@ npm run dev  // start npm (in dev mode, can alow "prod"), for injection CSS/JS.
 
 php artisan make:migration Create[MyTables]Table  // create a file migration (orm), migration is the class migration use to relation SQL.
 php artisan make:model [MyTable] [-m]  // generate the class (orm), model is the class PHP (add "-m" at the end cmd for generate migration to).
+php artisan make:controller [UserController]  // create a controller.
 php artisan make:seeder [MyTablesSeeder]  // make a class seeder (for insert into).
 
 php artisan migrate [--seed]  // generate the SQL database ("--seed", for execute all class seeder insert into).
 php artisan migrate:rollback  // cancel a migrate who had an error in middle.
-
-php artisan make:controller [UserController]  // create a controller.
-
+php artisan db:seed  // execute all class seeder (declare in DatabaseSeeder call).
 php artisan db:seed --class=[MyTablesSeeder]  // execute one class seeder.
 
 php artisan config:clear  // clear config and cach of artisan (when edit .env during execution).
@@ -833,5 +841,7 @@ php artisan cache:clear
 php artisan make:request [Name_LoginRequest]  // to create a class Request, for formulaire return, include autorization function. (in Http/Requests/*.php).
 
 php artisan make:middleware [CheckSomething]  // create a middleware.
+
+php artisan tinker  // to open a console menu about DB and vertion php (to execute commande php about project directly into a console real time).
 
 

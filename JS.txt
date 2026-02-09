@@ -330,6 +330,7 @@ myWorker.terminate()  // destroy the worker.
 
 // --- usefull stuff ---
 
+// maybe not in vania JS ?
 getEventListeners(<DOMelement>)  // get list of event set to an element.
 getEventListeners(<DOMelement>).click[0].listener  // get function call when click on element (the first one).
 encodeURIComponent(<string>)  // cast special char for param url.
@@ -359,11 +360,17 @@ Array.prototype.forEach.call(  // foreach on an query.
         myDom => {}
 );
 
+void myDomElement.offsetWidth;  // force browser to recalcul the layout (use when anime css twice on the same anime name (normal, reverce)), call before set anime.
 
+form.addEventListener('submit', (evnt) => {  // overide an action form (form no need attribute action at all).
+        evnt.preventDefault();  // cancel the base action submit.
+        // overide action submit heer.
+});
 
+new FormData(formDom);  // get an object "body" (for call fetch) from a formDom (not try).  
 
-
-
+DomElement.removeEventListener('click', myFunction);  // remove an event listener (need the same reference function and same type event.
+DomElement.addEventListener('click', myFunction, { once: true });  // add an event listener exectued only once (remove after that).
 
 
 

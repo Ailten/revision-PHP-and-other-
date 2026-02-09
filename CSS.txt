@@ -181,4 +181,32 @@ p { font-family: myFont; }
 
 
 
+display: block;  // on img to remove space up.
+
+
+// default CSS for start :
+* {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+p,
+h1, h2, h3, h4, h5, h6
+{
+    margin: 0;
+}
+img {
+    display: block;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+
+
+
 
