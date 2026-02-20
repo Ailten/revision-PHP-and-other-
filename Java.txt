@@ -1,0 +1,106 @@
+
+// default programme console.
+public class Main {
+    public static void main(String[] args){
+        System.out.println("Test");
+    }
+}
+
+
+
+System.out.println("Test");  // print a string.
+// comment.  // comment.
+String myStr = "MyString";  // variable string (warning, string in Java is process as Instance, so can't be comparate as equal).
+int myInt = 15;  // variable int.
+final int CONST_INT = 15;  // constante int (can't be change).
+char myChar = 'a';  // var char.
+boolean myBool = true;  // var boolean.
+float myFloat = 0.5f;  // var float.
+double myDouble = 0.5d;  // var double (decimal with pressision).
+(int) 0.5d  // cast double into int (floor).
+
+"Test".toLowerCase()  // lower case.
+"Test".charAt(0)  // get char at an index. (same as [0] indexor).
+"Test".equals("Test")  // verify if string are the same (important, to compare equality of two string both distinct instance).
+"Test".trim()  // remove space at start and end.
+
+Math.max(2, 5)  // return the value the bigest (5).
+Math.min(2, 5)  // return the value the lowest (2).
+Math.sqrt(25)  // return the square root (5).
+Math.abs(-5)  // return the abs value (5).
+Math.pow(5, 2)  // return the exposent (25).
+Math.floor(0.5f)  // return floor value (0).
+Math.ceil(0.5f)  // return ceil value (1).
+Math.round(0.9f)  // return round value (1).
+Math.random()  // return a random number (between 0 and 0.9999...).
+
+if (myFloat < 0.5f) {}  // if.
+else if (myFloat < 0.5f) {}  // else if.
+else {}  // else.
+int myInt = (myFloat < 0.5f)? 0 : 1);  // ternaire.
+switch(myInt) {  // switch case.
+    case 5:
+        // something.
+        break;
+    default:
+        // something.
+}
+
+while(myFloat < 0.5f) {}  // while.
+do {} while(myFloat < 0.5f);  // do while.
+for(int i = 0; i < 5; i++) {}  // for.
+for(String cel : myArray) {}  // foreach.
+break;  // break.
+continue;  // continue.
+
+String[] myArray = {"a", "b", "c"};  // array string.
+String[] myArray = new String[4];  // create an array without value, with a defined length.
+myArray[0]  // indexor.
+myArray.length  // length.
+
+public class MyClass {}  // create a class.
+MyClass a = new MyClass();  // instancie a class.
+a.name;  // access parameter of an instance.
+public MyClass() {}  // constructor.
+this.a = a;  // affect parameters (in constructor).
+public, private, protected  // encapsulation (word to define parameter or function acessibility), warning, protected in Java include same folder/sub-class.
+static  // say this element (params or function), is unique of class (not distinct by instances).
+import package.name.Class;  // import a class (replace "Class" by "*" for import all package).
+public class A extends B {}  // eritage.
+super();  // call the constructor parent (use it on the constructor child).
+super.myFunction();  // call a function of the parent (word "super" refer to parent class).
+abstract class myClass {}  // create a class abstract (can't be instanciate, only to use as eritage parent).
+interface MyInterface {}  // create an interface (basicly a promess of what function should be on the class who implement it), syntax rule : all interface name start by "I".
+public class MyClass implements MyInterface {}  // impelment an interface.
+MyClass a = new MyClass() {
+    public void myFunc() {};  // overide a methode on an instance create (for this instance only).
+}
+
+enum MyEnum {A, B, C}  // enum.
+MyEnum a = MyEnum.A;  // call the value of the enum.
+for (MyEnum cel : MyEnum.values()) {}  // foreach on an enum.
+enum MyEnum {  // example of enum with instance, and parameters/function on it.
+    A("value A"),
+    B("value B");
+
+    private String value;
+
+    private MyEnum(String value) {
+        this.value = value;
+    }
+    private String getValue() {
+        return this.value;
+    }
+}
+
+public void myFunc() {}  // function.
+private static void myFunc() {}  // function (private AND static, example).
+public bool myFunc() { return true; }  // function (with a return value).
+public void myFunc(int myInt) {}  // function (with parameter).
+public void myFunc(int[] myArr) {}  // function (with parameter array).
+public void myFunc(int... myArr) {}  // function (with various amount of parameters).
+
+// todo : type generic on object.
+
+
+
