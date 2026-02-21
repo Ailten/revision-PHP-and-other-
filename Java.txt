@@ -100,7 +100,23 @@ public void myFunc(int myInt) {}  // function (with parameter).
 public void myFunc(int[] myArr) {}  // function (with parameter array).
 public void myFunc(int... myArr) {}  // function (with various amount of parameters).
 
-// todo : type generic on object.
+public class MyClass<T> {}  // generic type (on class).
+public <T> void myFunc(T myParam) {}  // generic type (on function).
+
+try {}  // try.
+catch(Exception e) {}  // catch.
+finally {}  // finally.
+throw new Exception("message");  // throw.
+public class MyException extends Exception {}  // create custom exception.
+
+// todo : test unitaire.
+
+// todo : data sets (list and other decinaison).
+
+// todo : regex.
+
+
+
 
 
 
