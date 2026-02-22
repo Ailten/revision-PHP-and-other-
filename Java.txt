@@ -109,7 +109,24 @@ finally {}  // finally.
 throw new Exception("message");  // throw.
 public class MyException extends Exception {}  // create custom exception.
 
-// todo : test unitaire.
+<dependency>  // importation JUnit (for test unitaire)
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.10.0</version>
+    <scope>test</scope>
+</dependency>
+import org.junit.jupiter.api.Test;  // class test unitaire.
+import static org.junit.jupiter.api.Assertions.*;
+class MyUnitTestAdd {
+    @Test
+    void testAdd() {  // method test to try a specific case of execution call for the function.
+        int result = MyClassAdd.add(5, 5);
+        assertEquals(result, 10);
+    }
+}
+mvn test  // run all test.
+mvn -Dtest=MyUnitTestAdd test  // execute a named class test.
+mvn -Dtest=MyUnitTestAdd#testAdd test  // execute a named methode test.
 
 // todo : data sets (list and other decinaison).
 
