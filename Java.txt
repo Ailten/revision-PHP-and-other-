@@ -128,9 +128,19 @@ mvn test  // run all test.
 mvn -Dtest=MyUnitTestAdd test  // execute a named class test.
 mvn -Dtest=MyUnitTestAdd#testAdd test  // execute a named methode test.
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;  // can be merge both with "*".
+Pattern pattern = Pattern.compile("^[a-z]$", Pattern.CASE_INSENSITIVE);  // build a regex.
+Matcher matcher = pattern.matcher("my string");  // browse a string with a regex.
+matcher.find();  // return true if regex is a match.
+matcher.group();  // return matches string into base string.
+matcher.groupCount();  // return the amount of match.
+matcher.replaceAll("new string");  // return a string edited (replaced all matches).
+matcher.replaceFirst("new string");  // retrun a strig edited (replaced the first matche).
+
 // todo : data sets (list and other decinaison).
 
-// todo : regex.
+
 
 
 
