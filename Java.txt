@@ -154,10 +154,30 @@ Thread myThread = new Thread(new MyClass());
 myThread.start();  // same, but with interface Runnable.
 myThread.isAlive();  // return true if the thread is still executing.
 
-import java.util.Collections;  // import list.
+String[] myArr = {"A", "B"};  // create an array (primitive).
 import java.util.ArrayList;  // import ArrayList.
+ArrayList<String> myAL = new ArrayList<String>();  // create an array list (array who can increase size).
+import java.util.Collections;  // import list, set, map.
+List<String> myList = new List<String>();  // create a list (ordered collection, allow duplicates). 
+Set<String> mySet = new Set<String>();  // create a set (collection of unique elements).
+Map<String> myMap = new Map<String>();  // create a map (like dictionary : store key-value pair).
+LinkedList  // like an arrayList, but work like a chaine (all element stock it self and the pointer to the next element), use when need to remove part frequantly. 
+myList.size();  // get size of the list.
+myList.add(newElement);  // add at end of list.
+myList.get(indexAsk);  // get element from list (by index).
+myList.set(indexAsk, newElement);  // replace element in list.
+myList.remove(indexAsk);  // remove element from list.
+myAL.addFirst(newElement);  // add at start.
+myAL.addLast(newElement);  // add at end.
+myAL.removeFirst();  // remove at start.
+myAL.removeLast();  // remove at end.
+myAL.getFirst();  // get first (like myAL[0]).
+myAL.getLast();  // get last (like myAL[myAL.size()-1]).
+Collections.sort(myAL);  // sort a list.
+//todo : HashSet, TreeSet, LinedHashSet  :  https://www.w3schools.com/java/java_set.asp
+
+
 import java.util.Comparator;  // import comparator (to define a comparator, on class using list, like sort).
-// todo : list, array et set...
 
 
 
