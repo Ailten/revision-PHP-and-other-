@@ -99,8 +99,11 @@ public bool myFunc() { return true; }  // function (with a return value).
 public void myFunc(int myInt) {}  // function (with parameter).
 public void myFunc(int[] myArr) {}  // function (with parameter array).
 public void myFunc(int... myArr) {}  // function (with various amount of parameters).
+(n) -> {}  // lambda.
 
 public class MyClass<T> {}  // generic type (on class).
+public class MyClass<T extends Number> {}  // add constraint eritage.
+public T myParam;  // generic attribute (on a param).
 public <T> void myFunc(T myParam) {}  // generic type (on function).
 
 try {}  // try.
@@ -138,7 +141,24 @@ matcher.groupCount();  // return the amount of match.
 matcher.replaceAll("new string");  // return a string edited (replaced all matches).
 matcher.replaceFirst("new string");  // retrun a strig edited (replaced the first matche).
 
-// todo : data sets (list and other decinaison).
+@Test  // mark a methode as "test unitaire".
+@Override  // mark a methode re-defined from the parent class.
+@Deprecated  // mark a methode is discouraged to be used.
+@SuppressWarning("unchecked")  // tell to the compiler to ignore certain warning (write what warning need to be ignored).
+
+public class MyClass extends Thread {}  // extend a class from Thread, to be execute multi-threading.
+public class MyClass implements Runnable {}  // same, but with an interface.
+MyClass myThread = new MyClass();
+myThread.start();  // launch the class thread (async).
+Thread myThread = new Thread(new MyClass());
+myThread.start();  // same, but with interface Runnable.
+myThread.isAlive();  // return true if the thread is still executing.
+
+import java.util.Collections;  // import list.
+import java.util.ArrayList;  // import ArrayList.
+import java.util.Comparator;  // import comparator (to define a comparator, on class using list, like sort).
+// todo : list, array et set...
+
 
 
 
