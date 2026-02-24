@@ -174,8 +174,21 @@ myAL.removeLast();  // remove at end.
 myAL.getFirst();  // get first (like myAL[0]).
 myAL.getLast();  // get last (like myAL[myAL.size()-1]).
 Collections.sort(myAL);  // sort a list.
-//todo : HashSet, TreeSet, LinedHashSet  :  https://www.w3schools.com/java/java_set.asp
-
+Collections.shuffle(myAL);  // shuffle a list.
+Collections.max(myAL);  // get the max value on a list.
+Collections.min(myAL);  // get the min value on a list.
+Collections.frequency(myAL, "A");  // return the amount of iteration who has this value in a list.
+Collections.swap(myAL, 0, 1);  // swap the first and the second elements on a list.
+HashSet<String> myHS = new HashSet<String>();  // create an HashSet (fast but unordered).
+TreeSet<String> myTS = new TreeSet<String>();  // create a TreeSet (sorted set).
+LinkedHashSet<String> myLHS = new LinkedHashSet<String>();  // create a LinkedHashSet (ordered by insertion, unique elements).
+HashMap<String>  // dictionary, fast and unordered.
+TreeMap<String>  // dictionary, sorted by key.
+LinkedHashMap<String>  // dictionary, ordered by insertion.
+Iterator<String> myI = myAL.iterator();  // make an iterator from an arrayList (to browse all element one by one with next).
+myI.next();  // get the current element, and increase the index (into iterator instance).
+myI.hasNext();  // return true, if has a next element to get.
+myI.remove();  // remove the last element get (by next methode).
 
 import java.util.Comparator;  // import comparator (to define a comparator, on class using list, like sort).
 
