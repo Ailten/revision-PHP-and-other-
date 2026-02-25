@@ -10,6 +10,7 @@ public class Main {
 
 System.out.println("Test");  // print a string.
 // comment.  // comment.
+/* comment. */  // comment multi line.
 String myStr = "MyString";  // variable string (warning, string in Java is process as Instance, so can't be comparate as equal).
 int myInt = 15;  // variable int.
 final int CONST_INT = 15;  // constante int (can't be change).
@@ -189,9 +190,13 @@ Iterator<String> myI = myAL.iterator();  // make an iterator from an arrayList (
 myI.next();  // get the current element, and increase the index (into iterator instance).
 myI.hasNext();  // return true, if has a next element to get.
 myI.remove();  // remove the last element get (by next methode).
-
 import java.util.Comparator;  // import comparator (to define a comparator, on class using list, like sort).
 
+import java.util.Scanner; 
+Scanner myScan = new Scanner(System.in);  // create a scanner obj (for get input from cmd or document).
+String myInput = myScan.nextLine();  // get user input from cmd.
+
+// date type.
 
 
 
