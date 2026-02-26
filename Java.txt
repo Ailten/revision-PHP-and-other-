@@ -196,11 +196,27 @@ import java.util.Scanner;
 Scanner myScan = new Scanner(System.in);  // create a scanner obj (for get input from cmd or document).
 String myInput = myScan.nextLine();  // get user input from cmd.
 
-// date type.
-
-
-
-
+LocalDate  // date (day, month, year).
+LocalTime  // time (hours, minutes, secondes, nano-secondes).
+LocalDateTime  // date time (both).
+DateTimeFormatter  // object to displaying and parsing date/time objects.
+import java.time.LocalDate;
+LocalDate myDate = LocalDate.now();  // create a date (now).
+import java.time.LocalTime;
+LocalTime myTime = LocalTime.now();  // create a time (now).
+import java.time.LocalDateTime;
+LocalDateTime myDT = LocalDateTime.now();  // create a date time (now).
+import java.time.format.DateTimeFormatter;
+DateTimeFormatter myFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");  // create a formater.
+myFormatter.format(myDateTime);  // return a string formated of a date.
+SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");  // create a date builder (for cast string into date obj).
+Date myDate = sdf.parse("01/01/2000");  // create a date with sdf (todo : verify).
+ChronoUnit.SECONDS.between(myDateA, myDateB);  // return a long about how many second between two date.
+myDateA.until(myDateB, ChronoUnit.SECONDS);  // same.
+Duration myD = Duration.between(myDateA, myDateB);  // same (but with an obj Duration, for time).
+myD.toSeconds();  // get the number in secondes.
+Period myP = Period.between(myDateA, myDateB);  // same (but with an obj Period, for date).
+myP.getDays();  //get the number in days.
 
 
 
