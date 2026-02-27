@@ -1,0 +1,95 @@
+
+using System;  // way to import library.
+namespace MyNamespace {}  // create a block for a specific class to import.
+// comment.  // comment.
+/* comment. */  // comments many line.
+///*  comments.  // comments documentation (upper a class or function).
+Console.WriteLine("test");  // print a line on a console.
+Console.Write("test");  // print a word on a console (without back return).
+string userInput = Console.ReadLine()  // get text write by user in console.
+
+public void MyFunc() {}  // create a function.
+MyFunc();  // call a function.
+public void MyFunc(int a) {}  // parameter.
+public void MyFunc(int a = 5) {}  // default value parameter.
+public bool MyFunc() { return true; }  // return value.
+public void MyFunc(params int[] arr) {}  // various amount of parameters.
+MyFunc(a: 5);  // function can be call by naming the parameter (allow to send in what order you whant).
+(param) => {}  // lambda.
+public async Task<int> MyFunc() {}  // async task.
+await MyFunc();  // call an async function, with waiting it.
+// todo : async, await, Delegate, Action, ...
+
+int myInt = 5;  // create an int (number integer, big capacity).
+short, byte  // type integer more short (60K and 255).
+uint, ushort, ubyte  // type integer fully positive (not under zero).
+float, double  // type for number with decimal (can have error of precision), float are less expencive in memory, but less size.
+decimal  // type for number decimal (more exact, and more expencive memory).
+0.5f, 0.5d, 0.5m  // hardcoded value decimal in float, double, and decimal.
+char, string  // type for character, and chain-character.
+bool  // type for boolean.
+null  // value null.
+Object  // the default-est type (can englobe all type, by eritage/polymorphisme).
+(int) myFloat  // cast float variable into an int (can make by default, in this case).
+T  // generic type (define on situation).
+typeof(myVariable)  // return a value Type of the variable send.
+
++, -, *, /  // operator.
+++, --  // increment, decrement (before or after the variable).
+%  // modulo.
++=  // operator and afectation.
+>>, <<  // decalage byte value.
+&&, ||, ^  // and, or, xor (can work on boolean or byte value).
+>, <, >=, <=, ==, !=  // comparator.
+Math.Min, Max, Abs, Round, Floor, Ceil, Sqrt, Pow  // math functions.
+??  // coaless.
+?.  // do next only if left part is not null.
+!.  // do next, don't worry if the left part can be null, I know it's not gonna be (by pass compilator error).
+
+"A".ToLowerCase()  // make string lowercase.
+"a".ToUpperCase()  // make string uppercase.
+"a" + "b"  // concatenation.
+$"a {myString}"  // concatenation (other methode).
+"a"[0]  // accesser to a char.
+"a".susbtring(0, 1)  // get a part of a string.
+"a".IndexOf("a")  // get index of first match.
+
+if(...) {}  // if.
+else if(...) {}  // else if.
+else {}  // else.
+(...)? "a": "b"  // ternaire.
+switch(value) { case "a": /* something */ break; default: /* else */ }  // switch case.
+
+while(isStay) {}  // while.
+do {} while(isStay);  // do while.
+for(int i=0; i<5; i++) {}  // for.
+foreach(string cel in arr) {}  // foreach.
+break, continue  // break, continue.
+
+string[] arr = {"a", "b"};  // array.
+arr[0]  // get value of a cell of array.
+string[4] arr;  // define the size of array (without value).
+string[,] arr2D = {{"a"}, {"b"}};  // array 2D.
+Array.Sort(arr);  // sort a array.
+
+public class MyClass {}  // create a class.
+MyClass mc = new MyClass();  // instanciate a class.
+public MyClass() {}  // constructor.
+public struct MyStruct {}  // struct, instance like class, just instance are distinct at all afectation.
+public, private, protected  // access level.
+static  // make not instance distinct.
+abstract class MyClass {}  // abstract make a class not instanciable (only can be parent for other).
+public int myInt { get; set; }  // define if a variable param is access or setable.
+public class B : A {}  // eritage (B is child of A).
+public B() : base() {}  // call the constructor parent.
+base.MyFunc();  // call function of parent.
+interface IMyInterface {}  // interface, like a class not instanciable, but only for method.
+public class MyClass : InterfaceA, InterfaceB {}  // class can exprend of many interface.
+enum MyEnum { A, B}  // create an enum (all value can be assign an int value unique).
+MyEnum.A  // get value of an enum (can be cast as int).
+
+// todo : files.  -- https://www.w3schools.com/cs/cs_files.php
+
+// todo : error try.
+
+// todo : unit test.
