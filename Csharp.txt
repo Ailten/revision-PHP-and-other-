@@ -88,7 +88,10 @@ public class MyClass : InterfaceA, InterfaceB {}  // class can exprend of many i
 enum MyEnum { A, B}  // create an enum (all value can be assign an int value unique).
 MyEnum.A  // get value of an enum (can be cast as int).
 
-// todo : files.  -- https://www.w3schools.com/cs/cs_files.php
+using System.IO;
+string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);  // get path to Documents folder.
+using(SystemWriter outputFile = new StreamWriter(Path.Combine(docPath, "myDoc.txt"))) {}  // open a streamWriter to write on a doc.
+outputFile.WriteLine("my line");  // write on a streamWriter.
 
 // todo : error try.
 
