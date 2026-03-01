@@ -93,6 +93,10 @@ string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments
 using(SystemWriter outputFile = new StreamWriter(Path.Combine(docPath, "myDoc.txt"))) {}  // open a streamWriter to write on a doc.
 outputFile.WriteLine("my line");  // write on a streamWriter.
 
-// todo : error try.
+try {}  // try.
+catch(Exception e) {}  // catch.
+finally {}  // finally.
+throw new Exception("message");  // throw error.
+public class MyError : Exception {}  // create a custome error.
 
 // todo : unit test.
