@@ -16,8 +16,10 @@ public bool MyFunc() { return true; }  // return value.
 public void MyFunc(params int[] arr) {}  // various amount of parameters.
 MyFunc(a: 5);  // function can be call by naming the parameter (allow to send in what order you whant).
 (param) => {}  // lambda.
+yield return myValue;  // on a loop, allow to return a list of value one by one.
 public async Task<int> MyFunc() {}  // async task.
 await MyFunc();  // call an async function, with waiting it.
+Thread.Sleep(5);  // make wait 5 secondes.
 // todo : async, await, Delegate, Action, ...
 
 int myInt = 5;  // create an int (number integer, big capacity).
@@ -28,8 +30,8 @@ decimal  // type for number decimal (more exact, and more expencive memory).
 0.5f, 0.5d, 0.5m  // hardcoded value decimal in float, double, and decimal.
 char, string  // type for character, and chain-character.
 bool  // type for boolean.
-null  // value null.
-Object  // the default-est type (can englobe all type, by eritage/polymorphisme).
+null, int?  // value null.
+object  // the default-est type (can englobe all type, by eritage/polymorphisme).
 (int) myFloat  // cast float variable into an int (can make by default, in this case).
 T  // generic type (define on situation).
 typeof(myVariable)  // return a value Type of the variable send.
@@ -51,8 +53,13 @@ Math.Min, Max, Abs, Round, Floor, Ceil, Sqrt, Pow  // math functions.
 "a" + "b"  // concatenation.
 $"a {myString}"  // concatenation (other methode).
 "a"[0]  // accesser to a char.
-"a".susbtring(0, 1)  // get a part of a string.
+"a".Subtring(0, 1)  // get a part of a string.
 "a".IndexOf("a")  // get index of first match.
+"a".StartWith("a");  // retrun true if start with.
+"a".EndsWith("a");  // return true if end with.
+"a".Replace("a", "b");  // replace a part of string by another.
+"a".Remove(0, 1);  // remove a part of string (return the new string).
+"a.b".Split(".");  // cast strign into array of string (cut at ocurence find).
 
 if(...) {}  // if.
 else if(...) {}  // else if.
@@ -71,6 +78,11 @@ arr[0]  // get value of a cell of array.
 string[4] arr;  // define the size of array (without value).
 string[,] arr2D = {{"a"}, {"b"}};  // array 2D.
 Array.Sort(arr);  // sort a array.
+List<string> myList = new List<string>(){ "A", "B" };  // list.
+myList.ToArray();  // cast list into array.
+myList.Select(cel => cel[0]);  // cast all element of a list into another list of other elements.
+myList.Contains("A");  // verify if list contain an element.
+Dictionary<int, string> myD = new();  // dictionary (list of KeyValuePair).
 
 public class MyClass {}  // create a class.
 MyClass mc = new MyClass();  // instanciate a class.
@@ -78,6 +90,7 @@ public MyClass() {}  // constructor.
 public struct MyStruct {}  // struct, instance like class, just instance are distinct at all afectation.
 public, private, protected  // access level.
 static  // make not instance distinct.
+abstract, override  // key word for alow to override, and override (in parent, and child).
 abstract class MyClass {}  // abstract make a class not instanciable (only can be parent for other).
 public int myInt { get; set; }  // define if a variable param is access or setable.
 public class B : A {}  // eritage (B is child of A).
@@ -85,13 +98,19 @@ public B() : base() {}  // call the constructor parent.
 base.MyFunc();  // call function of parent.
 interface IMyInterface {}  // interface, like a class not instanciable, but only for method.
 public class MyClass : InterfaceA, InterfaceB {}  // class can exprend of many interface.
-enum MyEnum { A, B}  // create an enum (all value can be assign an int value unique).
+enum MyEnum { A, B }  // create an enum (all value can be assign an int value unique), can have set index with "=".
 MyEnum.A  // get value of an enum (can be cast as int).
+public statinc string MyFunc(this MyEnum myEnum) {}  // can inject a method in an enum.
 
 using System.IO;
 string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);  // get path to Documents folder.
-using(SystemWriter outputFile = new StreamWriter(Path.Combine(docPath, "myDoc.txt"))) {}  // open a streamWriter to write on a doc.
+using(StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, "myDoc.txt"))) {}  // open a streamWriter to write on a doc.
 outputFile.WriteLine("my line");  // write on a streamWriter.
+DictoryInfo folder = new DirectoryInfo("path");  // get an object folder.
+folder.GetFiles("*.txt");  // get files obj from a folder.
+using(StreamReader sr = File.OpenText("path.txt")) {}  // open a file to read it.
+while((s = sr.ReadLine()) != null) {}  // read all line one by one (need a string nullable "s" create before).
+string jsonStr = JsonSerializer.Serialize(myObject);  // cast an obj into a string.
 
 try {}  // try.
 catch(Exception e) {}  // catch.
@@ -99,4 +118,50 @@ finally {}  // finally.
 throw new Exception("message");  // throw error.
 public class MyError : Exception {}  // create a custome error.
 
+Random rng = new Random(DateTime.Now.Milliseond);  // create an obj random (need a seed).
+rng.next(2);  // return a random number between 0 and 1 (include, integer).
+
+using System.Text.RegularExpressions;
+Regex rgx = new Regex("[a-z]+");  // regex.
+string output = rgx.Replace(myStr, myReplaceChar);  // replace.
+bool isMatching = Regex.IsMatch(myStr, rgx);  // eval if is matching.
+Match[] ms = Regex.Matches(myStr, rgx);  // get objects match (contains all match part of string).
+m.Value, m.Index  // get value match, and index.
+
+DateTime  // date time instance.
+DateTime.Now;  // get an instance DateTime at now.
+CultureInfo c = new("en-US");  // create a format for date cast ("fr-FR").
+myDate.ToString(c);  // cast a dateTime in a format language.
+myDate.ToString("d", c);  // same, but ask for date only (no hours, minutes, secondes).
+myDate.AddDays(1);  // add one day to a dateTime instance.
+myDateA > myDateB  // compare two date.
+TimeSpan dif = myDateA - myDateB;  // get a timeSpan dif between two dateTime.
+dif.TotalHours  // get the all amount of hours between on a dif two dateTime.
+StopWatch sw = new StopWatch();  // create an obj StopWatch (to chronometre the time delay of execution).
+sw.Start();  // top start the chrono.
+sw.Stop();  // top end the chrono.
+sw.Elapsed  // get the amount of time the chrono catch.
+
+DbContext  // use as ORM for Entity (on project DB), need to be try.
+Context ctx = new Context();  // obj used to manage all Entity (ORM).
+ctx.MyEntities.Add(new Entity);  // set an entity on the context ORM.
+ctx.SaveChanges();  // save the changes.
+
+#if DEBUG  // block "is executed on debug mode".
+#else  // block else (executed on prod).
+#endif  // end if.
+#region my block of code  // create a custom block named.
+#endregion  // end the block.
+
+GC.SuppressFinalize(myObj);  // force destroy an obj.
+GC.Collect();  // force garbadge collector to collect now.
+GC.WaitForPendingFinalizers();  // wait the end of garbadge collector do.
+
+[Flags]  // add the tag "Flags" on a class/enum (flags allow instance to have many value).
+MyEnum me = MyEnum.ValueA | MyEnum.ValueB;  // example of assigne two value of a same instance with attribute flags (prefer use an array).
+me.HasFlag(MyEnum.ValueA);  // verify if instance has a specific value (flag).
+public class MyAttribut : Attribute {}  // create a class attribute (can be used on other class), allow pass a string in constructor etc.
+
 // todo : unit test.
+
+// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo20/Exo20.cs
