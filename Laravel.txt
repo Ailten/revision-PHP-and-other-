@@ -822,7 +822,7 @@ Artisan::command('myCommand', function() {  // call with "php artisan myCommand"
 
 // ---------------> (-) recap commande Artisan : 
 
-php artisan serve  // start the artisan server for laravel project work.
+php artisan server  // start the artisan server for laravel project work.
 npm run dev  // start npm (in dev mode, can alow "prod"), for injection CSS/JS.
 
 php artisan make:migration Create[MyTables]Table  // create a file migration (orm), migration is the class migration use to relation SQL.

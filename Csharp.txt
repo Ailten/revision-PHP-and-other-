@@ -17,7 +17,10 @@ public void MyFunc(params int[] arr) {}  // various amount of parameters.
 MyFunc(a: 5);  // function can be call by naming the parameter (allow to send in what order you whant).
 (param) => {}  // lambda.
 yield return myValue;  // on a loop, allow to return a list of value one by one.
-public async Task<int> MyFunc() {}  // async task.
+public async Task<int> MyFunc() {}  // async task (function async).
+Task<int> myFunc = MyFunc();  // execute the task (and stock it in a bloc).
+myFunc.Wait();  // wait until the task async be finish.
+myFunc.Result  // get the result (return) of the task call.
 await MyFunc();  // call an async function, with waiting it.
 Thread.Sleep(5);  // make wait 5 secondes.
 // todo : async, await, Delegate, Action, ...
@@ -164,4 +167,4 @@ public class MyAttribut : Attribute {}  // create a class attribute (can be used
 
 // todo : unit test.
 
-// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo20/Exo20.cs
+// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo22/Exo22.cs
