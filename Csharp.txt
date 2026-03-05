@@ -150,6 +150,13 @@ Context ctx = new Context();  // obj used to manage all Entity (ORM).
 ctx.MyEntities.Add(new Entity);  // set an entity on the context ORM.
 ctx.SaveChanges();  // save the changes.
 
+using(SqlConnetion sqlCon = new SqlConnection(connectionStr)) {}  // open a connect to DB (need to be try).
+sqlCon.Open();  // open the connection.
+using(SqlCommand cmd = new SqlCommand("SELECT * FROM Tables", sqlCon)) {}  // make a request to DB.
+using(SqlDataReader r = cmd.ExecuteReader()) {}  // read the result of request.
+while(r.Read()) {}  // loop on result.
+r.GetInt32(0)  // get cel from a single row.  
+
 #if DEBUG  // block "is executed on debug mode".
 #else  // block else (executed on prod).
 #endif  // end if.
