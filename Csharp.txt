@@ -157,6 +157,13 @@ using(SqlDataReader r = cmd.ExecuteReader()) {}  // read the result of request.
 while(r.Read()) {}  // loop on result.
 r.GetInt32(0)  // get cel from a single row.  
 
+XmlDocument xmlDoc = new XmlDocument();  // create an XmlDoc.
+xmlDoc.Load("path file xml");  // load a file xml.
+XmlNodeList nodes = xmlDoc.GetElementsByTagName("div");  // get elements by name.
+nodes[0].InnerXml  // get contend of a node.
+nodes[0].SelectSingleNode("descendant::shelf/book[name = \"Titanic\"]")  // get single node (like query).
+nodes[0].SelectSingleNode("descendant::shelf/book[@id = \"0\"]")  // other example.
+
 #if DEBUG  // block "is executed on debug mode".
 #else  // block else (executed on prod).
 #endif  // end if.
@@ -174,4 +181,4 @@ public class MyAttribut : Attribute {}  // create a class attribute (can be used
 
 // todo : unit test.
 
-// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo22/Exo22.cs
+// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo23/Exo23.cs
