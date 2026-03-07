@@ -85,7 +85,26 @@ List<string> myList = new List<string>(){ "A", "B" };  // list.
 myList.ToArray();  // cast list into array.
 myList.Select(cel => cel[0]);  // cast all element of a list into another list of other elements.
 myList.Contains("A");  // verify if list contain an element.
+myList.Where(cel => cel == "A");  // where.
 Dictionary<int, string> myD = new();  // dictionary (list of KeyValuePair).
+string.Join(", ", myList);  // cast a list into a string.
+// see also linq (use link with syntax of SQL).
+Queue<string> myQ = new();  // first in, last out (like a queue in market).
+myQ.Enqueue("a");  // add in first position.
+myQ.Dequeue();  // return the last element (and pop it).
+Stack<string> myS = new();  // first in, first out (like a stack of plate).
+myS.Push("a");  // add (in first position).
+myS.Peek();  // return the first element, without pop it.
+myS.Pop();  // return the first element AND pop it.
+BlockingCollection<string> bc = new BlockingCollection<string>(boundedCapacity: 3);  // used in async (?).
+bc.Add("a");  // add.
+bc.TryAdd("a");  // add (return true if add properly).
+bc.Take();  // take element from the list (adn pop from the list).
+bc.TryTake(out myVar);  // take element (return if it work).
+bc.TryUpdate, bc.TryRemove  // update an element, or remove an element.
+bc.IsCompleted  // return a boolean true if the length is full.
+bc.CompleteAdding();  // mark as lock (for async), can't allow more add on it.
+bc.GetConsumingEnumerable();  // return the list (for loop on it).
 
 public class MyClass {}  // create a class.
 MyClass mc = new MyClass();  // instanciate a class.
@@ -181,4 +200,4 @@ public class MyAttribut : Attribute {}  // create a class attribute (can be used
 
 // todo : unit test.
 
-// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo23/Exo23.cs
+// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo24/Exo24.cs
