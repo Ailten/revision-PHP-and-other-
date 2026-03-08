@@ -23,6 +23,14 @@ myFunc.Wait();  // wait until the task async be finish.
 myFunc.Result  // get the result (return) of the task call.
 await MyFunc();  // call an async function, with waiting it.
 Thread.Sleep(5);  // make wait 5 secondes.
+Thread myT = new Thread(new ThreadStart(myFunc));  // create a thread from a regular function (without params).
+Thread myT = new Thread(new ParameterizedThreadStart(myFunc));  // create a thread from a regular function.
+myT.Start(parameters);  // start executing the thread (and sending parameter).
+myT.Name = "my T";  // set a name to the thread.
+myT.Priority = ThreadPriority.AboveNormal;  // send a priority execution to a thread.
+myT.Join();  // force the current process to wait end of a thread.
+// see also .lock, CancellationToken, ...
+lock(myObjectToBeLocked) {}  // create a bloc, to lock an object/variable acces from other thread async.
 // todo : async, await, Delegate, Action, ...
 
 int myInt = 5;  // create an int (number integer, big capacity).
@@ -75,6 +83,8 @@ do {} while(isStay);  // do while.
 for(int i=0; i<5; i++) {}  // for.
 foreach(string cel in arr) {}  // foreach.
 break, continue  // break, continue.
+MYENCRE:  // set an encre.
+goto MYENCRE;  // go to encre (depreciate).
 
 string[] arr = {"a", "b"};  // array.
 arr[0]  // get value of a cell of array.
@@ -200,4 +210,4 @@ public class MyAttribut : Attribute {}  // create a class attribute (can be used
 
 // todo : unit test.
 
-// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo24/Exo24.cs
+// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo28/Exo28.cs
