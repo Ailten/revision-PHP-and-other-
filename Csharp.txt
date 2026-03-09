@@ -31,7 +31,12 @@ myT.Priority = ThreadPriority.AboveNormal;  // send a priority execution to a th
 myT.Join();  // force the current process to wait end of a thread.
 // see also .lock, CancellationToken, ...
 lock(myObjectToBeLocked) {}  // create a bloc, to lock an object/variable acces from other thread async.
-// todo : async, await, Delegate, Action, ...
+public delegate void MyDelegate(int param);  // create a delegate.
+MyDelegate myD = MyFunc;  // stock a function in an instance delegate.
+myD(5);  // call a delegate.
+public Action myAction = () => {};  // create an action (param into an object, to stock a lambda or a function).
+public Action<int> myAction = (myInt) => {};  // action with parameters.
+// if you need to have a return on an action, use a param ref. or a Delegate.
 
 int myInt = 5;  // create an int (number integer, big capacity).
 short, byte  // type integer more short (60K and 255).
@@ -125,6 +130,8 @@ static  // make not instance distinct.
 abstract, override  // key word for alow to override, and override (in parent, and child).
 abstract class MyClass {}  // abstract make a class not instanciable (only can be parent for other).
 public int myInt { get; set; }  // define if a variable param is access or setable.
+{ get { return _myInt; }}  // get.
+{ set { _myInt = value; }}  // set.
 public class B : A {}  // eritage (B is child of A).
 public B() : base() {}  // call the constructor parent.
 base.MyFunc();  // call function of parent.
@@ -208,6 +215,3 @@ MyEnum me = MyEnum.ValueA | MyEnum.ValueB;  // example of assigne two value of a
 me.HasFlag(MyEnum.ValueA);  // verify if instance has a specific value (flag).
 public class MyAttribut : Attribute {}  // create a class attribute (can be used on other class), allow pass a string in constructor etc.
 
-// todo : unit test.
-
-// continue : https://github.com/Ailten/CSharp-Test/blob/main/Exo28/Exo28.cs
