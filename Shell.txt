@@ -107,3 +107,9 @@ grep [w-s] [file] > [file-save]  // return the result of grep on a file.
 
 ps
 
+
+
+// todo : do also memo code dicord.
+// todo : do also memo note download folder.
+// todo : do also files linux cmd (PC and serv).
+// todo : do also if, for, ... etc.
