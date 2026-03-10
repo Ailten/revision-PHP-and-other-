@@ -1,0 +1,109 @@
+
+#!/bin/sh  // start a shell script (.sh).
+# comment.  // comment.
+sudo [cmd]  // execute a command in admin mode (for permission).
+sudo apt update  // maj of packages disponible (install nothing).
+sudo apt upgrade  // installe maj of package already installed.
+sudo apt install [package-name]  // install a new package.
+MY_VAR=test.txt  // make a var.
+"$MY_VAR"  // use a var.
+ctrl-C  // cut a process running.
+vim, hx  // editor with console.
+"a b"  // use " for srting with space.
+*  // replace every char, 0~n times in a string.
+>  // redirection, took return of left contend, and send to a file right.
+|  // pipe, took return of left contend, and use it as input to right contend.
+
+cd  // change directory (to racine user).
+cd ../  // same but go back from one folder.
+cd [path]  // same but send a path.
+cd -  // go back to the last folder visited.
+
+ls  // list all file/folder on the current folder.
+ls -l  // same, more details.
+ls [path]  // same, for a specified folder.
+ls -l --full-time  // same, but with the time in full char.
+ls -lu  // same, but print also the date of last axess to files (not the date when file was modified).
+
+pwd  // return the path of current folder (print it).
+
+touch [file]  // create a file.
+touch [a] [b] [c]  // create many files.
+touch [file]{1..9}  // create 9 files (name end by number).
+touch [file]{a..z}  // same with letter.
+touch [existing-file]  // update date acces and modificate (open and update).
+touch -t 199901010000 [file]  // same but send the date.
+touch -d tomorrow [file]  // same but sending a date day relative.
+touch -a [file]  // actualise the date of axess file (not modifed), like open it.
+touch -at 9901010000 [file]  // same but set the date.
+touch -m [file]  // updat date modificate (update).
+touch -mt 9901010000 [file]  // same but set the date.
+touch -am [file]  // edit the date acces and modificate (open and update), (same as no option).
+touch -r [file-ref] [file]  // set the date of a file to another one.
+touch -h [file]  // update date of a symlink (symbolic link) (?).
+touch -c [file]  // disable the "create if not exist" functionality.
+
+mkdir [folder-name]  // make a new folder.
+mkdir [a] [b] [c]  // make many folder.
+mkdir -p [new-folder/new-folder]  // make new folders in cascade (create all).
+
+rm [file-name]  // remove a file or a directory.
+rm -r [folder-name]  // remove a folder recurcively (with all in it).
+rm -rf [folder-name]  // -f for disable the confirmation request.
+
+rmdir [folder-name]  // remove a folder (only empty), less permissiv, for user not-admin (?).
+rmdir -p [folder-name]  // same, but force it.
+
+cp [file-source] [path-dest]  // copy a file (or directory), at a folder path.
+cp [file-source] [path-dest/new-name]  // same but with a rename.
+cp -r [folder-source] [path-dest/]  // copy a folder (-r for recursive, took all the contend with).
+
+mv [file-source] [path-dest]  // move a file (or directory), at a folder path.
+mv [file-source] [path-dest/new-name]  // same but with rename (can be use to only rename).
+
+cat [file]  // return the contend of a file (print it).
+cat [a] [b] [c]  // return many contend files.
+cat -n [file]  // same, but with number at eatch line.
+cat > [new-file]  // create a new file (if not exist), and start writing on it (in console), ctrl-C to quite.
+cat [a] [b] > [b]  // concat many file contend into a file (erase last contend).
+
+less [file]  // return the contend of a file, with pagination (print it).
+more [file]  // same but for files more big (not all tools).
+
+tail [file]  // return the 10 last line of the file (print it).
+tail -n 3  // same, but precise quantity of last line return.
+head [file]  // same but for the first lines.
+head -n 3  // same, but precise quantity of first line return.
+
+grep [word-search] [file]  // return the lines find with the word searched on a file contend.
+grep [w-s] [file-A] [file-B]  // same on many files.
+grep -r [w-s] [folder]  // same but recurcive (aply on every files decending the folder).
+grep -A3 [w-s] [file]  // took 3 line after the match.
+grep -B3 [w-s] [file]  // took 3 line before the match (include the match them self).
+grep -C3 [w-s] [file]  // took 3 line after AND before the match.
+grep -i [w-s] [file]  // -i for disabled case sensitive.
+grep -v [w-s] [file]  // -v for reverce search, return line who NOT match.
+grep -n [w-s] [file]  // -n for add line number.
+grep -E '^A+$' [file]  // -E to use regex.
+.  // every char, one time.
+*  // every char, zero to N time.
++  // last char, one to N time.
+?  // last char, zero to one time.
+^  // the start of an expression.
+$  // the end of an expression.
+()  // groupe motif.
+grep 'w1\|w2\|w3' [file]  // search many words distinct.
+grep -E 'w1|w2|w3' [file]  // same with regex.
+grep -e 'w1' -e 'w2' [file]  // same with distinct parameters.
+egrep [rgx] [file]  // same as -E. 
+grep -c [w-s] [file]  // -c for return the amount of lines match.
+grep -o [w-s] [file]  // -o for return the match only (not the line).
+grep -o [w-s] [file] | wc -l  // return the count of match only.
+grep -o '\bWordSearch\b' [file]  // return the matches exact (do not match if the word is a part of another one).
+ls | grep [w-s]  // do grep on a return of ls.
+grep [w-s] [file] > [file-save]  // return the result of grep on a file.
+
+// continue : https://www.malekal.com/commandes-base-linux/#ps_afficher_la_liste_des_processus_en_cours
+
+ps
+
