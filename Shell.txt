@@ -103,10 +103,35 @@ grep -o '\bWordSearch\b' [file]  // return the matches exact (do not match if th
 ls | grep [w-s]  // do grep on a return of ls.
 grep [w-s] [file] > [file-save]  // return the result of grep on a file.
 
-// continue : https://www.malekal.com/commandes-base-linux/#ps_afficher_la_liste_des_processus_en_cours
+find -name "run*"  // return all file/folder having the name send (in current folder).
+find -name "*.txt"  // same, find by extantion.
+find [path] -name "run*"  // same, sending a folder.
+find -type f -name "run*"  // -type f, for file only.
+find -type d -name "run*"  // -type d, for directory only.
+find -size +50M  // -size, for filter by size octe.
+find -name "run*" -exec rm {} \;  // -exec, for execute a cmd on all result (heer is a rm) "{}" replace the result find.
 
-ps
+ps  // return the list of process running currently (including theme self).
+ps -A  // -A for add all process of the systeme.
+ps -r  // -r for only process currently running (not those who sleep).
+ps -u  // -u for add details of user who associate all process.
 
+top  // open an analyse view of processus and performence systeme.
+q  // for quite.
+k  // for kill.
+h  // for help.
+M  // order by memory used.
+P  // order by CPU used.
+
+kill [id]  // end a process (without option, it save the progression of process).
+kill -9 [id]  // same, without save (most used).
+kill -1 [id]  // same, and re launch it.
+kill -15 [id]  // same, end properly.
+pkill -9 [process-name]  // kill with name (can kill many process at same time).
+
+// continue : https://www.malekal.com/commandes-base-linux/#chmod_modifier_les_permissions_et_autorisations_drsquoun_fichier
+
+chmod
 
 
 
