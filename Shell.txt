@@ -129,10 +129,49 @@ kill -1 [id]  // same, and re launch it.
 kill -15 [id]  // same, end properly.
 pkill -9 [process-name]  // kill with name (can kill many process at same time).
 
-// continue : https://www.malekal.com/commandes-base-linux/#chmod_modifier_les_permissions_et_autorisations_drsquoun_fichier
+chmod -rwx---r-- [file]  // set permission to a file.
+chmod -[.]---r-- [file]  // owner permissions.
+chmod -rwx[.]r-- [file]  // group permissions.
+chmod -rwx---[.] [file]  // other permissions.
+chmod -rwx---r-- [owner-name] [users] [file]  // same, set owner-name and users-group.
+chmod -x [file]  // remove execution permission to a file (without option, to all categorie users), like "a-x".
+chmod u+x [file]  // add execution permission to a file (with option "u", to user categorie (owner)).
+chmod g+r [file]  // add read permission to a file ("g" for group categorie).
+chmod o-w [file]  // remove write permission to a file ("o" for other categorie).
+chmod 711 [file]  // set permission to a file.
+chmod .11 [file]  // owner permissions.
+chmod 7.1 [file]  // group permissions.
+chmod 71. [file]  // other permissions.
+4, 2, 1  // 4 for read, 2 for write, 1 for execute.
 
-chmod
+chown [owner-name] [file]  // change the owner of a file.
+chown :[group-name] [file]  // change the group of a file.
+chgrp [group-name] [file]  // same.
+chown [owner-name]:[group-name] [file]  // change both.
 
+useradd [user-name]  // create an user.
+useradd -m -s [user-name]  // same, with home and shell (folders).
+passwd [user-name]  // set a password to an user.
+groupadd [group-name]  // create a new group (users).
+cat /etc/passwd  // list all users.
+cut -d: -f1 /etc/passwd  // same, but only the name of users.
+cat /etc/group  // list all group.
+cut -d: -f1 /etc/group  // same, but only the name of group.
+usermod -g [grp-name] [usr-name]  // set a main-group to an user.
+usermod -aG [grp-name] [usr-name]  // set a second-group to an user.
+-g  // main-group.
+-G  // second-group.
+-a  // add group (without "a" it replace).
+usermod -G [grp-1],[grp-2] [usr-name]  // set many second-group to an user (replace).
+groups [usr-name]  // list all group of an user.
+id [usr-name]  // same.
+userdel [usr-name]  // delete an user.
+userdel -r [usr-name]  // same, delete home folder with it.
+groupdel [grp-name]  // delete a group.
+
+// continue : https://www.malekal.com/commandes-base-linux/#df_connaitre_lespace_disque_disponible
+
+df
 
 
 
