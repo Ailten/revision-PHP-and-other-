@@ -204,7 +204,7 @@ shutdown -c  // cancel a shutdown (has to use during the cooldown of 1 minute, o
 uname -s  // print the name of kernel (noyau linux).
 uname -n  // print the name of the PC (hostname).
 uname -r  // print the vertion of kernel.
-uname -v  // same.
+uname -v  // same, (more detailled).
 uname -m  // print the name of material of PC (hardware ?).
 
 
