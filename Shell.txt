@@ -13,6 +13,7 @@ vim, hx  // editor with console.
 *  // replace every char, 0~n times in a string.
 >  // redirection, took return of left contend, and send to a file right.
 |  // pipe, took return of left contend, and use it as input to right contend.
+;  // combine two commande on a same line (execute text to, but on same line).
 
 cd  // change directory (to racine user).
 cd ../  // same but go back from one folder.
@@ -169,10 +170,45 @@ userdel [usr-name]  // delete an user.
 userdel -r [usr-name]  // same, delete home folder with it.
 groupdel [grp-name]  // delete a group.
 
-// continue : https://www.malekal.com/commandes-base-linux/#df_connaitre_lespace_disque_disponible
+df  // print the disc space momory available.
+df -h  // same, more readable.
+df -t [ext4]  // print the space available for a type system.
+df --total  // add a total line.
+df -h | sort -k5  // order by purcent used.
 
-df
+du -h  // print the usage disc of system ("h" for mor readable).
 
+cat [file-source] | tee [file-dest]  // "tee" write on a file AND print on console (use for save/historic).
+tee -a [file]  // "a" for add to file (keep the previous data of file, write next to it).
+
+clear  // erase the terminal printed.
+
+help [cmd]  // print doc of a command (builtin, only for command interne).
+[cmd] -h  // same.
+[cmd] --help  // same.
+man [cmd]  // same ("man" for manuel, documentation classic, use pagination).
+info [cmd]  // same (more detailled than "man")
+
+apropos [word-search]  // research a command who has a key-word on his manuel (for searching command).
+
+history  // print the historic of command used.
+
+whatis [cmd]  // print a description of a command.
+whereis [cmd]  // print the emplacement of a command.
+
+shutdown  // shut down the computer.
+shutdown now  // same, (without cooldown verification, by default it has 1 minute to allow user to cancel).
+shutdown 20:40  // same, but programme to shutdown at 20h40.
+shutdown -c  // cancel a shutdown (has to use during the cooldown of 1 minute, or other).
+
+uname -s  // print the name of kernel (noyau linux).
+uname -n  // print the name of the PC (hostname).
+uname -r  // print the vertion of kernel.
+uname -v  // same.
+uname -m  // print the name of material of PC (hardware ?).
+
+
+// continue : https://www.malekal.com/commandes-base-linux/#hostname_changer_le_nom_de_la_machine
 
 
 
