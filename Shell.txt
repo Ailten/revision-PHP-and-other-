@@ -207,8 +207,20 @@ uname -r  // print the vertion of kernel.
 uname -v  // same, (more detailled).
 uname -m  // print the name of material of PC (hardware ?).
 
+hostname  // print the hote name.
+hostname -i  // "i" for print the IP server.
+hostname -a  // "a" for print the alias of hote.
+hostname -A  // "A" for print full domaine name.
 
-// continue : https://www.malekal.com/commandes-base-linux/#hostname_changer_le_nom_de_la_machine
+wget [url]  // download a file from web (like "apt install" but with a web adresse).
+wget [url] -O [file-dest]  // "O" for precise in what file place it (can contain a path of file).
+wget -r [url]  // "r" for recurcive (download all from the url).
+wget -c [url]  // "c" for continue a previous wget download who was cut in midle.
+wget -i [file]  // "i" for execute urls from a file.
+
+// continue : https://www.malekal.com/commandes-base-linux/#uptime_afficher_le_temps_de_fonctionnement_du_systeme_et_la_charge_moyenne
+
+uptime
 
 
 
