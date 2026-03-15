@@ -218,9 +218,27 @@ wget -r [url]  // "r" for recurcive (download all from the url).
 wget -c [url]  // "c" for continue a previous wget download who was cut in midle.
 wget -i [file]  // "i" for execute urls from a file.
 
-// continue : https://www.malekal.com/commandes-base-linux/#uptime_afficher_le_temps_de_fonctionnement_du_systeme_et_la_charge_moyenne
+uptime  // print details about the last start of PC (system and average charge).
 
-uptime
+file [file]  // return the type of a file.
+file -k [file]  // same, more details.
+
+sudo apt update  // maj of packages disponible (install nothing).
+sudo apt upgrade  // installe maj of package already installed.
+sudo apt install [package-name]  // install a new package.
+dnf  // "dnf" replace "apt" for distro Fedora / Red Hat.
+
+zip [file-zip-dest] [file(s)-to-zip]  // zip a file(s) into a zip file.
+zip -r [fzd] [folder]  // same, "r" for zip a full folder (recursively).
+unzip [file-zip]  // unzip a file.
+unzip [file-zip] -d [path]  // same, "d" for send a destination.
+
+
+
+// continue : https://www.malekal.com/commandes-base-linux/#tar_rassembler_des_fichiers_dans_une_archive
+
+tar
+
 
 
 
