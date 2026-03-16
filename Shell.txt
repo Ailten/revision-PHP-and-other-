@@ -233,11 +233,19 @@ zip -r [fzd] [folder]  // same, "r" for zip a full folder (recursively).
 unzip [file-zip]  // unzip a file.
 unzip [file-zip] -d [path]  // same, "d" for send a destination.
 
+tar -cvf [file-dest.tar] [file-A] [file-B]  // create an archive tar (c create, v verbose, f file).
+tar -cvf [file-dest.tar] [folder]  // same with a full folder.
+tar -czvf [file-dest.tar.gz] [folder]  // same but compressed.
+tar -xvf [file-source.tar]  // "x" for extract (extract from a tar archive).
+tar -xzvf [file-source.tar.gz]  // same for a compressed archive (tar.gz).
+tar -xvf [file-source.tar] -C [path]  // extract on a path destination.
+tar -tvf [file-source.tar]  // list contend of an archive (without extracting it).
 
+exit  // quite from a session open.
 
-// continue : https://www.malekal.com/commandes-base-linux/#tar_rassembler_des_fichiers_dans_une_archive
+// continue : https://www.malekal.com/commandes-base-linux/#systemctl_gerer_les_services
 
-tar
+systemctl
 
 
 
