@@ -243,10 +243,16 @@ tar -tvf [file-source.tar]  // list contend of an archive (without extracting it
 
 exit  // quite from a session open.
 
-// continue : https://www.malekal.com/commandes-base-linux/#systemctl_gerer_les_services
+sudo systemctl list-unit-files --type service --all  // list all task (like start the PC).
+sudo systemctl [sub-cmd] --[option(s)]  // syntax.
 
-systemctl
+watch ["cmd"]  // execute a cmd every 2 secondes.
+watch -n 10 "ls /home"  // execute cmd ls every 10 secondes.
+watch -d 10 "ls /home"  // "d" for hight-light the diference between two result.
 
+// continue : https://www.malekal.com/commandes-base-linux/#dmesg_afficher_les_messages_lies_au_noyau_sur_les_systemes_UNIX
+
+dmesg
 
 
 
