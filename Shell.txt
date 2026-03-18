@@ -250,9 +250,12 @@ watch ["cmd"]  // execute a cmd every 2 secondes.
 watch -n 10 "ls /home"  // execute cmd ls every 10 secondes.
 watch -d 10 "ls /home"  // "d" for hight-light the diference between two result.
 
-// continue : https://www.malekal.com/commandes-base-linux/#dmesg_afficher_les_messages_lies_au_noyau_sur_les_systemes_UNIX
+sudo dmesg | less  // print message about noyau unix.
 
-dmesg
+journalctl  // used to print and manage logs about systeme.
+
+vim [file]  // open a file with editor text (in cmd).
+
 
 
 
