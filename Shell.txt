@@ -5,6 +5,7 @@ sudo [cmd]  // execute a command in admin mode (for permission).
 sudo apt update  // maj of packages disponible (install nothing).
 sudo apt upgrade  // installe maj of package already installed.
 sudo apt install [package-name]  // install a new package.
+./file.sh  // execute a file shell.
 MY_VAR=test.txt  // make a var.
 "$MY_VAR"  // use a var.
 ctrl-C  // cut a process running.
@@ -112,6 +113,8 @@ find -type d -name "run*"  // -type d, for directory only.
 find -size +50M  // -size, for filter by size octe.
 find -name "run*" -exec rm {} \;  // -exec, for execute a cmd on all result (heer is a rm) "{}" replace the result find.
 
+locate [file.txt]  // same as find, but use a DB (not always update result, but more speed).
+
 ps  // return the list of process running currently (including theme self).
 ps -A  // -A for add all process of the systeme.
 ps -r  // -r for only process currently running (not those who sleep).
@@ -135,6 +138,7 @@ chmod -[.]---r-- [file]  // owner permissions.
 chmod -rwx[.]r-- [file]  // group permissions.
 chmod -rwx---[.] [file]  // other permissions.
 chmod -rwx---r-- [owner-name] [users] [file]  // same, set owner-name and users-group.
+chmod -R 711 [file]  // "R" for apply permission to all folder/file into (recurcive).
 chmod -x [file]  // remove execution permission to a file (without option, to all categorie users), like "a-x".
 chmod u+x [file]  // add execution permission to a file (with option "u", to user categorie (owner)).
 chmod g+r [file]  // add read permission to a file ("g" for group categorie).
@@ -144,6 +148,14 @@ chmod .11 [file]  // owner permissions.
 chmod 7.1 [file]  // group permissions.
 chmod 71. [file]  // other permissions.
 4, 2, 1  // 4 for read, 2 for write, 1 for execute.
+777  // full acess (for all).
+700  // full private (only acess for owner of file).
+444  // only readable (for all).
+666  // read and write (for all), not execute.
+644  // r+w for owner, read only for other (recomanded for file).
+755  // owner can do all, r+x for other (reomanded for folder).
+750  // group users can read + execute (other can do nothing).
+711  // other can execute, without see the contend.
 
 chown [owner-name] [file]  // change the owner of a file.
 chown :[group-name] [file]  // change the group of a file.
@@ -226,6 +238,9 @@ file -k [file]  // same, more details.
 sudo apt update  // maj of packages disponible (install nothing).
 sudo apt upgrade  // installe maj of package already installed.
 sudo apt install [package-name]  // install a new package.
+sudo apt-get dist-upgrade [software-name]  // maj a software (?).
+sudo apt-get remove [software-name]  // uninstall a software.
+sudo apt autoremove  // remove auto all package not use.
 dnf  // "dnf" replace "apt" for distro Fedora / Red Hat.
 
 zip [file-zip-dest] [file(s)-to-zip]  // zip a file(s) into a zip file.
@@ -256,6 +271,37 @@ journalctl  // used to print and manage logs about systeme.
 
 vim [file]  // open a file with editor text (in cmd).
 
+
+
+// --------- memo disc.
+
+desmume  // cmd for launch emulator DS.
+desmume --disable-3d  // same, disable 3D feature.
+desmume --fwlang=2  // same, execute in french.
+desmume --cpumode=1  // same, in cpu dif (?).
+desmume-glade --fwlang=2  // same, in FR + mode sans-echec (best way).
+
+xsetwacom  // cmd for define param of wacom tablette device.
+xsetwacom set "Wacom Intuos PT S Pad pad" Button 1 key "key +Control_L +z" //key 1 == button down left
+xsetwacom set "Wacom Intuos PT S Pen stylus" MapToOutput 1600x900+1920+180 //resize tabeltte to second screen
+xsetwacom -s get "Wacom Intuos PT S Pad pad" all //show all button params maped.
+
+zig build run  // compil a zig project (for debug).
+
+code .  // open visual studio code.
+
+dotnet new console  // create a new project C# dotnet.
+dotnet run  // execute a C# (dotnet) project (compile and execute).
+dotnet add package Raylib-cs  // add raylib package to project C#.
+dotnet publish -c Release -r win-x64 --self-contained true  // compile a dotnet project for window.
+dotnet publish -c Release -r linux-x64 --self-contained true  // compile a dotnet project for linux.
+dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true  // same but compile all in one file exe.
+
+git  // cmd for execute git movement (see all git cmd in GIT recap file).
+
+
+
+//todo : see "crontab -e" 
 
 
 

@@ -230,3 +230,11 @@ git push origin --delete [myBranch]  // delete a branch distante (after a merge)
 
 
 
+// -------- SSH key.
+
+https://dev.to/hbolajraf/git-connecting-to-github-and-pushing-changes-using-ssh-on-windows-2f5
+ssh-keygen -t ed25519 -b 4096 -C "your_email@example.com"  // create a new SSH key. (no file, password in passphrase).
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+// place the contend of file ".ssh/id_ed25519.pub" into github profile key.
+ssh -T git@github.com
