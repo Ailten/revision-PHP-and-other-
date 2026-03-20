@@ -299,10 +299,33 @@ dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=
 
 git  // cmd for execute git movement (see all git cmd in GIT recap file).
 
+crontabe -e  // open the gestionaire of task, and with "-e" you can edit (add, update, delete task).
+
+npm install  // install dependency on a project (with npm).
+
+nano [file]  // same as touch (for create a file).
+
+sudo apt install btop  // btop, for scan performence on linux.
+
+wine  // emulator windows on linux.
+wine [file.exe]  // execute a file exe windows on linux.
+winecfg  // open the configation of wine (with vertion of window used).
+
+wget [url-of-a-file]  // cmd for download file from internet.
+
+lsblk  // list all drive (used to boot an OS on an usb Key (find the key ref)).
+sudo dd if=~/ubuntu.iso of=/dev/sdb bs=4M status=progress    //param if= for the image os, param of= for the path USB drive, bs= stack of memory progression, status= print the evolution of writing.
+sudo dd if=/home/user/Téléchargements/imageOS/UbuntuServer/ubuntu-24.04.3-live-server-amd64.iso of=/dev/sdb bs=4M status=progress 
+
+ssh [name-server]@[ip]  // connect to a server.
+sshpass -p [password] ssh [name-server]@[ip]  // same, but less safe, place the password on the historic console cmd.
+exit  // quite the ssh connection.
+sudo hx [file]  // open a file with editor hx (little bether than vim).
+scp [name-server]@[ip]:[path-file-from] [path-to]  // move a file from a server, to the current PC.
+scp [path-from] [name-server]@[ip]:[path-to]  // same, but from current PC to server.
 
 
-//todo : see "crontab -e" 
-
+// do nginx.
 
 
 // todo : do also memo code dicord.

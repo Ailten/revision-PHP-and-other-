@@ -238,3 +238,16 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 // place the contend of file ".ssh/id_ed25519.pub" into github profile key.
 ssh -T git@github.com
+
+
+// ------ clone and move in a project.
+
+//clone a repo git has a lib.
+git clone https://github.com/RobLoach/node-raylib.git  //clone le repo sur le PC. (nimporte quel emplacement cmd).
+mv node-raylib /path/to/your/project/  //déplacer le repo clonné dans le projet.
+
+
+// --- advice, switch branch.
+
+git switch [nom branche] //switch to another branch (checkout).
+git switch -c [nom new branche] //duplic current branch checkout into new one.
