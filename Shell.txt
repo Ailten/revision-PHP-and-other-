@@ -119,6 +119,9 @@ ps  // return the list of process running currently (including theme self).
 ps -A  // -A for add all process of the systeme.
 ps -r  // -r for only process currently running (not those who sleep).
 ps -u  // -u for add details of user who associate all process.
+ps u  // print all process executed currently.
+ps aux  // print all process executed from the start of running computer.
+// a = users, u = format readable, x = include prossuce in background.
 
 top  // open an analyse view of processus and performence systeme.
 q  // for quite.
@@ -161,6 +164,7 @@ chown [owner-name] [file]  // change the owner of a file.
 chown :[group-name] [file]  // change the group of a file.
 chgrp [group-name] [file]  // same.
 chown [owner-name]:[group-name] [file]  // change both.
+// -R = doing recursively (in file/folder inner).
 
 useradd [user-name]  // create an user.
 useradd -m -s [user-name]  // same, with home and shell (folders).
@@ -324,8 +328,63 @@ sudo hx [file]  // open a file with editor hx (little bether than vim).
 scp [name-server]@[ip]:[path-file-from] [path-to]  // move a file from a server, to the current PC.
 scp [path-from] [name-server]@[ip]:[path-to]  // same, but from current PC to server.
 
+nginx  // cmd about setup a server (firewall, http/https).
+sudo apt install nginx  // install nginx.
+sudo systemctl start nginx  // start nginx.
+sudo systemctl enable nginx  // start (part 2).
+sudo hx /etc/nginx/sites-available/default  // edit the default seting of server http. https://www.ipserverone.info/knowledge-base/how-to-change-the-default-file-for-your-website-nginx/
+sudo ln -s /etc/nginx/sites-available/<my-domain-name> /etc/nginx/sites-enabled/   // creat a virutal host for recognaise domain name.
+// after this try to edit the own file <my-domain-anme> unless the default.
+sudo nginx -t   // try if configuration is valide.
+sudo systemctl restart nginx   // restart (when config is changed).
+cat /var/log/nginx/access.log  // show historic of log.
+sudo systemctl status nginx  // check if nginx is active.
+sudo ss -tuln | grep :80  // check if port 80 is watching.
+ls -l /var/www/<my-page-web>/index.html  // check if the html exist.
+sudo ufw status  // check if firewall allow what port.
+// https://whatismyipaddress.com/  // check ip public.
+sudo tail -f /var/log/nginx/access.log /var/log/nginx/error.log  // verify access log and error in nginx.
 
-// do nginx.
+sudo certbot --nginx -d <your-web-domain-dot-com>   // generate https sertificat.
+
+sudo apt install ufw   // install lib for making firewall.
+sudo ufw enable    // activate.
+sudo ufw allow 'Nginx Full'   // setup the firewall (uncomplicated).
+sudo ufw allow ssh   // allow connection by ssh. same as : sudo ufw allow 22/tcp comment 'Open port ssh tcp port 22'
+sudo ufw allow 80/tcp comment 'Open port 80 for web page'   // allow port 80 for http. (443 for https)
+sudo ufw reload   // update changes.
+// if we use a maked folder for the web page (out of www) need to change permission : chmod 0755 <my-path-folder>
+curl <domain-name>   // for test a domain is working or not. (??)
+
+iwconfig  // for print all ip device access (search something like "wlan0" or "wlp3s0").
+sudo ifconfig <your-wlan0...or other> up    // make sur is on (?).
+sudo iwlist scan | more   // scan for available wire less.
+   //search "ESSID" for the name of your wireless network.
+   //and watch for "Encryption key" off. (?) 
+// for open port on porximus box, go in MtProxy web site and acitve "advenced mode", go to page b-box local, login with user-mdp, add rule about port.
+
+pip freeze | grep Flask  // verify what vertion of a library python you use (heer is Flask library).
+
+PIPEWIRE_CLIENT_NAME="MonAppliAudio" python3 mon_script.py  // call a script (execute), by naming it (for find it with name process).
+
+pw-cli ls Node  // list all node of audio.
+pw-top  // list all (?).
+// pipewire 0.3.48
+pw-cli ls Node | grep "node.name = \"Name_Process\"" // find a node with a special name.
+pw-cli info 32  // write info about node audio (num id 32).
+
+php -v  // print vertion of php.
+sudo apt install php8.3-fpm  // install the executable php match you vertion (take 2 digit vertion)
+systemctl status php8.3-fpm  // verify if installed. (Can skipe)
+ls /run/php/  // verify if a .sock is created. (Can skipe)
+sudo systemctl status php8.3-fpm  // run php.
+sudo systemctl restart php8.3-fpm  // for restart php.
+// /etc/php/8.3/fpm/pool.d/www.conf  // file to define ip and port for php.
+
+
+
+// SQL.
+
 
 
 // todo : do also memo code dicord.
