@@ -417,9 +417,12 @@ curl -sS https://getcomposer.org/installer | php  // install Composer from url (
 sudo mv composer.phar /usr/local/bin/composer  // move the install Composer in usr folder.
 composer create-project laravel/laravel <mon-projet>  // create a new projet With composer.
 
+sudo apt install php-fpm php-mysql  // download package for php (heer fpm and mysql).
 
 
-// todo : do also memo code dicord.
+
+
+
 // todo : do also memo note download folder.
 // todo : do also files linux cmd (PC and serv).
 // todo : do also if, for, ... etc.
