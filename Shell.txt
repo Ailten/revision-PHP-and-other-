@@ -345,7 +345,7 @@ sudo ufw status  // check if firewall allow what port.
 // https://whatismyipaddress.com/  // check ip public.
 sudo tail -f /var/log/nginx/access.log /var/log/nginx/error.log  // verify access log and error in nginx.
 
-sudo certbot --nginx -d <your-web-domain-dot-com>   // generate https sertificat.
+sudo certbot --nginx -d <your-web-domain-dot-com>   // generate https sertificat (SSL).
 
 sudo apt install ufw   // install lib for making firewall.
 sudo ufw enable    // activate.
@@ -412,6 +412,10 @@ mysql> show tables;  // print all tables names.
 mysql> DROP table <tableName>;
 mysql> SELECT * from migrations;
 mysql> delete from migrations where (id = 9);  // delete the migration instruction of the table drop manually. 
+
+curl -sS https://getcomposer.org/installer | php  // install Composer from url (execute by PHP), for use Laravel.
+sudo mv composer.phar /usr/local/bin/composer  // move the install Composer in usr folder.
+composer create-project laravel/laravel <mon-projet>  // create a new projet With composer.
 
 
 
