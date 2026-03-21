@@ -381,9 +381,37 @@ sudo systemctl status php8.3-fpm  // run php.
 sudo systemctl restart php8.3-fpm  // for restart php.
 // /etc/php/8.3/fpm/pool.d/www.conf  // file to define ip and port for php.
 
-
-
-// SQL.
+mysql  // cmd about mysql (manage DB).
+sudo apt install mysql-server  // install mysql.
+sudo systemctl start mysql.service  // run the mysql server.
+sudo mysql  // open a prompt console mysql.
+mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'myPassword';  // password on other channel.
+mysql> FLUSH PRIVILEGES;  //validate privilage change.
+mysql> exit  //quit mysql prompt.
+mysql -u root -p  // open a prompt console mysql (with root and password).
+mysql> CREATE USER 'monuser'@'localhost' IDENTIFIED BY 'MonSuperMotDePasse';  // create a new user.
+mysql> GRANT ALL PRIVILEGES ON mabase.* TO 'monuser'@'localhost';  // set privilege.
+mysql> FLUSH PRIVILEGES;  //validate privilage change.
+mysql> exit  //quit mysql prompt.
+sudo mysql_secure_installation  // apply security on sql.
+-- VALIDATE PASSWORD COMPONENT: y
+-- -- levels of password: 1 (MEDIUM)
+-- -- Change the password for root: n
+-- Remove anonymous users: y
+-- Disallow root login remotely: y
+-- Remove test database: y
+-- Reload privilege tables now: y
+mysql> GRANT PRIVILEGE ON database.table TO 'username'@'host';
+mysql> GRANT CREATE, ALTER, DROP, INSERT, UPDATE, INDEX, DELETE, SELECT, REFERENCES, RELOAD on . TO 'sammy'@'localhost' WITH GRANT OPTION;
+mysql -u root -p <DB-name> < <DB-on-server/setup.sql>  // execute a file .sql into MySQL.
+mysql> use <DB-name>;  // checkout the database.
+mysql> SELECT user, host FROM mysql.user;  // show all user.
+mysql> SELECT user, host, plugin FROM mysql.user WHERE user='webPage-on-server';  // show the mode of identified of one user.
+mysql -u root -p <DB-name>  // log as root to DB.
+mysql> show tables;  // print all tables names.
+mysql> DROP table <tableName>;
+mysql> SELECT * from migrations;
+mysql> delete from migrations where (id = 9);  // delete the migration instruction of the table drop manually. 
 
 
 
