@@ -15,6 +15,7 @@ vim, hx  // editor with console.
 >  // redirection, took return of left contend, and send to a file right.
 |  // pipe, took return of left contend, and use it as input to right contend.
 ;  // combine two commande on a same line (execute text to, but on same line).
+echo [txt]  // print something in console.
 
 cd  // change directory (to racine user).
 cd ../  // same but go back from one folder.
@@ -26,6 +27,7 @@ ls -l  // same, more details.
 ls [path]  // same, for a specified folder.
 ls -l --full-time  // same, but with the time in full char.
 ls -lu  // same, but print also the date of last axess to files (not the date when file was modified).
+tree  // same as ls, but print in a tree ascii.
 
 pwd  // return the path of current folder (print it).
 
@@ -68,6 +70,7 @@ cat [a] [b] [c]  // return many contend files.
 cat -n [file]  // same, but with number at eatch line.
 cat > [new-file]  // create a new file (if not exist), and start writing on it (in console), ctrl-C to quite.
 cat [a] [b] > [b]  // concat many file contend into a file (erase last contend).
+tac [file]  // same as cat, but print starting from the end of file.
 
 less [file]  // return the contend of a file, with pagination (print it).
 more [file]  // same but for files more big (not all tools).
@@ -76,6 +79,15 @@ tail [file]  // return the 10 last line of the file (print it).
 tail -n 3  // same, but precise quantity of last line return.
 head [file]  // same but for the first lines.
 head -n 3  // same, but precise quantity of first line return.
+
+sort [file]  // order line of a file.
+sort -r [file]  // order decroissent.
+sort -o [file-dest] [file]  // same, but send result ordered in a destination file.
+
+wc -l  // count amount of lines.
+wc -w  // same, for words.
+wc -m  // same, for caracters.
+wc -c  // same, for octets.
 
 grep [word-search] [file]  // return the lines find with the word searched on a file contend.
 grep [w-s] [file-A] [file-B]  // same on many files.
@@ -176,15 +188,29 @@ cat /etc/group  // list all group.
 cut -d: -f1 /etc/group  // same, but only the name of group.
 usermod -g [grp-name] [usr-name]  // set a main-group to an user.
 usermod -aG [grp-name] [usr-name]  // set a second-group to an user.
+usermod -l [new-usr-name] [usr-name]  // change name of an user.
+usermod -r [usr-name]  // remove the user (delete), and his files owner.
 -g  // main-group.
 -G  // second-group.
 -a  // add group (without "a" it replace).
 usermod -G [grp-1],[grp-2] [usr-name]  // set many second-group to an user (replace).
 groups [usr-name]  // list all group of an user.
 id [usr-name]  // same.
+su [usr-name]  // modify the id of an user.
 userdel [usr-name]  // delete an user.
 userdel -r [usr-name]  // same, delete home folder with it.
 groupdel [grp-name]  // delete a group.
+groupmod [grp-name]  // modify a group (update).
+groupmod -n [new-grp-name] [grp-name]  // rename a group.
+gpasswd [grp-name]  // manage a grp.
+gpasswd -a [usr-name] [grp-name]  // add an user into a group.
+gpasswd -A [usr-name] [grp-name]  // define an user as Admin of a group.
+gpasswd -d [usr-name] [grp-name]  // remove an user from a group.
+newgrp [grp-name]  // use temporary a secondary grp (?).
+
+chage [usr-name]  // cmd for manage the life-time of a password-user.
+chage -l [usr-name]  // list the stats of an user (his restriction password, last change, ... etc).
+chage -d 0 [usr-name]  // ask to change password next time his connecting.
 
 df  // print the disc space momory available.
 df -h  // same, more readable.
@@ -216,6 +242,7 @@ shutdown  // shut down the computer.
 shutdown now  // same, (without cooldown verification, by default it has 1 minute to allow user to cancel).
 shutdown 20:40  // same, but programme to shutdown at 20h40.
 shutdown -c  // cancel a shutdown (has to use during the cooldown of 1 minute, or other).
+shutdown -r +5  // reload PC in 5 minutes.
 
 uname -s  // print the name of kernel (noyau linux).
 uname -n  // print the name of the PC (hostname).
@@ -274,6 +301,8 @@ sudo dmesg | less  // print message about noyau unix.
 journalctl  // used to print and manage logs about systeme.
 
 vim [file]  // open a file with editor text (in cmd).
+
+date  // return the date.
 
 
 
@@ -420,6 +449,8 @@ composer create-project laravel/laravel <mon-projet>  // create a new projet Wit
 sudo apt install php-fpm php-mysql  // download package for php (heer fpm and mysql).
 
 
+
+// todo "process" in folder download.
 
 
 
