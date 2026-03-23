@@ -147,6 +147,7 @@ kill -9 [id]  // same, without save (most used).
 kill -1 [id]  // same, and re launch it.
 kill -15 [id]  // same, end properly.
 pkill -9 [process-name]  // kill with name (can kill many process at same time).
+pgrep * | pkill  // kill all process with a regex on their name.
 
 chmod -rwx---r-- [file]  // set permission to a file.
 chmod -[.]---r-- [file]  // owner permissions.
@@ -448,9 +449,25 @@ composer create-project laravel/laravel <mon-projet>  // create a new projet Wit
 
 sudo apt install php-fpm php-mysql  // download package for php (heer fpm and mysql).
 
+fg [process-id]  // move the process in foreground (sincrone).
+bg [process-id]  // move the process in background (assyncrone).
+
+jobs  // return all process running (-l for return ID to).
+ps  // same.
+pgrep [process-name]  // search a process running by his name (-l for return ID to).
+nice -n [value-priority] [cmd]  // execute a cmd with a lvl of priority CPU (from -20 to 20, biger value = less priority).
+renice [value-priority] -p [ID-process]  // change the priority of a process running.
+pidof [process-name]  // return the ID of a process, find by his name.
+nohup [cmd] &  // execute a cmd who still running when you close the perminal ("&" make it run in background, nohup make it disociate from terminal).
+
+sleep 9000  // sleep for 9 sec.
 
 
-// todo "process" in folder download.
+
+
+
+
+// todo "partition" in folder download.
 
 
 
