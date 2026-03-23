@@ -469,7 +469,7 @@ sleep 9000  // sleep for 9 sec.
 
 
 
-// todo "partition" in folder download.
+// todo "partition" in folder download. (core)
 
 
 
