@@ -459,6 +459,8 @@ nice -n [value-priority] [cmd]  // execute a cmd with a lvl of priority CPU (fro
 renice [value-priority] -p [ID-process]  // change the priority of a process running.
 pidof [process-name]  // return the ID of a process, find by his name.
 nohup [cmd] &  // execute a cmd who still running when you close the perminal ("&" make it run in background, nohup make it disociate from terminal).
+// "&" at end of a cmd to executing in background.
+// "nohup" for disociate execution from the terminal (it still run when you close the terminal).
 
 sleep 9000  // sleep for 9 sec.
 
