@@ -481,7 +481,7 @@ lvdisplay  // visualise info disc volum.
 
 
 
-// todo "partition" in folder download. (core)
+// todo "sauvegarde, compression" in folder download. (core)
 
 
 
