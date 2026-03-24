@@ -466,6 +466,18 @@ sleep 9000  // sleep for 9 sec.
 
 
 
+// ------ partition.
+
+/dev/sda1  // path to partition disc (s for sata, a for num disc by alphabetic order, 1 for index partition).
+fdisk -l  // list all disc dur.
+cfdisk  // manage partition disc.
+pvcreate [path]  // create a partition (ex: "/dev/sda").
+vgcreate [grp-name] [path(s)-disc]  // create a grp and put disc(s) into it.
+lvcreate -L [size] -n [name] [name-VG]  // allocate memory (see param in details before use).
+pvdisplay  // visualise space.
+vgdisplay  // visualise info grp volum.
+lvdisplay  // visualise info disc volum.
+
 
 
 
