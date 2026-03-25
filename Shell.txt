@@ -479,14 +479,122 @@ vgdisplay  // visualise info grp volum.
 lvdisplay  // visualise info disc volum.
 
 
+// ------ compression.
+
+tar -cvzf [file-creeate.tar] [path-to-compress]  // compress a file/folder.
+tar -vfx [path-tar-to-restor] [path-destination]  // un-compress a file.
+tar -rf [file.tar] [path-to-add]  // add an arboressence to a tar file (compressed).
 
 
-// todo "sauvegarde, compression" in folder download.
+// ------ install.
+
+yum install firefox  // install firefox.
+createrepo /[depo-name]  // créate a depo.
+yum update  // actualise depo.
+
+
+// ------ script.
+
+#!/bin/bash                  // in start a file shell (.sh), define what interpretor has to read the code.
+
+MY_VAR="text"                // make a var.
+$MY_VAR                      // use a var.
+readonly MY_VAR              // make a const.
+unset MY_VAR                 // free a var.
+MY_VAR=`date +%j`            // stock the day number in a var (as a string).
+MY_VAR=`date +%Y`            // same for year.
+MY_VAR=`date +%H`            // same for hours.
+MY_VAR=`date +%M`            // same for minutes.
+MY_VAR=`date +%S`            // same for secondes.
+read -p "blabla?" MY_VAR     // ask a question in terminal (and stock input in var).
+$1                           // use the first parameter send when call the script.
+$(10)                        // use the 10eme parameter (need parentese when 2 digit or more).
+$*                           // return all parameters (array ?).
+$#                           // return the quantity of parameters (length).
+shift                        // pop the first parameter.
+set "A B"                    // assigne the value "A" and "B" to the two first parameters.
+
+echo "test"                  // print a string in console.
+cut                          // cut a string or file (?).
+basename [file]              // return the name + extantion of a file.
+dirname [file]               // return the path before the file.
+exit 0                       // cut the process shell (succes).
+exit 1                       // cut the process shell (error).
+
+if ([test])                  // if.
+then                         // start block.
+fi                           // end block if.
+else                         // else.
+elif ([test])                // else if.
+if (test -e $1)              // if first parameter exist.
+if (test -f $MY_FILE)        // if file exist.
+if (test $MY_STR = "test")   // if MY_STR == "test".
+test "1" -eq "1"             // if 1==1
+test "1" -ne "1"             // if 1!=1
+test "1" -gt "1"             // if 1>1
+test "1" -lt "1"             // if 1<1
+-a                           // and &&  (!space!)
+-o                           // or ||   (!space!)
+!                            // not     (!space!)
+
+expr "1" + "2"               // add two int (explicit ask cast int with expr).
+MY_VAR=`expr $1 \* $2`       // same (stock result in var).
+typeset -i MY_VAR            // define a var as int (?).
+let $MY_VAR=5                // define a var as number (?).
+let $MY_VAR                  // test if a var is a number (?).
+$?                           // get the error info (stocked in $?).
+[cmd1] && [cmd2] || [cmd3]   // execute cmd1, if error than execute cmd2, else than execute cmd3.
+${MY_VAR:-value}             // coales, use a default value in case the variable has no value.
+case $MY_VAR in              // switch.
+value1                       // case (?).
+;;                           // break;
+*                            // default.
+esac                         // end switch.
+while [condition]            // while.
+do                           // start block while.
+done                         // end block while.
+exit                         // return.
+break                        // break.
+continue                     // continue.
+until                        // while (inverted).
+select [A] in [A B C]        // foreach.
+for [A] in [liste]           // for.
+
+
+// example loop.
+#!/bin/bash                                  // loop param while.
+some=0                                       //
+while ! test -e $1                           //
+do                                           //
+  some=`expr $1 + $some`                     //
+  shift                                      //
+done                                         //
+echo "total : $some"                         //
+
+#!/bin/bash                                  // loop param for.
+some=0                                       //
+for elem in $*                               //
+do                                           //
+  some=`expr $some + $elem`                  //
+done                                         //
+echo "total : $some"                         //
+
+
+echo "test" >> /home/save.txt   // write (add) on a file.
+echo "test" > /home/save.txt    // write (replace) on a file.
+
+echo "5+5=`expr 5 + 5`"   // math example.
+echo "5+5=$(expr 5 + 5)"  // same.
+
+crontab -e
+30 23 * * * /home/Script.sh [param1]       // execute a script at a date and time precised 
+// (* = all, [minutes,heure,joursDuMois,mois,joursDeLaSemaine])
+
+systemctl start httpd      // start apache.
+
+sudo mount -t ext4/dev/sda2/home/jmabe/partition2    // up a partition disc to a folder jmabe.
 
 
 
-
-
-// todo : do also memo note download folder.
 // todo : do also files linux cmd (PC and serv).
 // todo : do also if, for, ... etc.
