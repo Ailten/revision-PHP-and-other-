@@ -596,4 +596,18 @@ sudo mount -t ext4/dev/sda2/home/jmabe/partition2    // up a partition disc to a
 
 
 
+// ------ execute a background process (named).
+
+nohup bash -c "exec -a [name-unique-process] [cmd]" > "[path-debug-file]" 2>&1 &
+// execute a cmd in background (and set a name), redirect debug and all print on a file txt.
+
+if pgrep -f "[name-unique-process]" > /dev/null; then
+  pkill -f "[name-unique-process]"
+fi
+// kill a process by name setted (if it running).
+
+
+
+
+
 // todo : do also files linux cmd (PC and serv).
