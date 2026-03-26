@@ -560,6 +560,20 @@ until                        // while (inverted).
 select [A] in [A B C]        // foreach.
 for [A] in [liste]           // for.
 
+MY_ARRAY=(                   // define an array data.
+  "value_0"                  // (values).
+  "value_1"                  // (values).
+)                            // (close array).
+i=0                                   // make a loop for (example).
+for i in "${!MY_ARRAY[@]}"; do        // (for, loop on array length).
+  echo "${i} - ${MY_ARRAY[$i]}"       // (print index and value in array).
+done                                  // (close for).
+while true; do               // while (infit loop example, need if beak).
+  if true; then              // (if break).
+    break                    // (break).
+  fi                         // (end if).
+done                         // (end while).
+if [ $# -eq 0 ]; then                 // if at least has one parameter send.
 
 // example loop.
 #!/bin/bash                                  // loop param while.
@@ -606,9 +620,11 @@ if pgrep -f "[name-unique-process]" > /dev/null; then
 fi
 // kill a process by name setted (if it running).
 
+node [path-js-file]  // execute a node.js file in console.
+
+python3 [path-python-file]  // execute a pyhton file in console.
 
 
 
 
-// todo : do also files linux cmd (PC and serv).
-// todo : learn to setup audio param (for virtual link).
+// todo : learn to setup audio param (for virtual link) -> "runAudioPlayer".
