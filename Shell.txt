@@ -597,4 +597,3 @@ sudo mount -t ext4/dev/sda2/home/jmabe/partition2    // up a partition disc to a
 
 
 // todo : do also files linux cmd (PC and serv).
-// todo : do also if, for, ... etc.
