@@ -611,3 +611,4 @@ fi
 
 
 // todo : do also files linux cmd (PC and serv).
+// todo : learn to setup audio param (for virtual link).
