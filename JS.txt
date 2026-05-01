@@ -190,9 +190,11 @@ myObj['name']  // same.
 function Obj() { this.name = 'Thomas'; }  // make a function who return an object (alternative way).
 let myObj = new Obj();  // instancie an object from a function.
 class Obj { constructor() { this.name = 'Thomas'; } }  // class (syntax alternative).
+class Obj { myFunc() {} }  // add a function to a class.
 class Obj extends ObjParent {}  // class eritage (set by a parent).
 ClassParent.call(this, param1, param2);  // call the parent constructor (in prototype way, in class, just use super(param1, param2)).
 static name = 'Thomas';  // attributes static (same value for all class).
+#param1  // declare a parameter private in a class (same for function).
 delete myObj.myProperties  // delete the propertie of an instance (depreciate, can make spagety code with un-safe properties callable).
 Object.values(Obj)  // return an array of values object.
 Object.keys(myObj)  // return an array of key properties object.
@@ -208,6 +210,8 @@ myObj instanceof Obj  // check if is an instance of Obj (like typeof).
 tryFunc?.();  // execute a function only if it exist (if tryFunc exist but is not a function, it throw an error), need verification.
 localStorage.setItem("key", value)  // save a value on local storage (a hard-memory on browser).
 localStorage.getItem("key")  // get a value saved (can return null, or an error if execute without permission).
+function myObj(param1)) { this.param1 = param1; }  // create an object (with function).
+myObj.prototype.myFunc = function() {};  // create a function into an object (with function).
 
 new Date()  // make a date (as now).
 Date.now();  // same.
@@ -339,7 +343,8 @@ Math.lerp = (a, b, i) => { return a*(1-i) + b*i; };
 Array.prototype.random = function() { return this[Math.floor(Math.random()*this.length)]; };
 
 document.bodu.appendChild(document.createElement("div"))  // create a div and push in the body.
-myDiv.insertBefore(document.createElement("div"))  // create a div and push before an element.
+myDivParent.insertBefore(document.createElement("div"), myDivRef)  // create a div and push before an element.
+myDivParent.insertBefore(document.createElement("div"), myDivRef.nextSibling)  // fake insertAfter (there is no insertAfter).
 myDiv.removeChild(myDiv.getElementById("id"))  // remove an element. 
 document.body.appendChild(document.getElementById("myElem").content.cloneNode(true));  // take "myElem" in the page, get his inner contend, duplicate, and push.
 
@@ -348,7 +353,7 @@ document.body.exitFullScreen();  // un-do the full screen mode.
 
 myForm.submit();  // submit a form (work with all event on an element, like click, or other).
 let evnt = new Event("mouseover");  // set an event to an objet to execute it with script (for event can be called directly).
-myDiv.dispatchEvent(evnt);
+myDiv.dispatchEvent(new MouseEvent('mousedown', { /*params*/ }));
 
 window.getSelection().toString()  // get the selection text by user.
 window.getSelection().getRangeAt(n)  // get an object Range, to manipule the selection (over many balise), obj Range can also insert node or do other stuff.
@@ -371,6 +376,27 @@ new FormData(formDom);  // get an object "body" (for call fetch) from a formDom 
 
 DomElement.removeEventListener('click', myFunction);  // remove an event listener (need the same reference function and same type event.
 DomElement.addEventListener('click', myFunction, { once: true });  // add an event listener exectued only once (remove after that).
+
+// class example eritage :
+class Parent {
+    param1;
+    constructor(param1) {
+        this.param1 = param1;
+    }
+    #myPrivateFunc() {}
+    myFunc() {}
+}
+class Child extends Parent {
+    constructor() {
+        super("my-param1");
+        
+    }
+}
+
+document.elementFromPoint(evnt.clientX, evnt.clientY)  // return the first element dom on a position at screen (like a ray-cast).
+document.elementsFromPoint(evnt.clientX, evnt.clientY)  // same but return all elements (need a filter or a find on it).
+domElement.closest('div#my-id');  // get the element closest to another (and precise a selector css on what type of element search).
+
 
 
 

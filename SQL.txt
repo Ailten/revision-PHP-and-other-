@@ -48,19 +48,23 @@ DROP TABLE IF EXISTS `user`;  // same but only if exist.
 
 CREATE TABLE IF NOT EXISTS `user`  // same as create a table, but only if not exist.
 CREATE TABLE `user` (  // create a new table.
-    `id` int(11) NOT NULL AUTO_INCREMENT,  // auto increment.
+    `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,  // auto increment.
     `idCity` int(11) NOT NULL,
     `name` varchar(255) DEFAULT "Thomas",  // default value.
     PRIMARY KEY (`id`),  // primary key.
     FOREIGN KEY (idCity) REFERENCES City(id),  // forein key.
 
-    KEY `fk_idCity` (`idUser`),  // (?).
-    CONSTRAINT `fk_idCity` PRIMARY KEY (id)  // add constreint on table (?).
-    REFERENCES Persons(PersonID)  / (?).
+    // create the constraint only (based on the param create in amount like a regular param).
+    CONSTRAINT `fk_class`  // name the constraint.
+        FOREIGN KEY (`idClass`)  // refer the name of param FK in this table.
+        REFERENCES `class`(`id`)  // refer table target (and his id). 
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;  //type of engine and other parameter for table.
 
-CREATE DATABASE  // (?)
-ALTER DATABASE
+CREATE DATABASE `DB-name`;  // create a data-base.
+ALTER DATABASE  // (?)
 CREATE TABLE
 ALTER TABLE
 
@@ -115,6 +119,10 @@ END
 
 use MyDataBase;  // select a data base.
 show tables;  // list all table of the data base.
+
+
+sudo mysql -u root -p  // open cmd SQL (as user-sql root) and ask for password (sudo, and sql-root).
+mysql -u [user] -p [DB-name] < [file-create-table.sql]  // en cmd, insert a file import/export DB.
 
 
 

@@ -4,14 +4,80 @@
 // ---> base.
 print("test")  //print in console.
 myVar = input()  // stock something write in console into a variable.
-"my var: " + myVar  // concat.
+"my var: " + str(myVar)  // concat.
 f"my var: {myVar}"  // concat.
 myStr = "{:2.f}".format(myVar)  // cast a float into a printable string with a specific decimal take.
+f"{myVar:0>4}"  // make a var into string, in 4 digit, fill empty space by "0" in left.
+str(myVar).rjust(4, 0)  // same.
+f"{myVar:.2f}"  // take two digit after comat (and cast a float into str).
+f"{myVar:02d}"  // max 2 digit take (an cast a float into str).
+"a" * 2  // return "aa".
+myVar is int  // return true if var is an int (?).
 int(myVar)  // cast to int.
 myVar.isnumeric()  // return a boolean, is it numeric (for cast int or float).
 myNum + mySecondNum  // adition.
 myStr.upper()  // replace all min char in a string to upper case.
 myBool = myStr.startswith("test")  // return true if the string start with "test".
+type(myVar)  // return the type of a variable.
+id(myVar)  // return the int (adress) of the variable (in memory).
+//=  // divide floor.
+**=  // exponnent.
+''.join(list)  // cast list into string (concat with a separator).
+''.split(', ')  // slice a string in many string.
+''.ljust(5)  // add space in right of string, until it make length of 5.
+''.startwith('a')  // start with.
+''.lower()  // lower case.
+''.strip()  // remove space or '\n' in start and end of a string.
+''[::-1]  // reverce a string.
+not value  // return true if value is False, empty list, None, empty string, zero. 
+
+// ---> list.
+[1, 2]  // list.
+{1, 2}  // set (same as list, but can't have twice the same value).
+{'a': 1}  // dictionnary (same as list but index is string).
+(1, 2)  // tuple (like a vector 2, but can handle many type, and can't be re-assigned).
+myList.append(1)  // push a value into a list.
+myList += [1, 2]  // push many at same time.
+myList.remove(1)  // remove a value from a list.
+myList.pop()  // drop last (and return).
+del myList[1]  // remove a value from a list (by index).
+myList.copy()  // create a new list (dif pointer) identique.
+myList.deecopy()  // same, but recursively (for list 2D).
+myList[1:2]  // return a slice of list (first include, last not include).
+myList[:2]  // slice from zero to 1 element.
+myList[:-1]  // slice (without last).
+myList.clear()  // clean the list.
+len(myList)  // lenght.
+myList.count  // same.
+mySet.add(1)  // add.
+mySet |= {1, 2}  // same with many values.
+mySet = set1 & set2  // return a set of the matching values (into both).
+mySet = set1.difference(set2)  // return a set fill of diference elements of both set.
+set1 - set2  // return set1 refuce by all elemnt in set2.
+set1 ^ set2  // return all element who's in set1 or set2, but not in both.
+42 in myList  // like contains.
+set([])  // cast a list into a set (can be empty param for create a set empty).
+dico.update({'a': 1})  // push into a dico.
+dico |= {'a': 1, 'b': 2}  // push many.
+[e for e in myList if True]  // like a select + where (return a list).
+{e for e in myList if True}  // same for set.
+(e for e in range(10))  // same for generator (like yield), load one by one in memory when call.
+{k:v for k,v in dico.items()}  // same for dico.
+for k in dico:  // loop on keys of dico.
+for v in dico.values():  // loop on values of dico.
+for k, v in dico.items():  // loop on key and values.
+dico.get('key', 'default')  // take the value at a key index, if dico as not the key, it return default (without default param, it return None).
+myList.sort(key=lambda e: len(e))  // apply a select on a sort (for sort but not on the value directly, but in value modify to have a specific order.
+
+// ---> random.
+import random
+random.random()  // return a float between 0.0 and 1.0 (not include), like JS.
+random.randint(0, 100)  // return a random int between 0 and 99.
+random.seed(myIntSeed)  // set a seed to random module.
+
+// ---> sleep.
+import time
+time.sleep(1)  // wait 1 sec.
 
 // ---> logic.
 if(True):  // if.
@@ -26,7 +92,8 @@ for i in range(0, 10, 1):  // loop from 0 to 9, by increasing by 1.
 for i in (0, 1, 2):  // loop on value 0, 1 and 2.
 for myCel in myArray:  // loop on all cellule of an array.
 for myChar in myStr:  // loop on all char of a string.
-for myKey in myDictionary:  // loop on keys of a dictionay.
+for myKey in {'a': 1}:  // loop on keys of a dictionay.
+for i, v in enumerate([]):  // loop on a list (by taking index and value).
 
 // ---> array.
 myArray = []  // create an array.
@@ -49,23 +116,42 @@ myValue = newt(myIter)  // get the current value of iter, and move the cursor to
 // ---> regex.
 import re  // import for use regex.
 myVarReplaced = re.sub("myRegex", "byWhatReplace", myStr)  // use regex to replace par of a tring.
-myBool = re.search("myRegex", myStr)  // return true if the string passe the regex.
-myArray = re.findall("myRegex", myStr)  // return all part match regex on the string.
+matches = re.search("myRegex", myStr)  // execute a regex on a string (return an object match or None ?).
+result = re.search('regex', string).group(0)  // same, take first match (with .group(index)).
+list = re.findall("myRegex", myStr)  // return a list of string who's match (can return a list empty).
+re.I  // constant use as param to request InsensitiveCase (no distinct maj or lower case).
 
 // ---> function.
 def myFunc(myList: List[int], myInt: int) -> str :  // create a function, with parameter (typed), and a type return.
+def myFunc(myInt: int=5):  // define a default value to a parameter.
+def myFunc() -> "MyClass":  // for define return type of a class.
+def myFunc() -> Optional["MaClasse"]:  // when a return can be null (return None).
 return "test"  // return a value out of the function.
+pass  // define a function without contend.
+def __int__(self):  // override function "cast int" into a class.
+@staticmethod  // to define a function static (upper a function def).
 async def myFunc():  // async for asyncrone function.
 await myFunc();  // call an async function as syncrone one.
+myFunc(*arg: int):  // take a various amount of param (into a list), (can precise type of elements).
+myFunc(**kargs: int):  // same with a dico (can precise the type of value dico, key is always str (car in code it self)).
+myFunc(aaa = 5)  // example of use kargs.
+yield value  // in a function to return a value, all iteration of yield call, make a list (more opti than return a list).
+
+// ---> math.
+import math
+math.ceil(0.5)
+math.round(0.5)
+math.floor(0.5)
 
 // ---> try catch.
 try:  // try.
 except:  // catch.
 except ZeroDivisonError:  // catch specific error.
-except Exception as myError:  // catch an Exception (can be a type more precise) and capture it on a variable "myError".
+except Exception as e:  // catch an Exception (can be a type more precise) and capture it on a variable "e".
 else:  // you can call an else after an except (executed when no error find).
 finally:  // execute (in every case), at end of try-except, use to close or flush stuf.
 raise Exception("my error")  // throw a new error.
+
 
 // ---> file.
 myFile = open("myPathFile", "x")  // create a file "x" (see also: "r" to read, "w" to write, "a" to append, write next to).
@@ -80,6 +166,7 @@ with open("myPath", "r") as myLine:  // loop on a file line by line (need to be 
 from myFolder.myClass import MyClass  // import a class from another file.
 class myClass():  // create a class.
 class myClass(myClassParent):  // create a class who has parent.
+class myClass(A, B):  // can herit from many parent (order is important).
 def __init__(self):  // definit constructor (first argument is self instance).
 super().myFunc()  // call the function of the parent class. (like __init__, see heritage).
 myClass("myParameter")  // instanciate an object.
@@ -89,9 +176,31 @@ myVar: str  // defin a static parameter on a class.
 myObj.__doc__  // get the text definition of a class (to set a doc text on a class, do """ at start and end into the class).
 myObj.__name__  // get the name of the class (literaly a string oh the className).
 myObj.__dict__  // get a dictionary of the instance ({'__init__': ...}).
+myObj.__str__()  // cast to string.
+myObj.__iter__()  // get a yielded generator.
+myObj.__add__()  // operator +.
+myObj.__radd__()  // operator + in other order (try when add don't work in the sence).
+myObj.__eq__()  // operator == (see also: "ne, gt, lt, ge, le" for "not equal, grater than, lower than, ...").
+myObj.__iter__()  // get a yielded generator.
+myObj.__copy__(self)  // make a new instance from one.
+myObj.__decopy__(self, memo=None)  // same but recurcively (memo is to prevent infinit loop from copy recurcive).
+myObj.__repr__(self)  // cast as string (call when do a print consol, without it's use __str__).
 __main__  // get the name of the file currently (usefull to know if it's an import or the main execution).
 @dataclass  // upper the class declaration, to set the class has a bloc of param only (no function, and all param define is not static).
 {'myParam': myValue}  // define an object freelly.
+instance1 is instance2  // compare two instance (return true if it's the same).
+class A:
+    myInt: int  // param.
+    myInt: int=5  // param static.
+myVar  // public.
+_myVar  // protected (axes in child to).
+__myVar  // private (only in the class).
+'folder.file.Class'  // can cible an heritage from an other folder without import (?).
+from abc import ABC, abstractmethod  // import for do abstract.
+class A(ABC):  // herit from ABC to make class abstract.
+@abstractmethod  // define upper a function, to make it abstract.
+myObj.hasattr(a)  // verify if an instance has a attribute (?).
+myObj.isinstance(a)  // verify if an instance is a class from somthing (?). 
 
 // ---> enum.
 from enum import Enum  // import for create enum.
@@ -113,18 +222,119 @@ myResponce = requests.get("myUrl")  // launch a request to an url.
 myBool = myResponce.status_code == 200  // verify if the request responce is "200" (code for no error found).
 
 // ---> json.
+import json
 myObj = json.loads(myStr)  // read a string from a json.
 myStr = json.dumps(myObj.__dict__)  // cast an object to a string json (with __dict__).
 json.dump(myObj, myFile, indent=4)  // write on a file, an object cast in a json text (with indentation set to 4 space, for readability).
+myObj['myParam']  // take param from an object json casted.
+
+// ---> décorator.
+def myDecorator(theFunc):
+    def wrapper():
+        # do something before.
+        theFunc()
+        # do something after.
+    return wrapper
+@myDecorator
+def theFuncTargetted():
+
+// ---> time.
+import time  // import time.
+time.time  // time in seconde (from start app ? i guess).
+time.time_ns  // time in nanosecond (//1000 for milisec).
+time.sleep(3)  // make execution pause for 3 secondes (can take float).
+    
 
 
+// ------> tips code.
 
+@classmethod
+def initStatic(cls, param):  // constructor static for make a second constructor/init (with other parameters).
+    newInstance = cls()
+    newInstance.param = param
+    return newInstance
+@staticmethod  // same as classmethod, but without cls ref.
 
+pip install mysql-connector-python  // install library for mysql connection in python.
+import mysql.connector
 
+print(dir(MyInstance))  // to print all function of the object (debug).
 
+(a, b) = (b, a)  // swap two variables values.
 
+newList = myList[1:] + myList[:1]  // make a new list, with first element placed at end.
+newList = myList[-1:] + myList[:-1]  // same but place the last at first position.
 
+list(dico.items())[:10]  // take 10 first elements from a dico.
 
+// folder contained __init__.py (for making package).
+from folder.file import classOrFunction  // import.
+// make all import need in the __init__.py for just has to import init to make work.
+
+python -m pip [packageAsk]  // download a package.
+
+from unicode import unicode
+unicode('é')  // return 'e', remove acent char (work on kanji to).
+
+import cProfile
+cProfile.run('myFunction()')  // execute a function to mesure the speed execution (in console).
+> python -m cProfile -o test.prof complexity.py  // same but create a file.
+
+> pip install smakviz
+> snakviz test.prof  // show a file cProfile genarate.
+
+> pip install plotly
+> pip install venv
+> python -m venv .venv  // create an environement for lib python.
+> .\.venv\Script\active  // activate the environement in terminal.
+> .\.venv\Script\deactivate  // desactivate environement.
+> pip freeze > requirements.txt  // create a file for all requirement package of a project.
+> (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) & ([path to Acitivate.ps1])  // to disactivate restriction on VM (?).
+> pip install -r requirement.txt  // to install all package of a file requirement.
+> pip install pylint  // restriction rule syntax.
+> python -m pylint --generate > pylintrc  // generate a file rules syntax.
+// ctrl+shift+P -> PyLint restart server.  // to restart pylint rules.  (file rules need to be in utf-8).
+
+chr(myInt)  // get ascii char from index ascii.
+ord(myChar)  // get int index from a char.
+
+next([].__iter__(), None)  // get first match in array or None if empty (usef full with a "[ _ for _ in [] ]" to do a "find", work only on iterator (yield ?).
+
+def __iter__(self):  // allow to use "for" on an instance of this object.
+    yield self.myParam
+
+__myVar: int
+@property
+def myVar(self) -> int:  // getter.
+    return self.__myVar
+@myVar.setter
+def myVar(self, value: int):  // setter.
+    self.__myVar = value
+
+from functools import total_ordening
+@total_ordening  // define a class with total_ordening to overide the 6 operator quantity with define only two.
+class A:
+    def __gr__(self, other): self.age > other.age
+    def __eq__(self, other): self.age == other.age
+
+// F2 on a word selected to rename it in all file (maybe project).
+
+from .file import Class // can import with relative path.
+
+TYPE_CHECKING  // prevent to loop import (?).
+
+def myFunc(cls):  // inject a method in a class.
+    def myFunc(self):
+        pass
+    cls.myFunc = myFunc
+    return cls
+@myFunc  // inject it.
+class A:
+
+from dataclass import dataclass  // inject __init__, __repr__, and __eq__ automaticaly (for class data), can be still overide.
+@dataclass
+class A:
+@dataclass(frozen=True)  // same, but lock the class/param to be modify (befor init, only can be get, not set).
 
 
 
