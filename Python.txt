@@ -35,14 +35,14 @@ not value  // return true if value is False, empty list, None, empty string, zer
 [1, 2]  // list.
 {1, 2}  // set (same as list, but can't have twice the same value).
 {'a': 1}  // dictionnary (same as list but index is string).
-(1, 2)  // tuple (like a vector 2, but can handle many type, and can't be re-assigned).
+(1, 2)  // tuple (like a vector 2, but can handle many type, and can't be re-assigned), tuple can have more than 2 values.
 myList.append(1)  // push a value into a list.
 myList += [1, 2]  // push many at same time.
 myList.remove(1)  // remove a value from a list.
 myList.pop()  // drop last (and return).
 del myList[1]  // remove a value from a list (by index).
-myList.copy()  // create a new list (dif pointer) identique.
-myList.deecopy()  // same, but recursively (for list 2D).
+import copy
+copy.deepcopy(myList)  // copy a list (recurcively).
 myList[1:2]  // return a slice of list (first include, last not include).
 myList[:2]  // slice from zero to 1 element.
 myList[:-1]  // slice (without last).
@@ -84,6 +84,7 @@ if(True):  // if.
 elif(True):  // else if.
 else:  // else.
 ==, !=, and, or, not, <, <=, >, >=, ^  // list of operator logic for boolean.
+myVar or None  // coales in python.
 while(True):  // while.
 break    // cut the rest of this loop and exit the loop.
 continue  // cut the rest of this loop, and do the next one.
@@ -123,6 +124,7 @@ re.I  // constant use as param to request InsensitiveCase (no distinct maj or lo
 
 // ---> function.
 def myFunc(myList: List[int], myInt: int) -> str :  // create a function, with parameter (typed), and a type return.
+def myFunc() -> str|None:  // many type of return.
 def myFunc(myInt: int=5):  // define a default value to a parameter.
 def myFunc() -> "MyClass":  // for define return type of a class.
 def myFunc() -> Optional["MaClasse"]:  // when a return can be null (return None).
@@ -185,6 +187,7 @@ myObj.__iter__()  // get a yielded generator.
 myObj.__copy__(self)  // make a new instance from one.
 myObj.__decopy__(self, memo=None)  // same but recurcively (memo is to prevent infinit loop from copy recurcive).
 myObj.__repr__(self)  // cast as string (call when do a print consol, without it's use __str__).
+myObj.__hash__(self)  // call to cast an instance into a hash unique, use to compare and stock.
 __main__  // get the name of the file currently (usefull to know if it's an import or the main execution).
 @dataclass  // upper the class declaration, to set the class has a bloc of param only (no function, and all param define is not static).
 {'myParam': myValue}  // define an object freelly.
@@ -201,6 +204,8 @@ class A(ABC):  // herit from ABC to make class abstract.
 @abstractmethod  // define upper a function, to make it abstract.
 myObj.hasattr(a)  // verify if an instance has a attribute (?).
 myObj.isinstance(a)  // verify if an instance is a class from somthing (?). 
+myObj.copy()  // create a new list (dif pointer) identique.
+myObj.deecopy()  // same, but recursively (for list 2D).
 
 // ---> enum.
 from enum import Enum  // import for create enum.
@@ -336,7 +341,12 @@ from dataclass import dataclass  // inject __init__, __repr__, and __eq__ automa
 class A:
 @dataclass(frozen=True)  // same, but lock the class/param to be modify (befor init, only can be get, not set).
 
+import sys
+sys.setrecursionlimit(1000)  // up the limit of call function recursive (apply to the all project).
 
+from functools import cache
+@cache  // make a function cachable, when call, stock the result for this parameters (if all param hashable), and next call return the previous value return stocked.
+def myFunc(a: int):
 
 
 

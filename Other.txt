@@ -1,0 +1,24 @@
+
+principe SOLID:
+S : Single responsability  // a class should dos only one thing (like class mail, mailSender).
+O : Open - close  // open to extantion, close to  update (make sub function for distinct action, not one big function who can be use in single situation).
+L : Liskov subtstitution  // do not make function with raise error in a parent to be overide nextly (in this case make a second class between : bird, birdCanFly, pinguin).
+I : Interface segregation  // an interface should implément only one thing (make many interface, for all little implément, to make it more flexible for other class).
+D : Dependency Inversion  // don't use static method, send the static class in param method (like this it can be more flexible if we replace the static class breader in project).
+
+Binary Search  // for search in an array stored, cut in hald, check the value midle, and continue recursively on the half you need, until find the value search.
+Back tracking algorithme  // search a result, and allow to roll-back on the process, to re-search in another branch possibility (like resolving sudoku).
+Dynamic programming  // subdivide functions in sub-function smaller (to make more easily used from other cases).
+
+
+// ----------------------->>
+
+VS-Code:
+Ctrl-F  // recherch in file.
+Ctrl-H  // recherce + replace.
+Ctrl-Shift-F  // recherch all files.
+Ctrl-K-C  // comment many lines selected.
+Ctrl-K-U  // un-comment many lines selected.
+Ctrl-K-S  // show all commendes.
+Ctrl-K-à  // compact all block in files.
+Ctrl-K-J  // un-compact all block in files.
