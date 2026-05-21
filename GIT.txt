@@ -197,6 +197,10 @@ git fetch [origin] :[branchDest]  // create branchDest at node checkout (in loca
 git pull [origin] [branchName]:[branchDest]  // make a pull of branchName (in distance) into branchDest local (can be a new branch created).
 
 
+git rm [file]  // remove a file (from the current project).
+git rm -r [folder]  // remove a folder (-r to recursive on all file/folder into it).
+git rm -r --cached [folder]  // --cached, to remove from the distance branch checkout (not localy), usefull for a file marked on gitignore.
+
 ----------->
 
 
@@ -218,6 +222,40 @@ git push origin --delete [myBranch]  // delete a branch distante (after a merge)
 
 
 
+// build a backup in a new branch (and reset the main).
+git checkout -b [name_branche_backup]  // checkout (and create) a new branch localy.
+git push -u origin [name_branche_backup]  // push (to dist: origin) the branch.
+git checkout main  // checkout back the main branch.
+
+
+
+----------->
+
+
+
+// .gitignore
+file.txt  // igniore a file from all commit.
+myFolder/  // slash precise to git it's a folder, and should igniore all stuff into it.
+**/file.txt  // ** precise that file can be found in all type of path.
+file.*  // * can match all type of text (in the same file/folder name).
+file.[a-z]  // [] send a range of char can be match.
+file.tx?  // ? can match a single character.
+
+
+
+----------->
+
+
+
+git stash -u  // for update file after a checkout really diferente.
+
+
+
+
+----------->
+
+
+
 // file [README.md] for make info about a git project (printable in repo github), Doc.
 // work like html (p, a, align="center", href="...", img src="...", width="20",
 
@@ -227,6 +265,65 @@ git push origin --delete [myBranch]  // delete a branch distante (after a merge)
 ** my bold **  // make test bold (bigger).
 ```js my code ```  // a block of code (like in discord).
 
+
+
+----------->
+
+
+
+working-tree  staging  historique  |  remote
++----------+  +-----+  +--------+  |  +----+
+|          |  |     |  |        |  |  |    |
+|          |  |     |  |        |  |  |    |
++----------+  +-----+  +--------+  |  +----+
+ where wee     temp     historic      pushed
+   work        add      comited
+
+     --------->   ------->    --------->
+         add       commit        push
+
+     <---------               <---------
+     rm --cached                 fetch
+
+     <--------------------
+   merge / cherry-pick / reset
+
+     <----------------------------------
+                    pull
+
+git log  // print all commit in historique (local).
+git status  // print status of branch (commit need or not).
+// git reset, for roll back work from historique (?).
+git config (--global) user.name Ailten  // for edit config (set user name), can be do in folder git hidden in project.
+git config (--global) user.email ...  // same, set email.
+git update-index --assume-unchanged [file]  // mark a file as "not change from commit" except the first time when add.
+// squash + push force  // erase all historique, and commit for erase data in historic.
+git reset HEAD~1  // re-place index to an anterieur commit (rollback one commit).
+git revert ...  // same as revert, but take changes (for not have to force push).
+// git.md  // file for description project.
+git stash  // make a temp "pseudo branch" local, for split working task.
+git stash apply  // get back data (from before a stash + commit).
+git stash list  // print all stash.
+git stash pop [index]  // remove a stash.
+git stash apply [index]  // back to a stash specify.
+git stash clear  // remove all stash.
+git remote rm origin  // delete branch origin from remote.
+git remote add [branch-name] [url]  // setup a remot git project.
+git push [branch-name] [main]  // push a branch send to main.
+git fetch [branch-remote] [main]  // syncronise historic.
+git merge [branche]/main  // fusione branch send with historic vertion (commit, but not pushed).
+git push [remote-branch] [branch]  // syncronise local, to dist.
+git push [remote-branch] --all  // same, for all branch.
+git fetch [remote-branch] [branch]  // syncronise dist, to local (without modif working tree).
+git pull [remote-branch] [branch]  // same, but update working tree.
+git merge [branch]  // fusione working tree on a historic branch.
+git branch -u [branch]  // rename a branch (verify parameters of cmd before use).
+git tag [name-tag]  // place a tag on a commit (like a vertion name, for target easily this commit).
+git squash rebase  // erase a commit into another one (or many into another one).
+git rebase -i HEAD~3  // rebase 3 commit upper.
+git checkout -b [name]  // create a branch, and checkout it.
+git rebase HEAD~x  // using letter to make other action (s for squash, r for reword, ...)
+git checkout -b [branch-name-local] origin/[branch-name-dist]  // pull (and checkout) a branch from distance to local.
 
 
 
@@ -251,3 +348,9 @@ mv node-raylib /path/to/your/project/  //déplacer le repo clonné dans le proje
 
 git switch [nom branche] //switch to another branch (checkout).
 git switch -c [nom new branche] //duplic current branch checkout into new one.
+
+
+
+
+
+

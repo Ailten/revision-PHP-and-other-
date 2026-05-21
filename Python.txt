@@ -30,6 +30,7 @@ id(myVar)  // return the int (adress) of the variable (in memory).
 ''.strip()  // remove space or '\n' in start and end of a string.
 ''[::-1]  // reverce a string.
 not value  // return true if value is False, empty list, None, empty string, zero. 
+float('infinity')  // set a value infinit (to default set).
 
 // ---> list.
 [1, 2]  // list.
@@ -49,6 +50,7 @@ myList[:-1]  // slice (without last).
 myList.clear()  // clean the list.
 len(myList)  // lenght.
 myList.count  // same.
+enumerate(myList)  // allow to loop on a list (index and element), like dico.items().
 mySet.add(1)  // add.
 mySet |= {1, 2}  // same with many values.
 mySet = set1 & set2  // return a set of the matching values (into both).
@@ -68,6 +70,7 @@ for v in dico.values():  // loop on values of dico.
 for k, v in dico.items():  // loop on key and values.
 dico.get('key', 'default')  // take the value at a key index, if dico as not the key, it return default (without default param, it return None).
 myList.sort(key=lambda e: len(e))  // apply a select on a sort (for sort but not on the value directly, but in value modify to have a specific order.
+
 
 // ---> random.
 import random
@@ -116,9 +119,11 @@ myValue = newt(myIter)  // get the current value of iter, and move the cursor to
 
 // ---> regex.
 import re  // import for use regex.
+r''  // format string as regex (to see syntax).
 myVarReplaced = re.sub("myRegex", "byWhatReplace", myStr)  // use regex to replace par of a tring.
-matches = re.search("myRegex", myStr)  // execute a regex on a string (return an object match or None ?).
+matches = re.search("myRegex", myStr)  // execute a regex on a string (return an object match or None).
 result = re.search('regex', string).group(0)  // same, take first match (with .group(index)).
+result = re.search('regex', string).span()  // same, span return a tuple of both index start and end (of the match).
 list = re.findall("myRegex", myStr)  // return a list of string who's match (can return a list empty).
 re.I  // constant use as param to request InsensitiveCase (no distinct maj or lower case).
 
@@ -212,6 +217,9 @@ from enum import Enum  // import for create enum.
 class myEnum(Enum):  // create an enum.
 MY_VALUE = 1  // declare value in enum.
 @classmethod  // upper a def function, to add a static function to an enum.
+from enum import intenum  // for enum with value int as key.
+from enum import Flag  // enum type to addition many value in one (as binary, like chmod).
+RED = auto()  // set an auto value to Flag enum (1,2,4, ...).
 
 // ---> date.
 import datetime  // import date.
@@ -220,6 +228,38 @@ myDate = datetime.datetime.now()  // take the date now.
 myStr = myDate.strftime("%d/%m/%Y - %H:%M")  // get a string with the date formated.
 myStr = myDate.strftime("%A - %B")  // get a string with the day in full letter, and the month in a full letter.
 loale.setlocale(locale.LC_TIME, "fr_FR.UTF-8")  // set the date format of the execution (whole session) in Franch.
+myDate.year  // get year (int 1~9999).
+myDate.month  // get month (int 1~12).
+myDate.day  // get day of month (int 1~31).
+myDate.weekday()  // get day of month (int 0~6).
+myDate.isoweekday()  // same but (int 1~7).
+myDate.replace(day=12)  // replace a param in a date (set).
+datetime.MINYEAR  // get min year value can be stock in a datetime (1).
+datetime.MAXYEAR  // get max year value can be stock in a datetime (9999).
+d = datetime.datetime.today()  # same as .now().
+d = datetime.date(year=2010, month=1, day=25)  # get a date by sending all params.
+d = datetime.date.fromtimestamp(timestamp)  // cast a timestamp into date obj.
+d - d  // return a timestamp (or deltatime), as diference of both date.
+d < d  // return bool.
+datetime.date  # date (without time).
+datetime.time  # time (without date).
+datetime.timedelta  # delay between two obj (date, datetime, time).
+delta = datetime.timedelta(  # set a delay (timedelta), with all params (additiv).
+    days=50,
+    seconds=27,
+    microseconds=10,
+    milliseconds=29000,
+    minutes=5,
+    hours=8,
+    weeks=2
+)
+delta.days  # get days from timedelta.
+delta.seconds  # get sec from timedelta (only those under days values, like modulo (?)).
+delta.total_seconds()  # get all sec from timedelta.
+datetime.timedelta.min  // min value for a timedelta.
+datetime.timedelta.max  // max value for a timedelta.
+datetime.strtime('2000-05-01', '%Y-%m-%d').date()  // make a date (from str).
+datetime.now(timezone.utc).date()  // get date (now) with time zone precision.
 
 // ---> request.
 import requests  // import lib to do request at an url.
@@ -327,6 +367,9 @@ class A:
 from .file import Class // can import with relative path.
 
 TYPE_CHECKING  // prevent to loop import (?).
+from typing import TYPE_CHECKING  // in the second file (less importent), to import without error (typing, editor code only).
+if TYPE_CHECKING:
+    from .myFile import myClass
 
 def myFunc(cls):  // inject a method in a class.
     def myFunc(self):
@@ -347,6 +390,169 @@ sys.setrecursionlimit(1000)  // up the limit of call function recursive (apply t
 from functools import cache
 @cache  // make a function cachable, when call, stock the result for this parameters (if all param hashable), and next call return the previous value return stocked.
 def myFunc(a: int):
+
+import request  // lib to make call to api (or url).
+
+// make class erite from thread to do asyncrone / multi threading on python (?).
+
+
+
+// ------------->
+
+
+
+// make a new project python including DB postgresql :
+python -m venv venv  // create an environement python for the project.
+venv\Scripts\activate  // connect terminal to the environement.
+python -m pip install sqlalemy dotenv alembic psycopg2-binary  // install packages need for ORM.
+python -m pip freeze > requirements.txt  // place all install in requirements file.
+echo "" > .env  // make a file env (for secret token and DB password).
+echo ".env" > .gitignore  // make the env file as igniore for git commit. 
+// after made all models for migrations DB.
+alembic init alembic  // launch alembic (create folder for migration models).
+// add link path to DB in .env of alembic, and import all class models (child of Base).
+alembic init migrations  // execute the migration (need before to define .env var, DB url, models and Base class, session connection).
+alembic revision --autogenerate -m "Initial migration"  // make a migration (with message).
+alembic upgrade head  // syncronise with server DB.
+
+from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass, sessionmaker  // import for make class ORM : see also project reference github.com/khunly82/exo_sql_python/tree/main/src/models
+
+alembic revision --autogenerate -m "init"  // cmd to generate a migration with alembic (?).
+alembic upgrade head  // maj vertion.
+alembic upgrade <version>  // upgrade to a specific vertion.
+alembic downgrade <version>  // downgrade to a specific vertion.
+
+
+
+// ------------->
+
+
+// example of project using sqlalchemy / alembic : https://github.com/Ailten/Sport-Schedule-Py
+
+// folders :
+[project]
+-->[.venv]  // generate with cmd venv.
+-->[alembic]  // generate with cmd alembic.
+---->.env  // need edit for conect to DB and migrate.
+---->[versions]
+------>.env  // need edit for conect to DB and migrate.
+-->[migration]  // generate with cmd migration of alembic.
+-->[src]
+---->[models]  // for all models (and database).
+---->[services]  // for services (of all models).
+-->.env
+-->.gitignore
+-->alembic.ini  // generate with cmd alembic. (remove or edit sqlalchemy.url).
+-->main.py
+-->requirements.txt
+
+// model.
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from sqlalchemy import Enum as EnumSQL, ForeignKey
+class myModel(Base):
+    __tablename__ = 'my_models'
+    id: Mapped[int] = mapped_column(primary_key=True)  # PK.
+
+    name: Mapped[str] = mapped_column(unique=True)  # PARAM.
+
+    gender: Mapped[Gender] = mapped_column(EnumSQL(Gender))  # ENUM.
+
+    role_id: Mapped[int] = mapped_column(ForeignKey('roles.id'))  # FK.
+    role: Mapped[Role] = relationship(
+        foreign_keys=['role_id'], 
+        back_populates='role_of_user', 
+        init=False
+    )
+
+// database.
+from sqlalchemy.orm import DeclarativeBase, MappedAsDataclass
+class Base(DeclarativeBase, MappedAsDataclass):
+    pass
+def makeSession() -> Session:
+    engine = create_engine(os.getenv('DB_URL'), echo=True)
+    return sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+// env alembic.
+import sys
+from os.path import abspath, dirname, join
+sys.path.insert(0, abspath(join(dirname(__file__), '..', 'src')))
+from src.models.database import Base
+# config = context.config  # already write.
+config.set_main_option("sqlalchemy.url", 'postgresql://<LOGIN>:<PASSWORD>@localhost:<PORT>/<DB_NAME>')
+target_metadata = Base.metadata  # already write, just edit.
+
+// alembic vertion.
+op.create_check_constraint(
+    constraint_name='my_constraint',
+    table_name='users',
+    condition='age > 12'
+)
+
+
+// --------->
+
+// FastAPI :
+python -m pip install fastapi fastapi[standard]  // to download package for fastapi.
+fastapi dev main.py  // to launch the api server.
+http://127.0.0.1:8000/myEndPoint
+http://127.0.0.1:8000/docs  // to access documentation of all end point.
+// url usefull example : https://github.com/Ailten/Sport-Schedule-Py
+// same, from demo teacher : https://github.com/khunly82/demo-fatstapi
+
+from fastapi import FastAPI, Request  // in main.
+app = FastAPI()
+@app.get('/test')
+def test(request :Request):
+    return 'test'
+
+from fastapi import APIRouter  // in controller.
+user_router = APIRouter(sufix='/user')  // need to be import and include in main app.
+@user_router.get('/')
+def ...
+
+import controller  // import all __init__ in controller folder.
+for item_name in dir(controller):
+    item = getattr(controller, item_name)
+    if isinstance(item, APIRouter):
+        app.include_router(item)  // to include all router from folder controller.
+
+
+from fastapi.templating import Jinja2Templates
+template = Jinja2Template(directory='src/views')
+return templace.TemplaceResponce('student/myView.html', request=request, context = {'student': student})  // call a view by sending a model.
+{{student.id}}  // concat param model in html.
+{% for s in students %}  // loop for in html view.
+{% endfor %}
+{% block myBlock %}  // block to extend a view (create a hole in view).
+{% endblock myBlock %}
+{% extends 'myViewToFill' %}  // declare the view to fill (in view with data).
+{% block myBlock %}  // declare data to send in view to be fill (data to fill the hole).
+{% endblock myBlock %}
+{% include 'myView.html' %}  // to fill with an other view.
+{% call ... %}  // to call a function backend to generate html (?).
+
+from fastapi.static import StaticFiles
+app.mount('/public', StaticFiles(directory='src/public'))  // make a folder public.
+
+users = session('select ... where id = ?', (myParam1, myParam2))  // query (concat data for prevent injection).
+
+
+// ------->
+
+// generate html page (fill it).
+python -m pip install psycopg2  // to install.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

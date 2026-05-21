@@ -42,6 +42,7 @@ $  // end of string.
 
 (abc)  // capture group.
 a(?=b)  // match "a" only if next to "b" ("b" is not captured).
+(?=.{3})  // can be use to capture group overlaping.
 a(?!b)  // match "a" only if not next to "b".
 (?<=b)a  // match "a" only if before has "b" (cant include an "|" or).
 (?<!b)a  // match "a" only if before has not "b".

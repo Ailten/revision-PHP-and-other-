@@ -1,0 +1,51 @@
+
+
+// docker is like a VM (or many VM), 
+// execute in a linux (a virtual linux if it's on windows, see WSL),
+// to execute application on ecosystem defined.
+
+wsl --install --web-download  // to download WSL, for emul linux on windows (for docker).
+// install Docker Desktop, software for see state of VMs docker.
+
+docker --help  // print all details of cmd docker.
+// site docker hub, site for download image for VMs docker.
+docker pull [image-name]:[num-version]  // download an image.
+docker image ls  // list all images download.
+docker run [image-name]  // execute a VM.
+docker container run [container-id-in-docker-software]  // run a container (group of VM), from id (found on software).
+docker run --name [myContenerName] [image-name]  // same as run, set a name (to axess more easily).
+docker run -p [27017:27017] [image-name]  // same as run, set port (of base machine, to VM).
+docker -compose up [-d]  // turn on a compose.
+docker -compose down  // turn off a compose.
+
+
+// ----------->
+// see config on : https://github.com/Ailten/OdooTest
+
+
+project
+--> compose.yml  // contain declaration (on yaml) of docker container.
+--> password.txt
+
+
+// ----------->
+
+from odoo import http
+class StudentController(http.Controller):  // controller example, with end point.
+    @http.route('/api/myEndPoint', ...)
+    def get_hello(self, **kargs):
+        data = http.request.env['student'].search([('id', '=', '5')]).read(['id', 'name'])
+        return http.request.make_responce(json.dumps(data), headers=[()])
+
+
+
+
+
+
+
+
+
+
+
+
+

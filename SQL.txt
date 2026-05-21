@@ -1,5 +1,17 @@
 
-// --- SQL ---
+// --- SQL --- 
+
+Postgresql  // server DB (like mysql).
+datagrip  // soft for making request on DB (intelij, free for non-comercial, use with git acount).
+
+SQL déclaratif :
+    - DDL : data définition language (create table).
+    - DRL : data retrivial language (select).
+    - DML : data modification language (update).
+SQL procedural :
+    - function defined user
+    - stored procedure
+    - trigers
 
 -- comment.
 /* comment many lines */
@@ -51,6 +63,7 @@ CREATE TABLE `user` (  // create a new table.
     `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,  // auto increment.
     `idCity` int(11) NOT NULL,
     `name` varchar(255) DEFAULT "Thomas",  // default value.
+    `name` char(50) DEFAULT "Thomas",  // char type take all time the length send.
     PRIMARY KEY (`id`),  // primary key.
     FOREIGN KEY (idCity) REFERENCES City(id),  // forein key.
 
@@ -70,7 +83,6 @@ ALTER TABLE
 
 CREATE INDEX // (?)
 DROP INDEX
-
 
 SELECT * FROM `user` u JOIN `city` c ON u.idCity = c.id  // join (inner join).
 SELECT * FROM `user` u LEFT JOIN `city` c ON u.idCity = c.id  // left join (take all row from table select, can return some null values).
@@ -140,5 +152,186 @@ FROM (
 ) v
 LEFT JOIN items i ON i.code = v.valeur
 ORDER BY v.pos
+
+
+
+// --- Postgresql.
+
+create database [name-db];  // create a db.
+\[name-db];  // checkout a db.
+
+create table [name]();  // create a table.
+create enum [name]('A', 'B');  // create an enum.
+create domain [name] as int check(value > -1);  // create a type (with a constraint on it).
+create collation [name](  // create a new type of strictness, for compare string with "like".
+    provider='icu'
+    locate='en-US-u-ks-level1'  -- change level for strict intencity (about char accent, or case sensitive).
+    deterministic=false
+)
+alter table [name] add column [name-column] int (constraints);  // add a column to a table existing.
+alter table [name] drop contraint [name-constraint];  // remove a constraint frop a table.
+truncate table [name] [restart identity | continue identity];  // delete all row of a table (more opti), can restard PK increment, but not afect cascade on other table.
+offset 10 limit 10  // on a select, skip 10 firsts row, and take 10 next row (usefull for pagination). 
+case  // switch case.
+    when [condition] then [value]
+    else [value]
+end
+max(myValue) over()  // over make the camps call on eatch line (keep value, but undo the agregate effect).
+max(myValue) over(partial by [param])  // can constraint a param specific (?).
+extract(day from myTimeStamp)  // get day from a timestamp (can be a substract of two date, for usefull case).
+@(myInt)  // absolute.
+avg(param) over(partition by paramGroupBy)  // like a group by into a row specific (use for compare result agregate with a nimble champ).
+lag(param)  // take the previous value (last row).
+having param  // like a a where, but after goup by, to filter on agregate result (after agregate all values).
+explain analyse  // place before a select (or else), to see in console the details of execution.
+rank()  // create a column with value incremente (like an index from 1 to N, on the select it self).
+dense_rank()  // same but don't skip num when two previous has the same value.
+sum(param) over(order by param)  // make a sum on over, do a cumule progressifof value.
+select distinct param  // skip row already find for this value (skip doublon).
+\dt;  // show all table.
+
+id uuid PRIMARY KEY DEFAULT gen_random_uuid()  // PK type more ofusced than int.
+generate always as identity  // generate PK (?), prevent for set a value already set.
+interval  // type "time", stock dif between two date (can be just stock 2 date).
+time  // type.
+timestamp  // stock secondes from 1970 (expire in 2038, so use timestampz.
+timestampz  // same but bigger.
+char, varchar  // type for stock string (varchar is size modulable, but + 1 byte).
+double precision, real  // float type.
+deciaml(x, y)  // decimal number (x = number of digit, y = number of decimal digit (include in x)), also this type prevent error of precision float.
+
+constraint [name-constraint] check(age > 6)  // add constraint on params of table.
+unique(key1, key2)  // can make a constraint define unique with many parameters.
+primary key(key1, key2)  // can make constraint about primary key with many parameters.
+foreign key [table2](pkOfTable2)  // define a foreign key as constraint.
+on delete [cascade | set null | set default]  // define how it suposed to be proced, when the table of the FK is deleted.
+on update [cascade | set null | set default]  // same for update (less used).
+
+string_agg(myStr, '')  // concat many string in one (use with group by).
+concat_ms('separator', str1, str2)  // join, concat many string with a separator.
+myStr || myStr  // concat two string.
+substring(myStr from 0 for 5)  // substring (index start, quantity to take).
+ltrimp, rtrim, trim  // functions to trim a string (remove space in extremity).
+left, right(myStr, 4)  // take 4 first (or last) char.
+position('i' in 'aei')  // return the index of a substring on a string.
+start_with(myStr, 'abc')  // verify if start with a substring.
+myStr like '%a%'  // like regex for sql, match the patern (% = all char 0~2 times).
+myStr in ('A', 'B')  // includes in many values.
+myInt between 5 and 10  // between two value (on a range numeric).
+string_to_table('A|B|C', '|')  // split a string into table row.
+raise notice '---%-', myParameter;  // throw a log (char % replace by the param send).
+
+date_part('Y', myDate)  // get int value for years in an object date.
+date_part('month', myDate)  // same with month.
+to_char(myDate, 'YYYY-MM-DD')  // cast a date on string (format).
+now()  // get a date represent now.
+date('01 01 1993')  // build a date from formated string (mm-dd-yyyy).
+'2024-11-08'::date  // process as date (?).
+myDate between myDate and myDate  // between two date.
+date_cmp(myDate, myDate)  // dif between two date (in secondes).
+myDate - myDate < 5  // compare days dif.
+
+myStr like 'a'  // equal.
+myStr ~~ 'a'  // same.
+myStr ilike 'A'  // equal with insensitive case.
+myStr ~~* 'A'  // same.
+myStr !~~ 'a'  // not like.
+myStr !~~* 'a'  // not ilike.
+myStr like myPatern collate myStricness  // use like with a strictness of comparate (create).
+!=, <>  // not equal.
+'_'  // equal to one character (any type).
+'%'  // equal to many character (any type).
+'^@'  // equal start of string (?), prefer use "similar to" for regex logic.
+similar to  // like, but take regex patern.
+~  // same.
+'a|b'  // or.
+'a*'  // many time (0~n).
+'a+'  // many time (1~n).
+'a?'  // many time (0~1).
+'a{1,2}'  // many time (choose min and max).
+'()'  // group.
+'[a-z]'  // range.
+'^$'  // start and end (not sure).
+substring('myStr' similar 'patern' escape 'replace')  // replace (?).
+regex_count(myStr, patern)  // count match.
+regex_count(myStr, patern, 5, 'i')  // same with index start and case insenssitive.
+
+inner join  // take inter section of A and B (horizontal joins).
+join  // same.
+left join  // take A and B (or null if no B).
+right join  // take A (or null if no A) and B.
+full outer join  // take both A and B.
+union all  // take both A and B (vertical joins).
+union  // same.
+exept  // take A.
+intersect  // take intersection of A and B.
+cross join (select ...)  // like a join, but allow to do where and LIMIT on it to optimise it.
+
+where myParam > any (select ...)  // "any" make a comparaison (>,=,~) on many values (sub query), return true if at least one values respect the operator.
+where myParam > all (select ...)  // same but return true if all values repsect the operator.
+
+with my_function_cte_name as (  // build a query stocked (like a function), usefull to call like a subquery (CTE, common table expressions).
+    select ...
+)
+), my-temporale-table as (select ...)  // at end of a cte, alow to store value on a temporal table.
+with my_function_cte_name(n) as (  // allow parameter (?).
+with recursive my_function_cte_name as (
+    select e1.id  -- first call.
+    from employees e1
+    where e1.next is null
+    union 
+    select e2.id  -- second call (recurcive).
+    from my_function_cte_name r1
+    join employees e2 on (e2.next = r1.id)
+)
+
+create temp table (myParam1 int, myParam2 int) as myNameTableTemp;  // stock result of a query on a table temporary.
+insert into myNameTableTemp(select ...);  // fill a temporary table.
+
+do $$  // function in postgresql.
+declare
+    myVar := 5;  // declare variable used in function.
+begin
+    select ...
+end $$ language plpsql
+
+select myValue into myVariable from ...  // set a value into a variable.
+
+create or replace function myFunctionName()  // function with python on it.
+return table (myParam1 int, myParam2 int) as
+??
+begin
+    ...  // python code.
+end $$ language plpython3u;
+
+create or replace view myNameView as select ...  // create a view (usefull for filter data not allow to access).
+
+CREATE TABLE myschema.mytable (  // schema (Schemas are analogous to directories at the operating system level, except that schemas cannot be nested). 
+ ...
+);
+
+create index myIndexName on tableTarget(paramTarget);  // create an index on a table (gain optimisation for axess data by where).
+create unique index ...  // index can be unique (if paramTarget is unique on table to).
+create index myIndexName on tableTarget(paramTarget1, paramTarget2);  // can have two parameter (in this case, make it twice in both order).
+// when use index, think to reorganise/rebuild it (mintenance DB server), with key words "reindex, vacuum, concurrently".
+
+pgagent  // tool (to dl), for script mintenance/maj at horaire fix.
+
+create procedure myProcedureName(myParam1 type, ...) language plpsql $$  // create procedure stocked.
+begin
+    if ...
+    then
+        select ...
+    else
+        ...
+    end if;
+end $$
+
+call myProcedureName(param1, param2);  // call a procedure stocked.
+
+
+
+
+
 
 
