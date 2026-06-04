@@ -390,11 +390,24 @@ sys.setrecursionlimit(1000)  // up the limit of call function recursive (apply t
 from functools import cache
 @cache  // make a function cachable, when call, stock the result for this parameters (if all param hashable), and next call return the previous value return stocked.
 def myFunc(a: int):
+from functools import lru_cache
+@lru_cache  // same, for 
+def myFunc(a: int):
 
 import request  // lib to make call to api (or url).
 
 // make class erite from thread to do asyncrone / multi threading on python (?).
 
+help(myFunc)  // print the doc of the function.
+
+from functools import reduce
+reduce(lambda accu, e: accu * e , myList, 1)  // make a reduce from a list (heer, return the product of all rows).
+return reduce(lambda acc, b:   // example with list (the lambda need to return the new value of "acc", if no "initial" value, start with the first row list.
+    acc + ([b] if len([ a for a in arr if a['id'] == b['id'] ]) == 1 else [])
+, arr, [])
+
+import os
+os.system('cls' if os.name == 'nt' else 'clear')  // clean the terminal (console).
 
 
 // ------------->
@@ -536,11 +549,27 @@ app.mount('/public', StaticFiles(directory='src/public'))  // make a folder publ
 
 users = session('select ... where id = ?', (myParam1, myParam2))  // query (concat data for prevent injection).
 
+from starlette.midleware import sessions  // to manage session user log.
+python -m pip install itsdangerous  // need for session.
+
+RedirectResponse(url='/src/myEndPoint', status_code=303)  // to redirect an endpoint to another endpoint (303, for redirect regardless of type call post/get).
+
+class A():
+    id: Mapped[int] = mapped_column(primary_key=True, init=False)  // PK.
+    b_id: Mapped[int] = mapped_column(ForeignKey('bs.id'))  // FK.
+    b: Mapped['B'] = relationship(init=False,  // object B in a (base on FK).
+        back_populates='as'  // fill B.as (list of A in B, by FK), facultatif.
+    )
+class B():
+    id: Mapped[int] = mapped_column(primary_key=True, init=False)  // PK.
+    as: list['A'] = relationship(back_populates='b')  // list of A in B (facultatif).
+    
+
 
 // ------->
 
 // generate html page (fill it).
-python -m pip install psycopg2  // to install.
+python -m pip install psycopg2  // to install (for connect python to a DB postgresql).
 
 
 
