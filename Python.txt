@@ -573,6 +573,41 @@ python -m pip install psycopg2  // to install (for connect python to a DB postgr
 
 
 
+// ------->
+
+// test case / unit test.
+
+pip install pytest  // download lib for do tests.
+pytest  // run all tests.
+pytest -v  // same, with verbose.
+pytest -x  // same, stop at first fail.
+pytest -s  // same, show prints (do not capture output).
+pytest tests_fodler/test_file.py  // run one file test.
+pytest tests_fodler/test_file.py::test_function  // run one function test.
+
+import pytest
+
+def my_test():  // make a function test.
+    assert my_func_to_test() == 1  // use assert to compare a result to a value expected.
+
+def my_test():
+    with pytest.raise(  // call a function to test, and compare the error raise. (for test a function, with param making an error throw).
+        ValueError,
+        match = 'error message'
+    ):
+        my_func_to_test(-1)  // this call should return an error with this param.
+
+@pytest.fixture  // make a function to setup a context during the tests (simule connected as Client example).
+def context_client():
+    return {
+        'id': 1,
+        'role': 'client',
+        ...  // all parameter need to connect as user.    
+    }
+def my_test(context_client):  // check somehting with the context client build upper (?).
+    assert context_client['role'] == 'client'
+
+
 
 
 
