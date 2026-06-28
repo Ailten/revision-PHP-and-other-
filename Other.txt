@@ -22,3 +22,63 @@ Ctrl-K-U  // un-comment many lines selected.
 Ctrl-K-S  // show all commendes.
 Ctrl-K-à  // compact all block in files.
 Ctrl-K-J  // un-compact all block in files.
+
+
+// ----------------------->>
+
+// doc : https://fr.wikipedia.org/wiki/Analyse_de_la_complexit%C3%A9_des_algorithmes
+// order by the most optimal, to the least optimal.
+
+--> O(1)  // a function with complexity alwayse the same, regardless of the quantity data send :
+example : a mathematic formule executed once.
+def is_lenght_even(arr: list) -> bool:
+    return len(arr) % 2 == 0
+
+--> O(log(N))  // a logarythme complexity (can be eval, just calculated), browse less than length arr, and non-lineary.
+example : get an element in a sorted list, by divide length by two.
+def is_in_arr_ordered(arr: list[int], val_search: int):
+    index = len(arr) // 2
+    lenght_sub_array = len(arr)
+    while lenght_sub_array < 1:
+        val = arr[index]
+        if val == val_search:
+            return True
+        lenght_sub_array //= 2
+        if val < val_search:
+            index += lenght_sub_array
+        else:
+            index -= lenght_sub_array
+    return False
+    
+
+--> O(n)  // a function who browse all value in array once.
+example : a loop.
+
+def find_the_bigest(arr: list[int]) -> int:
+    bigest_e = float('-inf')
+    for e in arr:
+        if bigest < e:
+            bigest = e
+    return bigest
+
+
+--> O(n^2)  // a function who browse length pow 2 of time.
+example : a loop in a loop.
+def is_two_val_can_make_search(arr: list[int], val_search: int) -> bool:
+    for i in range(len(arr)):
+        for j in range(len(arr)):
+            if i == j:
+                continue
+            if arr[i] + arr[j] == val_search:
+                return True
+    return False
+
+
+
+
+
+
+
+
+
+

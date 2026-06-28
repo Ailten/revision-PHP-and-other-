@@ -635,5 +635,20 @@ python3 [path-python-file]  // execute a pyhton file in console.
 
 remmina  // for connect to an other desktop (remote desktop access), like teamviewer.
 
+// ------>
+
+find . -type d -name obj -exec rm -rf {} +  // remove all folder named "obj" in a project.
+find . -type d -name bin -exec rm -rf {} +  // same for "bin". (used in dotnet for clean).
+
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target    // disable veille.
+sudo systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target  // enable veille.
+// use software "light screen" or "screen save" for ajust other parameters.
+
+
+sudo mount /dev/sdb1 /mnt/disc    // mont an external hard disc on the PC (1st param path to sdb, 2nd param path to folder create).
+sudo umount /mnt/disc    // un-mont it. (end with param "-l" ?)
+sudo mount -t ntfs3 -o uid=$(id -u),gid=$(id -g) /dev/sdb1 /mnt/disc    // same, mont it (but not on read only).
+//  /mnt/disc/    find the folder disc on this path.
+
 
 

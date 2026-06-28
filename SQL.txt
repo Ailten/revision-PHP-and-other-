@@ -330,6 +330,31 @@ end $$
 call myProcedureName(param1, param2);  // call a procedure stocked.
 
 
+// ---------_> POSTGRESQL cmd.
+
+sudo -u postgres psql  // open postgresql in cmd.
+sudo -i -u postgres psql  // same (as admin).
+CREATE DATABASE my_DB;  // create a DB.
+\l  // list all DB.
+\q  // quite.
+\c my_DB  // checkout a DB.
+\dt  // list all tables and relation (of a db checked).
+
+sudo -u postgres psql -d my_db < /full_path/export_DB.sql  // import a sql file.
+
+CREATE USER my_user_name WITH PASSWORD 'my_password';  // create an user postgres (need be connect as admin, in terminal postgres).
+GRANT ALL PRIVILEGES ON DATABASE my_DB TO my_user_name;  // grand all permissions on a DB.
+GRANT ALL ON SCHEMA public TO my_user_name;  // other permissions (by security).
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO my_user_name;  // other permissions (by security).
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA public TO my_user_name;  // other permissions (by security).
+\q  // quit postgres terminal.
+psql -U my_user_name -d my_DB -h localhost -W  // connect as the user create.
+
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO postgres_app_user;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres_app_user;
+
 
 
 

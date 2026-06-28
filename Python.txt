@@ -8,7 +8,8 @@ myVar = input()  // stock something write in console into a variable.
 f"my var: {myVar}"  // concat.
 myStr = "{:2.f}".format(myVar)  // cast a float into a printable string with a specific decimal take.
 f"{myVar:0>4}"  // make a var into string, in 4 digit, fill empty space by "0" in left.
-str(myVar).rjust(4, 0)  // same.
+str(myVar).rjust(4, '0')  // same (work with ljust for place chars att left).
+str(myVar).zfill(4)  // add "0" at left untill make length of 4 min.
 f"{myVar:.2f}"  // take two digit after comat (and cast a float into str).
 f"{myVar:02d}"  // max 2 digit take (an cast a float into str).
 "a" * 2  // return "aa".
@@ -38,6 +39,7 @@ float('infinity')  // set a value infinit (to default set).
 {'a': 1}  // dictionnary (same as list but index is string).
 (1, 2)  // tuple (like a vector 2, but can handle many type, and can't be re-assigned), tuple can have more than 2 values.
 myList.append(1)  // push a value into a list.
+myList.insert(i, myObject)  // insert before the index (i) in the list (like append, but at a specific index).
 myList += [1, 2]  // push many at same time.
 myList.remove(1)  // remove a value from a list.
 myList.pop()  // drop last (and return).
@@ -70,6 +72,9 @@ for v in dico.values():  // loop on values of dico.
 for k, v in dico.items():  // loop on key and values.
 dico.get('key', 'default')  // take the value at a key index, if dico as not the key, it return default (without default param, it return None).
 myList.sort(key=lambda e: len(e))  // apply a select on a sort (for sort but not on the value directly, but in value modify to have a specific order.
+all(my_list)  // return True if all value of my_list is True.
+all([ e == 5 for e in my_list ])  // same, example if all value equal 5.
+any(my_list)  // return True if at least one element of the list is True.
 
 
 // ---> random.
@@ -126,6 +131,11 @@ result = re.search('regex', string).group(0)  // same, take first match (with .g
 result = re.search('regex', string).span()  // same, span return a tuple of both index start and end (of the match).
 list = re.findall("myRegex", myStr)  // return a list of string who's match (can return a list empty).
 re.I  // constant use as param to request InsensitiveCase (no distinct maj or lower case).
+my_regex = re.compile(r'[a-z]')  // compile a regex (more opti to compile before, than create in real time, if use on a loop).
+matches = my_regex.match(my_str, index_start)  // make a search, but start from the regex compiled, and send an index of start in the string (use full on a loop).
+matches.start()  // return index start of the match on the base string.
+matches.end()  // return index end of the match on the base string.
+for m in my_regex.finditer(my_str):  // get all match, and return it with yield.
 
 // ---> function.
 def myFunc(myList: List[int], myInt: int) -> str :  // create a function, with parameter (typed), and a type return.
@@ -333,10 +343,12 @@ cProfile.run('myFunction()')  // execute a function to mesure the speed executio
 > python -m venv .venv  // create an environement for lib python.
 > .\.venv\Script\active  // activate the environement in terminal.
 > .\.venv\Script\deactivate  // desactivate environement.
+> source .venv/bin/activate  // on linux (no need docker).
 > pip freeze > requirements.txt  // create a file for all requirement package of a project.
 > (Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned) & ([path to Acitivate.ps1])  // to disactivate restriction on VM (?).
 > pip install -r requirement.txt  // to install all package of a file requirement.
-> pip install pylint  // restriction rule syntax.
+
+> pip install pylint  // restriction rule syntax (not a big fan).
 > python -m pylint --generate > pylintrc  // generate a file rules syntax.
 // ctrl+shift+P -> PyLint restart server.  // to restart pylint rules.  (file rules need to be in utf-8).
 
@@ -507,6 +519,7 @@ op.create_check_constraint(
 // FastAPI :
 python -m pip install fastapi fastapi[standard]  // to download package for fastapi.
 fastapi dev main.py  // to launch the api server.
+uvicorn main:app --reload  // same, in linux.
 http://127.0.0.1:8000/myEndPoint
 http://127.0.0.1:8000/docs  // to access documentation of all end point.
 // url usefull example : https://github.com/Ailten/Sport-Schedule-Py
@@ -609,13 +622,44 @@ def my_test(context_client):  // check somehting with the context client build u
 
 
 
+// ------------> Singleton.
+
+from typing import Optional
+
+class A:
+    __a: Optional['A'] = None  # can use '|' syntax.
+
+    def __fake_init__(self):  # !! do not declare an __init__ !! (it make instantiate a new instance).
+        self.my_param = 'default'
+
+    def __new__(cls):
+        if cls.__a is None:
+            cls.__a = super().__new__(cls)
+            cls.__a.__fake_init__()  # heer set up default parameters.
+        return cls.__m
+
+a = A()  // instantiate a new one.
+b = A()  // return __a instance.
+c = A()  // return __a instance.
 
 
+// --------> binary.
 
+// and.              // or.               // not.           // xor.
+1 & 1  // -> 1.      1 | 1  // -> 1.      ~1  // -> 0.      1 ^ 1  // -> 0.
+0 & 1  // -> 0.      0 | 1  // -> 1.      ~0  // -> 1.      1 ^ 0  // -> 1.
+1 & 0  // -> 0.      1 | 0  // -> 1.                        0 ^ 1  // -> 1.
+0 & 0  // -> 0.      0 | 0  // -> 0.                        0 ^ 0  // -> 0.
 
+// get.
+(my_int << my_index_byte) % 2 == 1  // check if an int has a "1" at a specific index (not bether option).
+(my_int << my_index_byte) & 1 == 1  // same (bether), use "and".
+my_int & (1 << my_index_byte) != 0  // same (inverted logic, decal the filter), theorically the best.
 
-
-
+// set.
+my_int |= 1 << my_index_byte  // set a bit to "1" (use "or", to merge all "1").
+my_int &= ~(1 << my_index_byte)  // set a bit to "0" (use "and" to get all values except for the one at index ask).
+my_int ^= 1 << my_index_byte  // switch a bit (use "xor").
 
 
 
