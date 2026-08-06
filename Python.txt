@@ -41,9 +41,11 @@ float('infinity')  // set a value infinit (to default set).
 myList.append(1)  // push a value into a list.
 myList.insert(i, myObject)  // insert before the index (i) in the list (like append, but at a specific index).
 myList += [1, 2]  // push many at same time.
+myList.extends([1, 2])  // append of a second list (like +=).
 myList.remove(1)  // remove a value from a list.
 myList.pop()  // drop last (and return).
 del myList[1]  // remove a value from a list (by index).
+del myList[:2]  // remove the 2 first elements (by index), remove a range of the array.
 import copy
 copy.deepcopy(myList)  // copy a list (recurcively).
 myList[1:2]  // return a slice of list (first include, last not include).
@@ -71,6 +73,7 @@ for k in dico:  // loop on keys of dico.
 for v in dico.values():  // loop on values of dico.
 for k, v in dico.items():  // loop on key and values.
 dico.get('key', 'default')  // take the value at a key index, if dico as not the key, it return default (without default param, it return None).
+dico |= {'key', dico.get('key', 0) + 1}  // increase or add new value to 1.
 myList.sort(key=lambda e: len(e))  // apply a select on a sort (for sort but not on the value directly, but in value modify to have a specific order.
 all(my_list)  // return True if all value of my_list is True.
 all([ e == 5 for e in my_list ])  // same, example if all value equal 5.
@@ -142,7 +145,7 @@ def myFunc(myList: List[int], myInt: int) -> str :  // create a function, with p
 def myFunc() -> str|None:  // many type of return.
 def myFunc(myInt: int=5):  // define a default value to a parameter.
 def myFunc() -> "MyClass":  // for define return type of a class.
-def myFunc() -> Optional["MaClasse"]:  // when a return can be null (return None).
+def myFunc() -> Optional["MaClasse"]:  // when a return can be null (return None) (need from typing import Optional).
 return "test"  // return a value out of the function.
 pass  // define a function without contend.
 def __int__(self):  // override function "cast int" into a class.
@@ -322,6 +325,9 @@ newList = myList[-1:] + myList[:-1]  // same but place the last at first positio
 
 list(dico.items())[:10]  // take 10 first elements from a dico.
 
+from collections import Counter
+my_dico = dict(Counter(list("ABC")))  // cast a string into a dico of char.
+
 // folder contained __init__.py (for making package).
 from folder.file import classOrFunction  // import.
 // make all import need in the __init__.py for just has to import init to make work.
@@ -330,6 +336,11 @@ python -m pip [packageAsk]  // download a package.
 
 from unicode import unicode
 unicode('é')  // return 'e', remove acent char (work on kanji to).
+
+// list who is hashable (to use in a set).
+class hashableList(list):  # warning, do not edit the list, it change the hash value.
+    def __hash__(self):
+        return hash(tuple(self))
 
 import cProfile
 cProfile.run('myFunction()')  // execute a function to mesure the speed execution (in console).
@@ -421,6 +432,10 @@ return reduce(lambda acc, b:   // example with list (the lambda need to return t
 import os
 os.system('cls' if os.name == 'nt' else 'clear')  // clean the terminal (console).
 
+// flatening a list[list[int]]
+[e for line in myList for e in l]  // vania.
+list(reduce(lambda x,y: x+y, myList, []))  // with reduce (need to try !).
+[str(e) for line in [[0,1],[2,3]] for e in l]  // example with raw value + edit val by cel.
 
 // ------------->
 

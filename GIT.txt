@@ -351,6 +351,10 @@ git switch -c [nom new branche] //duplic current branch checkout into new one.
 
 
 
+// --- open a page (html) like a statis server.
+https://raw.githack.com/Ailten/[repo_name]/[main]/index.html
+
+
 
 
 
