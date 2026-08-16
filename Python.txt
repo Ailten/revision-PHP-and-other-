@@ -157,6 +157,9 @@ myFunc(**kargs: int):  // same with a dico (can precise the type of value dico, 
 myFunc(aaa = 5)  // example of use kargs.
 yield value  // in a function to return a value, all iteration of yield call, make a list (more opti than return a list).
 
+import asyncio
+asyncio.run(myFunc())  # call a function async in await (from a call syncrone).
+
 // ---> math.
 import math
 math.ceil(0.5)

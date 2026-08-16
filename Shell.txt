@@ -608,6 +608,11 @@ systemctl start httpd      // start apache.
 
 sudo mount -t ext4/dev/sda2/home/jmabe/partition2    // up a partition disc to a folder jmabe.
 
+for f in [0-9][0-9]_*.py; do      // rename all file starting with 2 digit (and 1 underscore), to add a "0".
+    [ -f "$f" ] || continue
+    mv -- "$f" "0$f"
+done
+
 
 
 // ------ execute a background process (named).
