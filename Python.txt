@@ -20,6 +20,8 @@ myNum + mySecondNum  // adition.
 myStr.upper()  // replace all min char in a string to upper case.
 myBool = myStr.startswith("test")  // return true if the string start with "test".
 type(myVar)  // return the type of a variable.
+if type(myVar) is MyType:  // check and cast (like a using is/as).
+if type(myVar).__name__ == "MyType":  // same, but compare name of class (do not use many class with same name import), usefull for type-check import
 id(myVar)  // return the int (adress) of the variable (in memory).
 //=  // divide floor.
 **=  // exponnent.
@@ -309,6 +311,30 @@ time.sleep(3)  // make execution pause for 3 secondes (can take float).
 
 // ------> tips code.
 
+from pathlib import Path  # get info from a path.
+Path("folder/file.txt").name  # return "file.txt".
+Path("folder/file.txt").stem  # return "file".
+Path("folder/file.txt").suffix  # return ".txt".
+Path("folder/file.txt").exists()  # return bool, true if file/folder exist.
+
+globals()  // function to edit all global variable (return a dict).
+vars(element)  // return a dict from a class (every param).
+
+# example for import all class from every file in a folder.
+from pathlib import Path
+from importlib import import_module
+__all__ = []
+for file in Path(__file__).parent.glob('*.py'):  # take all files py from the current folder.
+    if file.name.startswith('__'):  # skip __init__ file (and other private file).
+        continue
+    module = import_module(f'.{file.stem}', __name__)  # import current file.
+    file_name_camel = ''.join([ w.capitalize() for w in file.stem.split('_') ])  # cast name file into camel case (to match class).
+    class_of_file = vars(module).get(file_name_camel)  # get class from import file.
+    if class_of_file == None:  # not found.
+        continue
+    globals()[file_name_camel] = class_of_file
+    __all__.append(file_name_camel)  # use for allow import aster.
+
 @classmethod
 def initStatic(cls, param):  // constructor static for make a second constructor/init (with other parameters).
     newInstance = cls()
@@ -355,7 +381,10 @@ cProfile.run('myFunction()')  // execute a function to mesure the speed executio
 > pip install plotly
 > pip install venv
 > python -m venv .venv  // create an environement for lib python.
+> python3 -m venv .venv  // same for linux.
 > .\.venv\Script\active  // activate the environement in terminal.
+> . .venv/bin/activate  // same for linux.
+> ctrl+shift+P  ->  Python: Select Interpreter  --> *select .venv environement*  // for set VSCode on the environement library.
 > .\.venv\Script\deactivate  // desactivate environement.
 > source .venv/bin/activate  // on linux (no need docker).
 > pip freeze > requirements.txt  // create a file for all requirement package of a project.
