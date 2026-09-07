@@ -418,7 +418,7 @@ sudo mysql  // open a prompt console mysql.
 mysql> ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'myPassword';  // password on other channel.
 mysql> FLUSH PRIVILEGES;  //validate privilage change.
 mysql> exit  //quit mysql prompt.
-mysql -u root -p  // open a prompt console mysql (with root and password).
+sudo mysql -u root -p  // open a prompt console mysql (with root and password).
 mysql> CREATE USER 'monuser'@'localhost' IDENTIFIED BY 'MonSuperMotDePasse';  // create a new user.
 mysql> GRANT ALL PRIVILEGES ON mabase.* TO 'monuser'@'localhost';  // set privilege.
 mysql> FLUSH PRIVILEGES;  //validate privilage change.
@@ -433,15 +433,21 @@ sudo mysql_secure_installation  // apply security on sql.
 -- Reload privilege tables now: y
 mysql> GRANT PRIVILEGE ON database.table TO 'username'@'host';
 mysql> GRANT CREATE, ALTER, DROP, INSERT, UPDATE, INDEX, DELETE, SELECT, REFERENCES, RELOAD on . TO 'sammy'@'localhost' WITH GRANT OPTION;
-mysql -u root -p <DB-name> < <DB-on-server/setup.sql>  // execute a file .sql into MySQL.
+sudo mysql -u root -p <DB-name> < <DB-on-server/setup.sql>  // execute a file .sql into MySQL.
 mysql> use <DB-name>;  // checkout the database.
 mysql> SELECT user, host FROM mysql.user;  // show all user.
 mysql> SELECT user, host, plugin FROM mysql.user WHERE user='webPage-on-server';  // show the mode of identified of one user.
-mysql -u root -p <DB-name>  // log as root to DB.
+sudo mysql -u root -p <DB-name>  // log as root to DB.
 mysql> show tables;  // print all tables names.
 mysql> DROP table <tableName>;
 mysql> SELECT * from migrations;
 mysql> delete from migrations where (id = 9);  // delete the migration instruction of the table drop manually. 
+
+mysql> show databases;
+mysql> create database <ma_DB>;
+mysql> use <ma_DB>;
+
+
 
 curl -sS https://getcomposer.org/installer | php  // install Composer from url (execute by PHP), for use Laravel.
 sudo mv composer.phar /usr/local/bin/composer  // move the install Composer in usr folder.
@@ -463,7 +469,6 @@ nohup [cmd] &  // execute a cmd who still running when you close the perminal ("
 // "nohup" for disociate execution from the terminal (it still run when you close the terminal).
 
 sleep 9000  // sleep for 9 sec.
-
 
 
 // ------ partition.
