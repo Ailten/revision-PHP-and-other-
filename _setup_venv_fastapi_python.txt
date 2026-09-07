@@ -1,0 +1,71 @@
+
+
+# ------> Build venv.
+
+# create a venv (environement python for dependency).
+python3 -m venv venv
+
+# activate the venv (enter in the environement).
+. venv/bin/activate
+
+# [ other ]. ------>
+# for VScode recognise library from venv environement.
+ctrl+shift+P  ->  Python: Select Interpreter  --> *select .venv environement*  // for set VSCode on the environement library.
+
+
+# ------> Make Arboressence.
+
+src               # folder for contain your scrips.
+└ *empty*
+venv              # venv.
+└ ...
+.gitignore        # for sencoring from repo git (only if use git).
+.env              # containing private token (only if use tokens or password DB).
+main.py           # base to launch.
+
+
+# ------> Fast API.
+
+# install fast api (in venv).
+python3 -m pip install fastapi fastapi[standard]         # standard include extra library considerate as required for basic project.
+
+# launch project.
+fastapi dev main.py
+
+# save dependency in a requirements.
+
+# [ other ]. ------>
+# reload project.
+uvicorn main:app --reload
+# url for end points of fastapi.
+http://127.0.0.1:8000/docs
+# shut down / close.
+Ctrl+C
+
+
+# ------> View (jinja).
+
+# Jinja already install on fastapi[standard], unless install as pip install jinja2.
+
+# add folder for views.
+src
+└ views           # folder for views.
+  └ index.html
+
+# [ other ]. ------>
+# see syntax of APIRouter and view in repo git example : 
+
+
+# ------> Save dependency.
+
+# save all dependency of venv into requirements file.
+python3 -m pip freeze > requirements.txt
+
+
+
+
+
+
+
+
+

@@ -162,6 +162,13 @@ yield value  // in a function to return a value, all iteration of yield call, ma
 import asyncio
 asyncio.run(myFunc())  # call a function async in await (from a call syncrone).
 
+import asyncio
+import threading
+def myAsyncCall():
+    asyncio.run(myFunctionAsync)
+my_async_call = threading.Thread(target=myAsyncCall, daemon=True)  # execute a function async, from the main execution (builde a new thread async).
+my_async_call.start()
+
 // ---> math.
 import math
 math.ceil(0.5)
