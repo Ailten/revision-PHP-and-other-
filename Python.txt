@@ -327,6 +327,9 @@ Path("folder/file.txt").exists()  # return bool, true if file/folder exist.
 globals()  // function to edit all global variable (return a dict).
 vars(element)  // return a dict from a class (every param).
 
+from collections.abc import Callable  # typing a function.
+def my_func() -> Collable[[int], int]:
+
 # example for import all class from every file in a folder.
 from pathlib import Path
 from importlib import import_module

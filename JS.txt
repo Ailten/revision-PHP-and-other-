@@ -245,6 +245,19 @@ Promise  // object returned from an async call (to know when it finish and get v
 clearTimeout  // cancel an execution call by setTimeout.
 clearInterval  // same for interval.
 
+async function doSOmething(){
+    await sleep(2);  // sleep 2 secondes.
+}
+function sleep(secondes) {
+    return new Promise(resolve => setTimeout(()=>{resolve(null)}, secondes*1000));
+}
+async function doSOmething(){
+    let dataResult = await sleep(2);  // sleep 2 secondes, with a return value (example of promise).
+}
+function sleepWithReturnData(sec) {  // wait function (in async call).
+    return new Promise(resolveFunc => setTimeout(()=>{resolveFunc('my data return')}, secondes*1000));
+}
+
 window.open("url", "name", "option")  // open a new window (see more in details what kind of option : width, left, scrollbars ...).
 myWindowPopUp.close()  // close a window opened.
 myWindowPopUp.focus() .blur()  // afiche in first plan (or hidde).

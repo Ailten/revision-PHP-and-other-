@@ -355,6 +355,16 @@ git switch -c [nom new branche] //duplic current branch checkout into new one.
 https://raw.githack.com/Ailten/[repo_name]/[main]/index.html
 
 
+// ------> other.
+
+// push a backup branch.
+git branch  // list all branch.
+git switch <my_local_branch>
+git push -u origin <ma_dist_branch>  // push current local checkout to distance.
+git switch main
+git branch -d <my_local_branch>  // delete local branch.
+
+git push -u origin <my_local_brnach>:<my_dist_branch>  // push a current local to a distance one.
 
 
 

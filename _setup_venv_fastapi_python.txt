@@ -82,6 +82,10 @@ mysql -u root -p <ma_DB> < my_sql_file.sql
 # install library for mysql.
 pip install sqlalchemy pymysql    # pymysql is use as driver (important to work).
 
+# [ other ]. ------>
+# module for signe session token.
+python3 -m pip install itsdangerous
+
 
 # ------> example:
 
