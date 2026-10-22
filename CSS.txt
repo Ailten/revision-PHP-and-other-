@@ -131,6 +131,7 @@ opacity: 0;  // set opacity of element.
 
 position: static;  // set type of position element.
 top, left, right, bottom  // for set position of element static, based from border window.
+position: relative  // define an element has reference (for child absolute, instead of screen).
 z-index: -1;  // set an order to render (the lower value, the farest is from the camera).
 overflow: hidden;  // set how to manage the "over" contend (when a contend element is to big for the size of the element.
 flaot: right;  // to place an element (and make other élément adapt based on it).

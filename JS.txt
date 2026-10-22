@@ -52,6 +52,7 @@ document.getElementsByTagName('demo')  // get dom by name balise html (return ar
 document.getElementsByName('demo')  // get dom by matching to attribute "name" value (return array).
 document.querySelectorAll("p")  // get dom by a query (like css selector), return a collection.
 document.querySelector("p");  // same as querySelectorAll but take the first element of the collection.
+dom.querySelecto(":scope > p");  // select from the current dom.
 window.addEventListener("load", (evnt) => {});  // set an event on window, trigger when it load end (see obj evnt in console for more details).
 window.onload = (evnt) => {};  // same (other syntax).
 window.removeEventListener("load", myFunc);  // remove the event of an element (need to pass the same function, so pass it named, not has lambda).
@@ -351,6 +352,8 @@ myWorker.terminate()  // destroy the worker.
 getEventListeners(<DOMelement>)  // get list of event set to an element.
 getEventListeners(<DOMelement>).click[0].listener  // get function call when click on element (the first one).
 encodeURIComponent(<string>)  // cast special char for param url.
+encodeURI(string)
+decodeURI(string)
 
 Math.lerp = (a, b, i) => { return a*(1-i) + b*i; };
 Array.prototype.random = function() { return this[Math.floor(Math.random()*this.length)]; };
@@ -385,10 +388,14 @@ form.addEventListener('submit', (evnt) => {  // overide an action form (form no 
         // overide action submit heer.
 });
 
+
 new FormData(formDom);  // get an object "body" (for call fetch) from a formDom (not try).  
 
 DomElement.removeEventListener('click', myFunction);  // remove an event listener (need the same reference function and same type event.
 DomElement.addEventListener('click', myFunction, { once: true });  // add an event listener exectued only once (remove after that).
+DomElement.addEventListener(eventTypeStr, funcEvent, objectOrBooleanForComportementEvent);  // can take param in 3eme argumenets.
+
+// when trigger an event in a dom element, it consome it (do not repercut same event on parents dom event).
 
 // class example eritage :
 class Parent {

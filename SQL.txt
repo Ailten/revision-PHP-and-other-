@@ -13,6 +13,12 @@ SQL procedural :
     - stored procedure
     - trigers
 
+
+// --- intro pratique ---
+
+
+
+
 -- comment.
 /* comment many lines */
 
@@ -354,6 +360,8 @@ psql -U my_user_name -d my_DB -h localhost -W  // connect as the user create.
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON TABLES TO postgres_app_user;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres_app_user;
+
+
 
 
 

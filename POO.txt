@@ -1,0 +1,60 @@
+
+// ------> POO (programmation orienté objet).
+
+POO is a paradigme of programmation.
+by creating bricks logiciels (object).
+an object represent an entity or a concept (encapsulation).
+objects can interact with eatch other to create complex fonctionnement.
+object contains internal structure (and comportment), (attributs and function).
+
+a "class" is like a "blue-print", and an "instance" is the object unique create with the blue-print.
+an object can erite from another (eritage), when A erite from B, A contains all attributs and function of B.
+than we say A is child and B is parent.
+
+private : is a key word when attribute can be call/use only from the class it self (who own the attribute).
+protected : when is call from the class owner or a child.
+public : when is call from every where.
+
+an Interface is like a promes of what the class should implement (as function and attributes).
+
+an abstract class is a class that can't be instanciate (use only as parent).
+
+Static is a key word to define an attribute as "unique memory pointer" for every instance (share the same value).
+
+
+
+// ------> Polymorphisme :
+
+Polypmorphisme :
+-> ad-hoc :
+----> overloading (surcharge function) : many function with same name but diferent parameters.
+----> surcharge operator : customise the basic operator (add, sub, ...).
+-> universel :
+----> paramétrique : utilisation de typage generique (<T>). 
+----> inclusion : allow to stock an objet B in variable of type A if B is child of A.
+
+the polimorphisme ad-hoc, is when 
+
+(surcharge), is when override a function (or a surcharge of operator).
+the polimorphisme
+
+
+
+// ------> 4 principes of POO :
+
+Abstraction : represent complex concept on a simplify way (describe the essentiel caractéristique of an object).
+
+Encapsulation : mask the complexity inside of an object (private).
+
+Eritage : create new class based on other existant (to share attributs and methodes), to prevent code repetition.
+
+Polymorphisme : allow an object to act diferently depend on context, (methode with same name, variable taking child, ...).
+
+
+
+
+
+
+
+
+

@@ -7,6 +7,8 @@ namespace MyNamespace {}  // create a block for a specific class to import.
 Console.WriteLine("test");  // print a line on a console.
 Console.Write("test");  // print a word on a console (without back return).
 string userInput = Console.ReadLine()  // get text write by user in console.
+Console.BackgroundColor = ConsoleColor.Blue;  // add a background color to the text read after (need re-set to black).
+Console.ForegroundColor = ConsoleColor.White;  // add a color to text print.
 
 public void MyFunc() {}  // create a function.
 MyFunc();  // call a function.
@@ -49,6 +51,10 @@ bool  // type for boolean.
 null, int?  // value null.
 object  // the default-est type (can englobe all type, by eritage/polymorphisme).
 (int) myFloat  // cast float variable into an int (can make by default, in this case).
+int myInt = Int32.Parse(myString)  // try cast.
+if (instanceFather is Child myChild)  // cast a parent instance to is child (if it can be cast, create a var scope).
+if (Int32.TryParse("-105", out int j))
+Double.TryParse(currentParameter, NumberStyles.Any, CultureInfo.InvariantCulture, out double paramParsed)  // same for take "." as separator (not ",").
 T  // generic type (define on situation).
 typeof(myVariable)  // return a value Type of the variable send.
 
@@ -101,6 +107,9 @@ myList.ToArray();  // cast list into array.
 myList.Select(cel => cel[0]);  // cast all element of a list into another list of other elements.
 myList.Contains("A");  // verify if list contain an element.
 myList.Where(cel => cel == "A");  // where.
+myList.Any()  // return true if every value is not null (?).
+myList.All(e => e.isSomething)  // return true if every element return true (by passing the function).
+string s = new string(myListChar.toArray())  // cast an iterlator char into a string.
 Dictionary<int, string> myD = new();  // dictionary (list of KeyValuePair).
 string.Join(", ", myList);  // cast a list into a string.
 // see also linq (use link with syntax of SQL).
@@ -157,7 +166,7 @@ finally {}  // finally.
 throw new Exception("message");  // throw error.
 public class MyError : Exception {}  // create a custome error.
 
-Random rng = new Random(DateTime.Now.Milliseond);  // create an obj random (need a seed).
+Random rng = new Random(DateTime.Now.Millisecond);  // create an obj random (need a seed).
 rng.next(2);  // return a random number between 0 and 1 (include, integer).
 
 using System.Text.RegularExpressions;

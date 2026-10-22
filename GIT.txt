@@ -200,6 +200,7 @@ git pull [origin] [branchName]:[branchDest]  // make a pull of branchName (in di
 git rm [file]  // remove a file (from the current project).
 git rm -r [folder]  // remove a folder (-r to recursive on all file/folder into it).
 git rm -r --cached [folder]  // --cached, to remove from the distance branch checkout (not localy), usefull for a file marked on gitignore.
+git rm --cached [folder]  // remove only from distant branch git.
 
 ----------->
 

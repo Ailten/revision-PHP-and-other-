@@ -1,0 +1,182 @@
+
+
+// ------> install / cmd.
+
+node -v  // verify if has node installed.
+winget install OpenJS.NodeJS.LTS  // install nodeJS.
+
+ng version  // verify if angular installed.
+npm install -g @angular/cli  // install last vertion.
+
+ng new [projet-name]  // create a project angular. (it create a folder with the name send).
+--> choose SCSS.
+--> SSR : No.
+--> IA : None.
+
+ng serve -o  // launch server (angular) + open in navigator.
+// port 4200.
+
+
+ng g c [component-name]  // create a component (modul, html/css/ts). it create a folder with the name at position call. 
+ng g service [service-name]  // generate a service (it not generate the folder). (it not writh .service in file name).
+ng g pipe [pipe-name]  // create a pipe (is not create folder).
+ng g interceptor [interceptor-name]  // create an interceptor (for create filter on every http call, like add token), it wont create folder.
+ng g guard [guard-name]  // create a guard (it not create folder).
+
+// ------> start.
+
+remove all html in src/app/app.html  // to define main page.
+replace with <nav-app/> and <router-outlet/>  // nav as navigation componenet (to create), and routerOutlet (to the component load as route, need import RouterOutlet.
+
+
+// ------> Routes and nav.
+
+in app.routes.ts -> add :
+    {path:'', redirectTo: 'home', pathMatch: 'full'},  // redirect when no param in url.
+    {path:'home', component: Home},  // route to component Home.
+    {
+        path:'home',  // same as "component" but async load (bether).
+        loadComponent: () => import('./features/home/home')
+        .then((m) => m.Home)
+    },
+    {
+        path: 'exercices',  // import async many route groupe by a path (can be done in cascade: exercices/exo/...).
+        loadChildren: () => import('./features/exo/exercices.routes')  // import many routes from a file.
+            .then((m) => m.routes)
+        //canActivate: [isAuthenticatedGuard]  // pour appliquer une restriction (guard) sur l'accé a une page.
+    },
+
+in html :
+    <a [routerLink]="'home'">home</a>  // make a link to a route, without changing page.
+
+<a [routerLink]="'home'" routerLinkActive="link-active">home</a>  // set class "link-active" to the <a> if it's the current page.
+    need import RouterLinkActive.
+
+
+// ------> Control flow (like for, if... in html).
+
+@if(myAttribute){}
+@else if(myAttribute){}
+@else{}
+
+@for(element of elements(); track element.id){}
+@for(element of elements(); track $index){}  // when no unique attribut.
+@for(element of elements(); track element.id; let i = $index){}  // with an index.
+@empty{}  // when the for iterator is empty (work like an else).
+$first, $last, $even, $odd, $count  // other var allow to use (like $index) (never use).
+
+@switch(element()) {
+    @case('value-A')  {}
+    @default {}
+}
+
+@let myVar = element().name;  // stock in a var a value (can calculate), in front.
+
+@defer(...){}  // for loading template when it is ask (never use).
+@placeholder{}
+@loading(minimum 300ms){}
+@error{}
+
+
+// ------> Pipe (use to edit value when render in html).
+
+import { CurrencyPipe } from '@angular/common';  // example of import of a pipe (need to every pipe).
+
+{{ stringValue | uppercase }}  // lowercase to.
+{{ stringValue | titlecase }}  // set first letter of all word in uppercase.
+{{ dateValue | date:'dd/MM/yyyy' }}
+{{ myObjValue | json }}  // to write json obj in str (stringify).
+{{ numberValue | number:'1,0-2' }}  // set number format, (integer min, decimal min, decimal max).
+{{ numberValue | percent }}  // write as purcentage.
+
+for using currency :
+add in main.ts :
+    import localeFr from '@angular/common/locales/fr';
+    registerLocaleData(localeFr, 'fr-FR');
+{{ myValueNumber | currency:'EUR':'symbol':'1.2-2':'fr-FR' }}  // currency, to write money values with format.
+
+
+to create custom pipe.
+ng g pipe [pipe-name]  // create a pipe (is not create folder).
+
+@Pipe({
+  name: 'toTimeStr',  // word to use in html file to call the pipe.
+})
+transform(value: number, ...): string {  // function to define the modification apply (first parameter is the left value, other is aditional).
+    return 'my result';
+}
+need to be import (as nativ pipe).
+
+
+// ------> (TODO) create modules, @for, input/output, binding ()[][()] attr...
+
+
+
+
+// ------> fake db local (json), service.
+
+npm api-server -v  // verify if has the npm library for local json fake db.
+npm install -D @ovyn/api-server  // to download api-server (json local) of flavian.  (-g for global install (all pc), -D for directory).
+// port 3000.
+// place in package.json -> "scipts": -> create "start:back": "api-server db.json",
+// create a file "db.json" in racine project. (+ place some elements).
+npm run [start:back]  // launch the serve (fake db json local).
+// (?) try to just call "npm api-server db.json" (?).
+https://www.npmjs.com/package/@ovyn/api-server?activeTab=readme
+// email: admin@bstorm.be
+// password: Test1234=
+
+// or.
+npm install json-server --save-dev  // install json server (for db.json).
+// port 3000.
+// create db.json file at racine.
+// place in package.json -> "scripts": -> create "start:db-json-server": "json-server --watch db.json",
+npm run start:db-json-server  // launch the serve.
+// ... (TODO).
+
+
+
+
+
+// ------> Interceptor (add process/filter to all http call).
+
+ng g interceptor [interceptor-name]  // create an interceptor (it not create folder).
+
+next(req);  // send the request to the next inspector.
+req.clone();  // clone the request (like to modifie it).
+req.clone({
+    setHeaders: { Authorization: `Bearer ${myToken}`}  // add a token to the header of request clone.
+});
+
+in src/app/app.config.ts -> add in providers -> provideHttpClient(withInterceptors([myInterceptor]))  // to excute inspector on every http call.
+
+
+// ------> Guard (to allow or not user to acces to a route).
+
+ng g guard [guard-name]  // create a guard (it not create folder).
+    choose type of guard : 
+    canActivate -> for allow to acces (or not) to a route (ex: verify if user is auth/log to acces a page).
+    CanActivateChild -> for allow ro acces (or not) to child routes (ex: block acces to many pages childs).
+    CanDeactivate -> validate (or refuse) the exit of a route (ex: ask confirmation for exit a page form).
+    CanMatch -> verify if a route can be selected when match url (ex: load a page parte only if user has a role admin). 
+
+add code to verify stuff, and return true if it successfully pass the guard.
+
+map the guard to a route (in app.routes.ts).
+{
+    path:'home-for-auth',
+    loadComponent: () => import('./pages/home/home')
+        .then((m) => m.Home),
+    canActivate: [isUserAuthenticatedGuard],  // set up guard heer.
+}
+
+
+// ------> Other.
+
+
+
+// https://github.com/ByaSebastien/TI_Java_2026_Pokedex/blob/master/src/app/services/poke.service.ts
+todo : forkJoin() and switchMap()  // to call many http grouped.
+
+
+

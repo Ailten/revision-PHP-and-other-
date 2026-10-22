@@ -76,6 +76,46 @@ def is_two_val_can_make_search(arr: list[int], val_search: int) -> bool:
 
 
 
+// ----> site for theory.
+//  https://refactoring.guru/fr/
+
+
+DB 5 formes normales :  https://fr.wikipedia.org/wiki/Forme_normale_(bases_de_donn%C3%A9es_relationnelles)
+- 1er : 
+---> all attribut should have atomique values (not stock many time the same data).
+---> all row should be unique (usage of PK).
+- 2eme :
+---> all attribut non-key should dépend from a PK.
+- 3eme :
+---> no dépendance transitive, any non-key attribut should not dépend from other non-key attribut.
+- 4eme :
+---> table should not have dependance multivariety, one attribut should not détermine other attributs.
+- 5eme:
+---> table should not be décompose in smaller tables (without risk of loosing information, or generate ghost-row).
+
+
+
+
+// ----> POO.
+
+4 pilar :
+    - Abstraction : 
+        make class generic should be Generic (not implemented specific things who don't match their generic definition).
+        attributs (who don't need to be use outer the class should be not visible (private)).
+        to clear the readability and usage, in a project.
+    - Eritage :
+        to make less redondance code, use eritage (if two class have the same function / attribute, use class parent or Interface).
+    - Encapsulation :
+        structurate class by logics (what their defined for).
+        and make class do one thing (not many / everyting).
+    - polymorphysme :
+        allow a class to interact in many distinct result in distinct context.
+        polymorphysme AD-OC :
+            overload : 2 function can have the same name, but distinct parameters, to make distinct result.
+            operator surcharge : allow to re-defined how a class should react when you use basic operator (+, -, *, /, ...).
+        polymorphysme universal :
+            parametrique : allow to use generic Type in a class / function, to make the same function usable on many type.
+            inclusion : allow to stock an instance A in a variable of type B, if B is child of A. (allow to treat collection of generic type).
 
 
 
