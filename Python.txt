@@ -201,6 +201,7 @@ class myClass(myClassParent):  // create a class who has parent.
 class myClass(A, B):  // can herit from many parent (order is important).
 def __init__(self):  // definit constructor (first argument is self instance).
 super().myFunc()  // call the function of the parent class. (like __init__, see heritage).
+B.myFunc(self)  // for call a methode from a specific parent (when multiple heritage).
 myClass("myParameter")  // instanciate an object.
 self.myParam = myParam  // stock a value in the parameter of an instance.
 @staticmethod  // upper a def function, to make it static (call by the type class).
@@ -212,7 +213,13 @@ myObj.__str__()  // cast to string.
 myObj.__iter__()  // get a yielded generator.
 myObj.__add__()  // operator +.
 myObj.__radd__()  // operator + in other order (try when add don't work in the sence).
-myObj.__eq__()  // operator == (see also: "ne, gt, lt, ge, le" for "not equal, grater than, lower than, ...").
+myObj.__eq__()  // operator ==.
+// see also : from functools import total_ordering -> @total_ordering  // upper a class declaration, and __eq__ (==) and __lt__ (<).
+myObj.__ne__()  // operator !=.
+myObj.__lt__()  // operator <.
+myObj.__le__()  // operator <=.
+myObj.__gt__()   // operator >.
+myObj.__ge__()   // operator >=.
 myObj.__iter__()  // get a yielded generator.
 myObj.__copy__(self)  // make a new instance from one.
 myObj.__decopy__(self, memo=None)  // same but recurcively (memo is to prevent infinit loop from copy recurcive).
@@ -231,11 +238,14 @@ __myVar  // private (only in the class).
 'folder.file.Class'  // can cible an heritage from an other folder without import (?).
 from abc import ABC, abstractmethod  // import for do abstract.
 class A(ABC):  // herit from ABC to make class abstract.
-@abstractmethod  // define upper a function, to make it abstract.
+@abstractmethod  // define upper a function, to make it abstract (need to be declarated in child, pass in parent).
 myObj.hasattr(a)  // verify if an instance has a attribute (?).
 myObj.isinstance(a)  // verify if an instance is a class from somthing (?). 
 myObj.copy()  // create a new list (dif pointer) identique.
 myObj.deecopy()  // same, but recursively (for list 2D).
+isinstance(myInstance, TypeClassCheck)  // return true if myInstance is (or is a child of) TypeClassCheck.
+myObj.__mro__  // return a tuple of class heritage re-definition (from lowest child to upper parent).
+name = property(_get_name, _set_name)  // create a property (with mapping function get/set), in class, allow to call myObj.name.
 
 // ---> enum.
 from enum import Enum  // import for create enum.

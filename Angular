@@ -17,11 +17,42 @@ ng serve -o  // launch server (angular) + open in navigator.
 // port 4200.
 
 
+// arboressence project :
+/node_modules  // dependancies installed by npm.
+/public  // files public (image, logo, ...).
+/src  // folder for the all project.
+    /app  // folder for the all appalication.
+        /pages  // folder for all pages modules (to create by dev).
+        /models  // to all models (interface of data).
+        /services  // to all services (interact with http call, backend / api).
+        /...  // other folder to structur project.
+    app.ts/html/scss  // component root (base).
+    app.config.ts  // config global (http).
+    app.routes.ts  // define routes use (to navigate in pages).
+    index.html  // page html start loading.
+    main.ts  // starting point of app.
+    styles.scss  // css global.
+angular.json  // config workspace / build.
+package.json  // dependencies / scripts npm for project.
+tsconfig.json  // config for TypeScript.
+
+
 ng g c [component-name]  // create a component (modul, html/css/ts). it create a folder with the name at position call. 
 ng g service [service-name]  // generate a service (it not generate the folder). (it not writh .service in file name).
 ng g pipe [pipe-name]  // create a pipe (is not create folder).
+ng g directive [directive-name]  // generate a new directive (it whont generate a folder).
+ng g service [service-name]  // generate a service (it not create a folder).
 ng g interceptor [interceptor-name]  // create an interceptor (for create filter on every http call, like add token), it wont create folder.
 ng g guard [guard-name]  // create a guard (it not create folder).
+
+
+// live cycle of component : angular.dev/guide/components/lifecycle
+constructor  // call when create.
+ngOnInit  // on time after initialisation of input.
+ngOnChanges  // at every input changes.
+ngAfterViewInit  // after first view render.
+ngOnDestroy  // before destroying component (like to free memory alocation).
+
 
 // ------> start.
 
@@ -51,6 +82,26 @@ in html :
 
 <a [routerLink]="'home'" routerLinkActive="link-active">home</a>  // set class "link-active" to the <a> if it's the current page.
     need import RouterLinkActive.
+
+
+// ------> binding (in html).
+
+<p>{{ myStrValue }}</p>  // inject a string value in html.
+<p>{{ mySignal() }}</p>  // inject a value of a signal in html.
+<img [src]="myUrlValue"/>  // inject value in an attribute.
+<input (click)="myFunction($event)"/>  // call a function when event html.
+myFunction($event: Event){}  // example of function parameter event.
+<input (keyup.enter)="myFunction($event)"/>  // precise an event and is type of action (precise case).
+<input [(ngModel)]="mySignal"/>  // map a signal to an input (be edited in both way: TS to html, html to TS).
+mySignal = signal("")  // example of signal.
+
+<p [style.font-size.px]="mySize()">  // example of css chained parameter.
+<td [attr.colspan]="myColspan">  // exmaple of attribut (default html).
+<div [class.my-class]="myBoolean()">  // activate (of not) a class "my-class" when signal boolean is true.
+<div [class]="{
+    my-class-blue: isMyClassBlue(),  // map an object as class (every attributes is class name, every value is a boolean).
+    my-class-error: isMyClassError()
+}">
 
 
 // ------> Control flow (like for, if... in html).
@@ -108,7 +159,171 @@ transform(value: number, ...): string {  // function to define the modification 
 need to be import (as nativ pipe).
 
 
-// ------> (TODO) create modules, @for, input/output, binding ()[][()] attr...
+// ------> Directive (attribute / event custom).
+
+a Directive is a TS script who add interaction (scripted) on an html balise when you map on it (like maping event JS).
+
+ng g directive [directive-name]  // generate a new directive (it whont generate a folder).
+
+@Directive({
+  selector: '[appMyDirective]',  // word use as attribute in html balise to use it.
+  host: {
+    '(mouseenter)': 'myFunction("A")',  // events lisen by the directive.
+    '(mouseleave)': 'myFunction("B")',
+  },
+})
+export class MyDirective {
+  private domMapped = inject(ElementRef);  // inject the dom balise who has the attribute directive.
+
+  myFunction(myParameter: string){}
+  setColor(color: string | null) {
+    this.domMapped.nativeElement.setAttribute("myAttr", myParameter);  // do something : apply the 
+  }
+}
+
+
+// ------> input, output, model
+
+input -> parent comunique to child. send a signal en read only. child can't modify input.
+myInput = input.required<string>()  // in TS child, get input from parent.
+<p>{{ myInput() }}</p>  // use in child html.
+<app-child [myInput]="mySignalSend"/>  // in html parent, send input.
+
+output -> child comunique to parent. (evenment)
+myEventOutput = ouptut<string>();  // in TS child, get output.
+this.myEventOutput.emit('test');  // execute the event output (in child TS).
+<app-child (myEventOutput)="myFuncSend($event)"/>  // send a function to child.
+
+model -> input that child can edit (like both input and output usage).
+myModel = model(0)  // in TS child.
+<p>{{ myModel() }}</p>  // use in child html (print).
+myModel.update(0)  // edit (in child TS), apply to signal parent to.
+<app-child [(myModel)]="mySignalSend"/>  // send a signal to model child.
+
+
+projection contend (ng-content).
+<app-child>  // in parent.
+    <p>TEST</p>
+    <p named-dom>TEST NAMED</p>
+</app-child>
+
+<div>  // in child.
+    <ng-content/>  // apply (in child) html send from parent. TEST
+    <ng-content select="[named-dom]"/>  // same but named (to send many html).
+</div>
+
+
+// ------> signal.
+
+a signal is a capsul over a variable. angular lissen when value change, and actualise html part who use this value.
+
+mySignal = signal<int>(0)  // create a signal.
+<p>{{ mySignal() }}</p>  // print a signal.
+mySignal.set(0);  // set value to a signal (in TS).
+mySignal.update((mySinalValue) => mySignalValue + 1);  // edit value signal (example as increment).
+
+isEmpty = computed(() => this.mySignal() === undefined );  // make a signal (read only) based on a lambda.
+                                                           // re-executed when signal into change.
+
+effect(() => {})  // effect re-execute the lambda, every time a signal into it change.
+                  // like a computed, but do not return a value, just execute code.
+
+myLS = linkedSignal(() => this.mySignal().lenght);  // make a signal editable, value is re-eval when signal into the lambda change.
+myLS.set(0)  // can be set manually in code also (ex: use "set" when use make a choice, use lambda re-caculated when element page change, to make id un-select).
+
+product = resource({  // resource load a data (async) when signal in parameter change. 
+    params: () => this.mySignal().id,  // what I take as parameter (send it).
+    loader: (id) => fetch(`url-api/${id}`)
+        .then((result) => result.json()),
+});
+
+
+// ------> form.
+
+single input map.
+<input
+    (value)="mySignal()"  // map result to print in input (based on signal).
+    [input]="mySignal.set($any($event.target).valueAsNumber)"/>  // map from input html to edit signal.
+mySignal = signal(0)
+
+<button (click)="myFunc($event)">  // map validation button (execute a functon in TS).
+
+
+<form (submit)="myFuncSubmit($event)">  // map a function TS when form is submit.
+myFuncSubmit($event: SubmitEvent){
+    $event.preventDefault();  // cancel reload page of form.
+    // do something.
+}
+
+private readonly _formBuilder = inject(FormBuilder);  // inject form builder. (need import ReactiveFormsModule).
+myFormGrp: FormGroup = this._formBuilder.group({  // make an object to map every input form.
+  name: ['', { validators: [Validators.required] }],
+  price: [10.0, { validators: [Validators.required, Validators.min(1.0)] }],
+});
+<form [formGroup]="myFormGrp">  // map the fromGroup to a form html.
+<input formControlName="name"/>  // map an input of form to an attribute of the formGroup.
+
+@if(myFormGrp.get('name')?.hasError('required') && myFormGrp.get('name')?.touched){  // example of error behind an input (html).
+    <span style="color:red;">name is required !</span>
+}
+
+
+// alternative more recent :
+myForm = form(this.state, (schema) => {  // state if a linkedSignal<MyModel>
+    required(schema.name);  // list every contrainte form.
+    minLenght(schema.name, 8, {
+        message: "min 8 characters !"  // add message error custom.
+    };
+    validate(schema.name, (v) => {  // example of a custom validator.
+        if (v === "test")
+            return {
+                kind: 'test invalid',
+                message: "not a valid name !",
+            }     
+        return null;
+    });
+    applyEach(schema.items, MyFunction);  // apply a block of validation on every attribute (need to create a function, search doc).
+}, {
+    submission: {  // map a function submit on the form.
+        action: async (field) => {
+            // do somthing with field().value().
+        },
+    },
+})
+<form [formRoot]="myForm">
+<input [formField]="myForm.name"/>  // map to input.
+
+@for(error of myFormGrp.name().errors(); track $index) {  // example of errors (in a for), use for.
+    <p>{{ error.message }}</p>
+}
+
+this.myForm.update((o) => ({  // add a validator (in run time).
+    ...o,
+    items: [...o.items, { name: '', quantity: 1 }],
+}));
+this.myForm.update((o) => ({  // remove a validator (in run time).
+    ...o,
+    items: o.items.filter((_, i) => i !== index),
+}));
+
+
+<button [disabled]="myForm().invalid()">  // example of disable.
+
+
+// ------> Interface / Model.
+
+interface User {  // create a model.
+    id?: number;
+    name: string;
+}
+
+
+
+
+// ------> (TODO) "alias" (?), forkjoin/myFunction ... 
+https://github.com/ByaSebastien/TI_Java_2026_Pokedex/blob/master/src/app/services/poke.service.ts
+
+slide 93.
 
 
 
@@ -135,7 +350,25 @@ npm run start:db-json-server  // launch the serve.
 // ... (TODO).
 
 
+ng g service [service-name]  // generate a service (it not create a folder).
+// can use to communicate with DB, Backend, or API.
 
+return this.$http.post<MyModel>('http://localhost:3000/myModel', { ...myModel });  // insert example.
+return this.$http.get<MyModel>(`http://localhost:3000/myModel/${idModel}`);  // get by id example.
+return this.$http.delete<MyModel>(`http://localhost:3000/myModel/${idModel}`);  // delete example.
+return this.$http.put<MyModel>(`http://localhost:3000/myModel/${myModel?.id}`, { ...myModel });  // update example.
+// http.put edit every value of objet in DB.
+// http.patch edit only value send in object send.
+
+return httpResource<MyModel[]>(() => 'http://localhost:3000/myModel', {defaultValue: []});  // get all example.
+// get all, with httpResource (return a signal, who allow to edit).
+@Injectable({  // allow to inject.
+    providedIn: 'root'  // singleton, element unique for one user.
+}
+@Service()  // same. (old syntax).
+
+private readonly _myService = inject(MyService);  // inject a service into a component TS. 
+// if service has attribut, it the same injected in every component of the same user (ex: to stock UserAuthenticated).
 
 
 // ------> Interceptor (add process/filter to all http call).
@@ -175,8 +408,15 @@ map the guard to a route (in app.routes.ts).
 
 
 
+
+todo : forkJoin() and switchMap()  // to call many http grouped.  (see TI_Java_2026_Pokedex Seb)
+
+// https://github.com/Ailten/Angular_exo    (~)
+// https://github.com/Ailten/AngularDemo2
 // https://github.com/ByaSebastien/TI_Java_2026_Pokedex/blob/master/src/app/services/poke.service.ts
-todo : forkJoin() and switchMap()  // to call many http grouped.
+// https://gitlab.com/fovyn/bstorm-demo    (recap flavian).
+
+
 
 
 

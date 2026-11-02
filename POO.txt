@@ -52,6 +52,58 @@ Polymorphisme : allow an object to act diferently depend on context, (methode wi
 
 
 
+// ------> Pratique.
+
+
+class Cat  // a class.
+class Cat extend Animal  // heritage.
+abstract class Animal  // abstract class (can't be instanciate).
+interface ISignable  // interface (like contract).
+
+public Cat(){}  // constructor (function call when an instance is create).
+public Cat() : base(){}  // same, call the constructor parent (with base).
+
+public virtual void myFunc(){}  // mark a function as "virtual" (can be override by a child).
+public override void myFunc(){}  // override a function of parent (in a child), need to be virtual.
+this.myFunc();  // call a function of my current instance from my class (this).
+base.myFunc();  // call a function of my parent (the vertion of my parent, not overrided).
+
+private  // acces from the class only.
+public  // acces from every where.
+protected  // acces from the class and his child.
+
+void myFunc(){}
+void myFunc(int num){}  // allow many function with same name but distinct parameters.
+static void myFunc(){}  // static make a function (or class, or attribute), refer to the same memory address for every instance : 
+                        // like it's link to the class not the instance (share for every instance).
+
+Animal a = Cat()  // polymorphisme, allow to stock a child class in a variable of type parent.
+a.GetType() == typeof(Cat)  // check if an instance is a precise type.
+a is Cat  // check if an instance implement this type (return true if "a" is a Cat or a child of Cat).
+a as Cat  // cast an instance in a type (work if a is a Cat or a child of Cat), allow to get a more precise type to acces more functions/attribute.
+if (a is Cat c){}  // cast "a" in a cat (c) only if it can (variable "c" exist only on scope if).
+
+private string _name = "test"
+public string name{  // allow to remap getter and setter of an attribute (and declare script execute when call).
+    get{ return this._name; }
+    set{ this_name = value; }  // (it can implement both of a single one).
+}
+public string surname { get; set; }  // short vertion, to declare an attribute can be get and set.
+
+public static Cat operator +(Cat catA, Cat catB) => catA.name + catB.name  // allow to surcharge basic operator (to define how class should be act when this operator is used), can be a block function.
+public static explicit operator int(Cat catA) => catA.name.Length;  // re-define the cast action (explicite: when write by dev).
+public static implicit operator int(Cat catA) => catA.name.Length;  // re-define the cast action (implicit: auto cast by code).
+public static void MyFunc(this Cat cat){}  // "this" as parameter, allow to déclare a function from another class (extention methode), only on static method.
+
+class Cat<T>  // generic type allow to send a Type in a context (class/function) and adapt how code gonna treat it.
+class Cat<T> where T : IEatable  // same, add a restriction on the generic type (only those who implement IEatbale (work on class to)).
+
+// ---> Attribute .
+[MaxLenght(10)]  // apply a restriction on the Attribut (string must have a length max of 10), (validation attribute).
+public class MyValidator : ValidationAttribute  // can create our own Attribut.
+[Flags]  // allow many value on the same var.
+// -> Attribute add metaData to the parameter, and can edit comportement.
+
 
 
 

@@ -39,6 +39,10 @@ myD(5);  // call a delegate.
 public Action myAction = () => {};  // create an action (param into an object, to stock a lambda or a function).
 public Action<int> myAction = (myInt) => {};  // action with parameters.
 // if you need to have a return on an action, use a param ref. or a Delegate.
+myDelegate += () => {}  // a delegate instance can stock many function (and can remove with -=).
+event MyDelegate myEvent;  // event is a trigger (execute a delegate when something append), use to inform envionement when something happen.
+myEvent += myMethod;  // work like a delegate, can stock many pointeur function (whith same signature).
+myEvent?.Invoke(myParam);  // execute the event (make execute all function stock into).
 
 int myInt = 5;  // create an int (number integer, big capacity).
 short, byte  // type integer more short (60K and 255).
@@ -55,7 +59,8 @@ int myInt = Int32.Parse(myString)  // try cast.
 if (instanceFather is Child myChild)  // cast a parent instance to is child (if it can be cast, create a var scope).
 if (Int32.TryParse("-105", out int j))
 Double.TryParse(currentParameter, NumberStyles.Any, CultureInfo.InvariantCulture, out double paramParsed)  // same for take "." as separator (not ",").
-T  // generic type (define on situation).
+<T>  // generic type (define on situation).
+<T> where T : IName  // apply a restriction on what type allow.
 typeof(myVariable)  // return a value Type of the variable send.
 
 +, -, *, /  // operator.
@@ -223,4 +228,9 @@ GC.WaitForPendingFinalizers();  // wait the end of garbadge collector do.
 MyEnum me = MyEnum.ValueA | MyEnum.ValueB;  // example of assigne two value of a same instance with attribute flags (prefer use an array).
 me.HasFlag(MyEnum.ValueA);  // verify if instance has a specific value (flag).
 public class MyAttribut : Attribute {}  // create a class attribute (can be used on other class), allow pass a string in constructor etc.
+
+[MaxLength(100)]  // validator, restrict the length.
+public class MyValidator : ValidationAttribute  // to create own Attribut.
+
+
 
