@@ -74,6 +74,10 @@ Math.Min, Max, Abs, Round, Floor, Ceil, Sqrt, Pow  // math functions.
 ??  // coaless.
 ?.  // do next only if left part is not null.
 !.  // do next, don't worry if the left part can be null, I know it's not gonna be (by pass compilator error).
+myObj?.myFunc();  // call the func only if it's not null (delegate), work on attribut nullable to.
+myObj!.myFunc();  // call the func in every case (say it's safe to the compilator) (delegate), work on attribut nullable to.
+myFunc()!;  // same.
+myFunc()?;  // same (?, never try).
 
 "A".ToLowerCase()  // make string lowercase.
 "a".ToUpperCase()  // make string uppercase.

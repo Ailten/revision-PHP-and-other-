@@ -84,6 +84,26 @@ in html :
     need import RouterLinkActive.
 
 
+export const FAN_ROUTES: Routes = [
+  { path: '', component: FanList },
+  { path: 'create', component: FanCreate },
+  { path: ':id', component: FanDetail },  // send parameter.
+  { path: ':id/edit', component: FanEdit },
+];
+
+private router = inject(Router);
+redirect() {
+  this.router.navigate(['/fans', 42]);  // navigate to another page (route) in code TS.
+}
+
+<a [routerLink]="['/fans', fan.id]">Détail</a>  // navigate (route + parameter) in html.
+
+withComponentInputBinding()  // to allow to send an interface/model to a params route (it map attribute name matching).
+
+// Resolver,
+// it load data before the route (to allow loading page progressive) (?) p99.
+
+
 // ------> binding (in html).
 
 <p>{{ myStrValue }}</p>  // inject a string value in html.
@@ -318,14 +338,15 @@ interface User {  // create a model.
 }
 
 
+// ------> Subscribe.
 
+myFunction().subscribe({
+  next: (value) => console.log(value),      // lambda execute for every return data.
+  error: (err) => console.error(err),       // execute when return an error.
+  complete: () => console.log('Terminé'),   // call when end (finally).
+});
 
-// ------> (TODO) "alias" (?), forkjoin/myFunction ... 
-https://github.com/ByaSebastien/TI_Java_2026_Pokedex/blob/master/src/app/services/poke.service.ts
-
-slide 93.
-
-
+myCall.unsubscribe()  // to close the subribe (free memory).
 
 
 // ------> fake db local (json), service.
@@ -410,12 +431,12 @@ map the guard to a route (in app.routes.ts).
 
 
 todo : forkJoin() and switchMap()  // to call many http grouped.  (see TI_Java_2026_Pokedex Seb)
+todo : RxJS (?).
 
 // https://github.com/Ailten/Angular_exo    (~)
 // https://github.com/Ailten/AngularDemo2
 // https://github.com/ByaSebastien/TI_Java_2026_Pokedex/blob/master/src/app/services/poke.service.ts
 // https://gitlab.com/fovyn/bstorm-demo    (recap flavian).
-
 
 
 
