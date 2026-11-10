@@ -51,6 +51,10 @@ ALL (sub query)  // return true if match all of the rows sub query.
 SELECT * FROM `user` u GROUP BY u.age;  // select user grouped by age (can be use with COUNT or other function making many row as a single one).
 COUNT, MAX, MIN, SUM, AVG  // function commun making singe row based on a group of row (AVG make a moyenne).
 
+GROUP BY ROLLUP  // apply a sub-total by climbing in value send (from more details to more global) (return many row with many type of group).
+GROUP BY ROLLUP name, age  // example : return a grp (name, age), a grp (name) and a grp ().
+GROUP BY CUBE    // apply agregate function in every possible group (same as rollup, but return every group combination).
+
 
 INSERT INTO `user` (id, name) VALUES (1, "Thomas");  // insert a new row.
 INSERT INTO `user` (name) VALUES ("Thomas"),("Benoi"),("Bob");  // insert many row with a single line execution.
@@ -97,8 +101,14 @@ SELECT * FROM `user` u FULL JOIN `city` c ON u.idCity = c.id  // full join (take
 
 SELECT * FROM `user` u1, `user` u2;  // self join (use to compare to same table).
 
-(SELECT 'Thomas') UNION (SELECT 'Bob')  // merge two query result.
+(SELECT 'Thomas') UNION (SELECT 'Bob')  // merge two query result (by default do a "distinct" when fusionne).
 (SELECT 'Thomas') UNION ALL (SELECT 'Bob')  // same but allow doublon.
+
+(SELECT 'Thomas') INTERSECT (SELECT 'Bob')  // get all value (only those who is in both query).
+(SELECT 'Thomas') EXCEPT (SELECT 'Bob')  // get all value (first query) without value (from second query).
+
+JOIN lvl ON (character.xp BETWEEN lvl.xp_min AND lvl.xp_max)  // non-equi-join, a join who don't have a equal comparation in condition. 
+SELECT * FROM user u1 JOIN user u2 ON (u1.patron_id = u2.user_id)  // self-join, a join who use same table as both (from and to).
 
 
 CREATE PROCEDURE `myProcedure`  // create a stored procedure.
@@ -269,7 +279,7 @@ right join  // take A (or null if no A) and B.
 full outer join  // take both A and B.
 union all  // take both A and B (vertical joins).
 union  // same.
-exept  // take A.
+except  // take A.
 intersect  // take intersection of A and B.
 cross join (select ...)  // like a join, but allow to do where and LIMIT on it to optimise it.
 
